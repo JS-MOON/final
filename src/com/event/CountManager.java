@@ -17,7 +17,6 @@ public class CountManager implements HttpSessionListener {
 	public CountManager() {
 
 		countManager = this;
-
 	}
 
 	public static synchronized CountManager getinstansce() throws Exception {
