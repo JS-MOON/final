@@ -148,7 +148,7 @@
         }
     </script>
 
-    <script language="javascript">
+    <script type="text/javascript">
         function SrcKeydown() {
             if (event.keyCode == 13) { //엔터클릭시
                 var button = document.getElementById('lbtnTopSearch');
@@ -157,7 +157,7 @@
         }
     </script>
 
-    <script language="javascript">
+    <script type="text/javascript">
         function Keydown_Login() {
             if (event.keyCode == 13) { //엔터클릭시
                 goLogin();
@@ -354,7 +354,7 @@
                 <div class="searchWindow">
                     <input name="" type="text" maxlength="10" title="TopSearch"
                            class="mainSearch" onkeydown="javascript:SrcKeydown();" />
-                    <a id="lbtnTopSearch" class="btnSearch" href="" alt="검색" /> <img
+                    <a id="lbtnTopSearch" class="btnSearch" href=""> <img
                         src="../resources/images/common/btn_main_search.png" alt="검색">
                     </a>
                     <ul class="searchKeyword">

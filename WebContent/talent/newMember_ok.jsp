@@ -8,7 +8,7 @@
 	String cp = request.getContextPath();	
 %>
 
-<jsp:useBean id="dto" class="com.talent.TalentDTO" scope="page"/>
+<jsp:useBean id="dto" class="com.talent.MemberDTO" scope="page"/>
 <jsp:setProperty property="*" name="dto"/>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

@@ -1,4 +1,3 @@
-<%@page import="com.talent.TalentDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="com.util.DBConn"%>
 <%@page import="com.talent.TalentDAO"%>
