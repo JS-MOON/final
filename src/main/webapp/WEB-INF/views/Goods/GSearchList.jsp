@@ -45,7 +45,7 @@
 								</div>
 							</div>
 							
-							<a href="GDetail.do?brNum=${dto.brNum }">
+							<a href="GDetail.action?brNum=${dto.brNum }">
 							<div>
 								
 									<span class="pdtThumb"> <img

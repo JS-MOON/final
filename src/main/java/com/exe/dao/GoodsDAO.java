@@ -1,5 +1,6 @@
 package com.exe.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,6 +19,8 @@ public class GoodsDAO {
 		this.sessionTemplate = sessionTemplate;
 	}
 
+	
+	//mainaction start
 	public List<BoardDTO> newTalentList() {
 
 		List<BoardDTO> lists = sessionTemplate
@@ -35,11 +38,13 @@ public class GoodsDAO {
 		return lists;
 
 	}
+	
+	//mainaction end
 
+	//gDetail start
 	public BoardDTO getReadData(int brNum) {
 
-		BoardDTO dto = sessionTemplate.selectOne("GoodsMapper.getReadData",
-				brNum);
+		BoardDTO dto = sessionTemplate.selectOne("GoodsMapper.getReadData",brNum);
 
 		return dto;
 
@@ -80,5 +85,64 @@ public class GoodsDAO {
 	 
 	 return lists;
 	}
+	//gDetail end
+	
+	//gList start
+	public List<BoardDTO> list(int start, int end) {//카테고리 정렬방식 없는 경우
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("start", start);
+		params.put("end", end);
+		
+		
+		List<BoardDTO> lists = sessionTemplate.selectList("GoodsMapper.firstGlist",params);
+	
+		return lists;
+	}
+
+	public List<BoardDTO> list(int start, int end,String column,String order) {//카테고리 정렬방식 있는 경우
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("start", start);
+		params.put("end", end);
+		params.put("column", column);
+		params.put("order", order);
+		
+		System.out.println(start);
+		System.out.println(end);
+		System.out.println(column);
+		System.out.println(order);
+		
+		
+		List<BoardDTO> lists = sessionTemplate.selectList("GoodsMapper.gList",params);
+		
+		return lists; 
+	}
+	
+	public List<CategoryDTO> getReadCategory(int start,int end){//카테고리 검색
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("start", start);
+		params.put("end", end);
+		
+		
+		List<CategoryDTO> lists = sessionTemplate.selectList("GoodsMapper.gListgetReadCategory",params);
+	
+		return lists;
+		
+	}
+	//gList end
+	
+	//GSearchList start
+	
+	public List<BoardDTO> selectSubject(String searchValue){
+		
+		List<BoardDTO> lists = sessionTemplate.selectList("GoodsMapper.selectSubject", searchValue);
+		
+		return lists;
+		
+	}
+
+
 	
 }

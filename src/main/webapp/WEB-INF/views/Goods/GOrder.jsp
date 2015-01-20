@@ -18,7 +18,7 @@
     <script src="../resources/js/Common.js"></script>
 
     <div>
-        <form action="GOrder_ok.do" method="post" name="orderForm">
+        <form action="GOrder_ok.action" method="post" name="orderForm">
             <div id="contents">
                 <!-- location -->
 

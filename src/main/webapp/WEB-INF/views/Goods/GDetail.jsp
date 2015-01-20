@@ -23,7 +23,7 @@
 		if(f.cm_content.value==="") {
 			alert("댓글 내용을 입력하세요.")
 		} else {
-			f.action = "comments_ok.do";
+			f.action = "comments_ok.action";
 			f.submit();
 		}
 	}
@@ -78,7 +78,7 @@
 		</style>
 
 		<div>
-			<form action="./GOrder.do" method="post" name="opForm">
+			<form action="GOrder.action" method="post" name="opForm">
 				<!-- 제품정보 -->
 				<div class="pdtInfo">
 					<!-- 제품개요 -->
@@ -282,7 +282,7 @@ border: 0px;"/>
                                                                                 </tr> -->
 								</table>
 								<span><br/></span>
-								<form action="comments_ok.do" method="post" name="rateForm">
+								<form action="comments_ok.action" method="post" name="rateForm">
 									<table>
 										<tr>
 											<td colspan="2">
@@ -319,7 +319,7 @@ border: 0px;"/>
 					<!-- 관련재능 반복하기 -->
 					<c:forEach var="dto" items="${relists }">
 					<ul>
-						<li><a href="GDetail.do?brNum=${dto.brNum }">
+						<li><a href="GDetail.action?brNum=${dto.brNum }">
 									<span class="thumb"> <img
 											src="../Product/${dto.brMainPhoto }"
 											alt="7일간 유지되는 당신만의 타투디자인을 만들어 드립니다. " Height=160px Width=160px />

@@ -29,7 +29,7 @@
                     <div class="promotionWrap">
                         <a href='../Goods/GDetail.action?brNum=${dto.brNum}'>
             <span class="thumb">
-            <img src='${imagePath}/${dto.brMainPhoto}' width="274px" height="274px" alt="사진없음" />
+            <img src='../Product/${dto.brMainPhoto}' width="274px" height="274px" alt="사진없음" />
             </span>
             <span class="info">
             <span class="category">[${dto.cgCategory1}]</span>
@@ -74,7 +74,7 @@
                         <div >
                             <a href="../Goods/GDetail.action?brNum=${dto.brNum}">
                             <span class="pdtThumb">
-                                <img src="${imagePath}/${dto.brMainPhoto}" alt="기업용 홈페이지 제작해드립니다."  Height=308px  Width=308px   />
+                                <img src="../Product/${dto.brMainPhoto}" alt="기업용 홈페이지 제작해드립니다."  Height=308px  Width=308px   />
                                 <span class="btnWistList on">
                                     <input type="image" name="" id="ContentPlaceHolder1_WUC_Guest_AbilityList1_rptList_ImageZZim_0" src="../resources/images/product/btn_wishList_on.png" style="border-style:None;" />
                                 </span>
@@ -114,8 +114,8 @@
                         <span class="t"><span>최근본재능</span></span>
                         <ul>
                             <li>
-                                <a href="../Goods/GDetail.jsp?&cd=G00141027915739W&ct=1301004">
-                                    <img src="../Product/M00141027494883W/Product/P141113123054.jpg" alt="혹시 취업하고 싶니? 자소서..."   Height=78px  Width=78px  />
+                                <a href="../Product/M00141027494883W/Product/P141113123054.jpg">
+                                    <img src="../resources/images/mypage/BG_sellingProcess_ongoing.gif" alt="혹시 취업하고 싶니? 자소서..."   Height=78px  Width=78px  />
                                 </a>
                             </li>
                             <li>
@@ -152,17 +152,17 @@
             <div id="quick-best" class="quick-best" style="display: none;">
                 <h3>BEST</h3>
                 <ul>
-                    <li><a href="../Goods/GList.jsp?cy=110">그래픽 · 디자인</a></li>
-                    <li><a href="../Goods/GList.jsp?cy=120">사업 · 전문가</a></li>
-                    <li><a href="../Goods/GList.jsp?cy=130">문서 · 레포트</a></li>
-                    <li><a href="../Goods/GList.jsp?cy=140">컴퓨터 · IT</a></li>
-                    <li><a href="../Goods/GList.jsp?cy=150">번역 · 외국어</a></li>
-                    <li><a href="../Goods/GList.jsp?cy=160">음악 · 동영상</a></li>
-                    <li><a href="../Goods/GList.jsp?cy=170">행사 · 공연</a></li>
-                    <li><a href="../Goods/GList.jsp?cy=180">노하우 · 상담</a></li>
-                    <li><a href="../Goods/GList.jsp?cy=190">생활서비스</a></li>
-                    <li><a href="../Goods/GList.jsp?cy=200">여행 · 가이드</a></li>
-                    <li><a href="../Goods/GList.jsp?cy=210">핸드메이드</a></li>
+                    <li><a href="../Goods/GList.action?start=1&end=14&range=0">그래픽 · 디자인</a></li>
+                    <li><a href="../Goods/GList.action?start=15&end=22&range=0">사업 · 전문가</a></li>
+                    <li><a href="../Goods/GList.action?start=23&end=30&range=0">문서 · 레포트</a></li>
+                    <li><a href="../Goods/GList.action?start=31&end=41&range=0">컴퓨터 · IT</a></li>
+                    <li><a href="../Goods/GList.action?start=42&end=50&range=0">번역 · 외국어</a></li>
+                    <li><a href="../Goods/GList.action?start=51&end=58&range=0">음악 · 동영상</a></li>
+                    <li><a href="../Goods/GList.action?start=59&end=68&range=0">행사 · 공연</a></li>
+                    <li><a href="../Goods/GList.action?start=69&end=79&range=0">노하우 · 상담</a></li>
+                    <li><a href="../Goods/GList.action?start=80&end=90&range=0">생활서비스</a></li>
+                    <li><a href="../Goods/GList.action?start=91&end=96&range=0">여행 · 가이드</a></li>
+                    <li><a href="../Goods/GList.action?start=97&end=109&range=0">핸드메이드</a></li>
                     <li><a href="javascript:alert('서비스 준비중 입니다');">프리미엄 재능관</a></li>
                 </ul>
             </div>
