@@ -30,6 +30,16 @@
 		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
 	</beans:bean>
 	
+	<beans:bean id="commentsDAO" class="com.exe.dao.CommentsDAO">
+		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
+	</beans:bean>
+	
+	<beans:bean id="historyDAO" class="com.exe.dao.HistoryDAO">
+		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
+	</beans:bean>
+	
+	
+	
 		<beans:bean id="sessionTemplate"
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg ref="sessionFactory"/>	

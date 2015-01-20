@@ -56,12 +56,50 @@
 
 	<select id="getReadMember" parameterType="String" resultType="com.exe.dto.MemberDTO">
 		select mbid,mbpw,mbnickName,mbtel,mbpic,mbabout from member
-		where mbid=#{mbid}
+		where
+		mbid=#{mbid}
+	</select>
+
+	<select id="cmList" parameterType="int" resultType="com.exe.dto.CommentsDTO">
+		select
+		cmnum,brnum,cmcontent,cmnickName,cmdate,cmrating
+		from comments where
+		brnum=#{brnum}
+	</select>
+	<!-- GList -->
+	<select id="gList" parameterType="hashMap" resultType="com.exe.dto.BoardDTO">
+		<![CDATA[
+		select C.cgcategory1,B.mbnickName,B.mbpic,A.brnum,A.mbid,A.cgnum,A.brsubject,
+		A.brmainphoto,A.brmorephoto,A.brcontent,A.broptions,A.brprice,A.brdate
+		from board A, member B, category C where A.mbid=B.mbid and A.cgnum>=#{start} and A.cgnum<=#{end} and A.cgnum=C.cgnum
+		order by A.${column} ${order}
+		]]>
+	</select>
+
+	<select id="firstGlist" parameterType="hashMap" resultType="com.exe.dto.BoardDTO">
+		<![CDATA[
+			select C.cgcategory1,B.mbnickName,B.mbpic,A.brnum,A.mbid,A.cgnum,A.brsubject,
+			A.brmainphoto,A.brmorephoto,A.brcontent,A.broptions,A.brprice,A.brdate,A.brcount
+			from board A, member B, category C 
+			where A.mbid=B.mbid and A.cgnum>=#{start} and A.cgnum<=#{end} and A.cgnum=C.cgnum order by A.brnum desc
+		]]>
 	</select>
 	
-	<select id="cmList" parameterType="int" resultType="com.exe.dto.CommentsDTO">
-	select cmnum,brnum,cmcontent,cmnickName,cmdate,cmrating
-	from comments where brnum=#{brnum}
+	<select id="gListgetReadCategory" parameterType="hashMap" resultType="com.exe.dto.CategoryDTO">
+		<![CDATA[
+			select cgnum,cgcategory1,cgcategory2 from category where cgnum>=#{start} and cgnum<=#{end}
+		]]>
+	</select>
+	
+	<!-- GSearchList -->
+	<select id="selectSubject" parameterType="String" resultType="com.exe.dto.BoardDTO">
+	<![CDATA[
+		select C.cgcategory1,B.mbnickName,B.mbpic,A.brnum,A.mbid,A.cgnum,A.brsubject,
+		A.brmainphoto,A.brmorephoto,A.brcontent,A.broptions,A.brprice,A.brdate
+		from board A, member B, category C where A.mbid=B.mbid and
+		A.cgnum>=1 and A.cgnum<=109 and A.cgnum=C.cgnum and (A.brsubject like '%'||#{searchValue}||'%'
+		or B.mbnickName like '%'||#{searchValue}||'%') order by A.brnum desc
+		]]>
 	</select>
 
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="history">
+
+<!-- history -->
+<select id="hsMaxNum" resultType="integer">
+	select nvl(max(cmnum),0) from comments
+</select>
+
+<insert id="hsInsert" parameterType="com.exe.dto.HistoryDTO">
+	insert into history (hsnum,mbid,brnum,hsdate,hsprice,hstotalPrice,hsoptions)
+	values (#{hsnum},#{mbid},#{brnum},#{hsdate},#{hsprice},#{hstotalPrice},#{hsoptions})
+</insert>
+
+<select id="selectHistory" parameterType="String" resultType="com.exe.dto.HistoryDTO">
+	select hs.hsdate, hs.hsprice, hs.hstotalprice, hs.hsoptions,br.brnum, br.brsubject, br.brmainphoto
+	from history hs inner join board br on hs.brnum = br.brnum 
+	where hs.mbid = #{mbid}
+</select>
+
+
+</mapper>
