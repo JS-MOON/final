@@ -12,15 +12,17 @@
 hs_err_pid*
 
 
-#Project by-product
+#IDE by-product
+
+#Intellij
 .idea/
 out/
-references/
-WebContent/Product/
-WebContent/Profile/
-WebContent/Upload/
-WebContent/resources/images/
+
+#STS
 build/
 .settings/
 *.classpath
 *.project
+
+#Project Resource
+src/main/webapp/resources/

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="projectMapper">
+
+	<!-- 데이터 입력 -->
+
+	<select id="newTalentList" resultType="com.exe.dto.BoardDTO">
+		select
+		B.cgcategory1,A.brnum,A.brsubject,A.brmainphoto,A.brprice
+		from board A,category B where A.cgnum=B.cgnum order by A.brnum desc
+	</select>
+
+	<select id="mainCountList" resultType="com.exe.dto.BoardDTO">
+		select
+		C.mbnickName,C.mbpic,B.cgcategory1,A.brnum,A.brsubject,A.brmainphoto,A.brprice,A.brcount
+		from board A,category B,member C
+		where A.cgnum=B.cgnum and
+		A.mbid=C.mbid order by A.brcount desc
+	</select>
+
+
+</mapper>
