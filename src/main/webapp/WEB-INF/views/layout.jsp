@@ -517,7 +517,7 @@
 	<!-- //footer -->
 
 	<!-- 로그인팝업 -->
-	<form action="../Login/Login.do" method="post" name="loginForm">
+	<form action="../Login/Login.action" method="post" name="loginForm">
 		<div id="loginPop" class="layerPopup">
 			<h4 class="popTitle">로그인</h4>
 			<div class="layerPopBody">
@@ -561,7 +561,7 @@
 	<!-- //로그인팝업 -->
 
 	<!-- 회원가입팝업 -->
-	<form method="post" action="../Register/Register.do" name="myForm">
+	<form method="post" action="../Register/Register.action" name="myForm">
 		<div id="registerPop" class="layerPopup">
 			<h4 class="popTitle">회원가입</h4>
 			<div class="layerPopBody">

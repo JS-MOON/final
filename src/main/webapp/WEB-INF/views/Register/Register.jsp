@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<form method="post" action="../project/Register_ok.action" name="goForm">
+<form method="post" action="../Register/Register_ok.action" name="goForm">
 </form>
 
 <%

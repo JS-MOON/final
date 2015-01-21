@@ -4,8 +4,8 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -14,9 +14,9 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-	<resources mapping="/Product/**" location="WEB-INF/Product/" />
-	<resources mapping="/pds/**" location="WEB-INF/pds/" />
-	<resources mapping="/Upload/**" location="WEB-INF/Upload/" />
+	<resources mapping="/Product/**" location="WEB-INF/images/Product/" />
+	<resources mapping="/pds/**" location="WEB-INF/images/pds/" />
+	<resources mapping="/Upload/**" location="WEB-INF/images/Upload/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -45,18 +45,21 @@
 		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
 	</beans:bean>
 	
+	<beans:bean id="registerDAO" class="com.exe.dao.RegisterDAO">
+		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
+	</beans:bean>
 	
-	
-		<beans:bean id="sessionTemplate"
+	<beans:bean id="sessionTemplate"
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg ref="sessionFactory"/>	
 	</beans:bean>
 	
-		<beans:bean id="sessionFactory"
+	<beans:bean id="sessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource"/>
 		<beans:property name="configLocation"
 			value="classpath:/mybatis-config.xml"/>
+
 	</beans:bean>
 	
 	<beans:bean id="dataSource" 
@@ -66,9 +69,4 @@
 		<beans:property name="username" value="fake"/>
 		<beans:property name="password" value="card"/>
 	</beans:bean>
-	
-	
-	
-	
-	
 </beans:beans>
