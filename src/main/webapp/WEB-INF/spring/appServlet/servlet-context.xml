@@ -25,7 +25,14 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.exe.controller" />
+	<!-- Util 등록 -->
+	<beans:bean id="myUtil" class="com.exe.util.MyUtil"/>
+	<beans:bean id="imageManager" class="com.exe.util.ImageManager"/>
+	<beans:bean id="imageName" class="com.exe.util.ImageName"/>
+	<beans:bean id="DivideOptions" class="com.exe.util.DivideOptions"/>
 	
+	
+	<!-- DAO 등록 -->
 	<beans:bean id="goodsDAO" class="com.exe.dao.GoodsDAO">
 		<beans:property name="sessionTemplate" ref="sessionTemplate"/>
 	</beans:bean>
@@ -60,7 +67,7 @@
 		<beans:property name="password" value="card"/>
 	</beans:bean>
 	
-	<beans:bean id="myUtil" class="com.exe.util.MyUtil"></beans:bean>
+	
 	
 	
 	
