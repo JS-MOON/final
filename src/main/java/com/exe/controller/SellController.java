@@ -17,39 +17,39 @@ public class SellController {
 	@Autowired
 	ImageName im;
 	
-	@RequestMapping(value="SellIncome.action", method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/My/SellIncome.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String sellIncome(HttpServletRequest req, HttpServletResponse res){
 		
 		
 		return "My/SellIncome";
 	}
 	
-	@RequestMapping(value="SellMng.action", method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/My/SellMng.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String sellMng(HttpServletRequest req, HttpServletResponse res){
 		
 		
 		return "My/SellMng";
 	}
 	
-	@RequestMapping(value="SellProdListMy.action", method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/My/SellProdListMy.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String sellProdListMy(HttpServletRequest req, HttpServletResponse res){
 		
 		
 		return "My/SellProdListMy";
 	}
 	
-	@RequestMapping(value="SellProdReg.action", method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/My/SellProdReg.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String sellProdReg(HttpServletRequest req, HttpServletResponse res){
 		
 		
 		return "My/SellProdReg";
 	}
 	
-	@RequestMapping(value="SellProdReg_ok.action", method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/My/SellProdReg_ok.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String sellProdReg_ok(HttpServletRequest req, HttpServletResponse res) {
 		
 		
-		return "My/SellProdReg_ok";
+		return "Goods/Main";
 	}
 
 

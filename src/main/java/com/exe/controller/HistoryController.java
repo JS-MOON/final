@@ -28,9 +28,7 @@ public class HistoryController {
 	MyUtil myUtil;
 	
 	@RequestMapping(value="GOrder_ok.action",method={RequestMethod.GET,RequestMethod.POST})
-	public String gorder_ok(HttpServletRequest req, HttpServletResponse res){
-		
-		HistoryDTO dto = new HistoryDTO();
+	public String gorder_ok(HttpServletRequest req, HttpServletResponse res, HistoryDTO dto){
 		
 		int hsMaxNum = dao.hsMaxNum();
 		
@@ -43,10 +41,10 @@ public class HistoryController {
 		
 		dao.hsInsert(dto);
 		
-		return  "redirect:/My/MyOrderMng.do";
+		return  "redirect:/My/MyOrderMng";
 	}
 	
-	@RequestMapping(value="MyOrderMng.action", method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/My/MyOrderMng.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String myOrderMng(HttpServletRequest req, HttpServletResponse res){
 		
 		HttpSession session = req.getSession();

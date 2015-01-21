@@ -1,6 +1,5 @@
 package com.exe.dao;
 
-import java.nio.channels.SeekableByteChannel;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -28,8 +27,8 @@ public class HistoryDAO {
 		sessionTemplate.insert("history.hsInsert", dto);
 	}
 	
-	public List<HistoryDTO> selectHistory(String brNum){
-		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectHistory",brNum);
+	public List<HistoryDTO> selectHistory(String MbId){
+		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectHistory",MbId);
 		return lists;
 	}
 
