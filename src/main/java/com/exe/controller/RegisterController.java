@@ -25,6 +25,8 @@ public class RegisterController {
 	@Qualifier("registerDAO")
 	RegisterDAO dao;
 	
+	
+	
 /*	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String home(){
 		
@@ -54,7 +56,7 @@ public class RegisterController {
 		MemberDTO dto = dao.registerMemberData(mbId);
 		
 		if (dto!=null) {
-			str = "¾ÆÀÌµğ°¡ Á¸ÀçÇÕ´Ï´Ù.";
+			str = "ì•„ì´ë””ê°€ ì´ë¯¸ ìˆìŠµë‹ˆë‹¤.";
 		} else {
 			
 			dto = new MemberDTO();
@@ -100,10 +102,10 @@ public class RegisterController {
 
 		if (dto == null) {
 
-			str = "¾ÆÀÌµğ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.";
+			str = "ë“±ë¡ëœ ì•„ì´ë””ê°€ ì—†ìŠµë‹ˆë‹¤.";
 
 		} else if (!dto.getMbPw().equals(mbPw)) {
-			str = "ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
+			str = "ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";
 
 		} else {
 			HttpSession session = request.getSession(true);
@@ -133,41 +135,6 @@ public class RegisterController {
 		mav.setViewName("/Register/Register");
 		return mav;
 	}
-	
-/*	@RequestMapping(value="/Login/Login.action",method={RequestMethod.GET,RequestMethod.POST})
-	public String login(MemberDTO dto,HttpServletRequest request){
-		
-		String mbId = request.getParameter("mbId");
-		String mbPw = request.getParameter("mbPw");
-		String str = "";
-
-		dto = dao.getReadMember(mbId);
-
-		if (dto == null) {
-
-			str = "¾ÆÀÌµğ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.";
-
-		} else if (!dto.getMbPw().equals(mbPw)) {
-			str = "ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
-
-		} else {
-			HttpSession session = request.getSession(true);
-
-			MemberSession mbs = new MemberSession();
-
-			mbs.setMbId(mbId);
-			mbs.setMbPw(mbPw);
-
-			session.setAttribute("session", mbs);
-
-			return "redirect:/Goods/Main.action";
-		}
-
-		request.setAttribute("str", str);
-
-		return "/Register/Register";
-		
-	}*/
 
 
 	@RequestMapping(value="/My/MyProfile.action",method={RequestMethod.GET,RequestMethod.POST})
@@ -225,13 +192,13 @@ public class RegisterController {
 
 		int brNum = Integer.parseInt(req.getParameter("brNum"));
 
-		//board²¨
+		//boardï¿½ï¿½
 		BoardDTO dto = dao.getReadData(brNum);
 
-		//board²¨
+		//boardï¿½ï¿½
 		dao.updateBrCount(brNum);
 		
-		//board²¨
+		//boardï¿½ï¿½
 		List<String> op = dto.getBrOptionsList();
 
 

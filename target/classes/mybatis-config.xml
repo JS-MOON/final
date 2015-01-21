@@ -25,5 +25,7 @@
   	</environments>
   	<mappers>
   		<mapper resource="com/exe/mybatis/GoodsMapper.xml"/>
+  		<mapper resource="com/exe/mybatis/RegisterMapper.xml"/>
   	</mappers>
+
   </configuration>
