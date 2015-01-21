@@ -34,7 +34,7 @@
 			}
 
 			alert("비밀번호가 수정되었습니다.");
-			f.action = "ChangePw.do";
+			f.action = "ChangePw.action";
 			f.submit();
 
 		}
@@ -77,7 +77,7 @@
 		<!-- //마이페이지lnb -->
 
 		<!-- 내용 -->
-		<form action="./changePw.do" method="post" name="changePwForm">
+		<form action="./changePw.action" method="post" name="changePwForm">
 
 			<div class="contBlock">
 				<h4>비밀번호 변경</h4>
@@ -130,7 +130,7 @@
 				</div>
 		</form>
 
-		<form action="./Out.do" method="post" name="outMemberForm">
+		<form action="./Out.action" method="post" name="outMemberForm">
 			<h4>회원 탈퇴하기</h4>
 			<div class="tblType">
 				<table cellpadding="0" cellspacing="0">

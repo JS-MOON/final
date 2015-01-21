@@ -165,7 +165,7 @@
 				return;
 			}
 			
-			f.action = "GSearchList.do";
+			f.action = "GSearchList.action";
 			f.submit();
 		}
 		
@@ -381,22 +381,22 @@
 					<li id="myPageDrop" class="user"><a href="#"> <!--<img src="../../resources/images/common/ico_my_default_thumb.png" alt="" />-->
 						<img src="../resources/images/common/ico_my_default_thumb.png"
 							 alt=""> <span></span>
-					</a> <a onclick="return confirm('로그아웃하시겠습니까?');" href="../logout/logout.do">${sessionScope.session.mbId}</a>
+					</a> <a onclick="return confirm('로그아웃하시겠습니까?');" href="../logout/logout.action">${sessionScope.session.mbId}</a>
 						<div class="myPageDrop">
 							<span class="arr"></span>
 							<div class="innerWrap">
 								<ul class="list1">
-									<li><a href="../My/MyProfile.do">프로필 관리</a></li>
-									<li><a href="../My/MyAccount.do">계정 관리</a></li>
+									<li><a href="../My/MyProfile.action">프로필 관리</a></li>
+									<li><a href="../My/MyAccount.action">계정 관리</a></li>
 								</ul>
 								<ul class="list2">
-									<li class="m1"><a href="../My/SellProdReg.do">재능 등록</a></li>
-									<li class="m2"><a href="../My/SellProdListMy.do">재능
+									<li class="m1"><a href="../My/SellProdReg.action">재능 등록</a></li>
+									<li class="m2"><a href="../My/SellProdListMy.action">재능
 										목록</a></li>
 								</ul>
 								<ul class="list3">
-									<li><a href="../My/MyOrderMng.do">구매 목록</a></li>
-									<li><a href="../My/SellMng.do">판매 목록</a></li>
+									<li><a href="../My/MyOrderMng.action">구매 목록</a></li>
+									<li><a href="../My/SellMng.action">판매 목록</a></li>
 								</ul>
 							</div>
 						</div></li>
@@ -438,13 +438,13 @@
 					</a>
 					<ul class="searchKeyword">
 						<li><a
-								href='../Goods/GList.do?start=2&end=2'>디자인</a></li>
+								href='../Goods/GList.action?start=2&end=2'>디자인</a></li>
 						<li><a
-								href='../Goods/GList.do?start=61&end=61'>마술공연</a></li>
-						<li><a href='../Goods/GList.do?start=26&end=26'>편지</a></li>
-						<li><a href='../Goods/GList.do?start=2&end=2'>로고</a></li>
+								href='../Goods/GList.action?start=61&end=61'>마술공연</a></li>
+						<li><a href='../Goods/GList.action?start=26&end=26'>편지</a></li>
+						<li><a href='../Goods/GList.action?start=2&end=2'>로고</a></li>
 						<li><a
-								href='../Goods/GList.do?start=30&end=30'>자소서</a></li>
+								href='../Goods/GList.action?start=30&end=30'>자소서</a></li>
 					</ul>
 				</div>
 				<div class="adBannerWrap">
@@ -474,17 +474,17 @@
 		<!-- gnb -->
 		<div id="gnb">
 			<ul class="centered_cont">
-				<li class="m1"><a href="../Goods/GList.do?start=1&end=14&range=0">그래픽 · 디자인</a></li>
-				<li class="m2"><a href="../Goods/GList.do?start=15&end=22&range=0">사업 · 전문가</a></li>
-				<li class="m3"><a href="../Goods/GList.do?start=23&end=30&range=0">문서 · 레포트</a></li>
-				<li class="m4"><a href="../Goods/GList.do?start=31&end=41&range=0">컴퓨터 · IT</a></li>
-				<li class="m5"><a href="../Goods/GList.do?start=42&end=50&range=0">번역 · 외국어</a></li>
-				<li class="m6"><a href="../Goods/GList.do?start=51&end=58&range=0">음악 · 동영상</a></li>
-				<li class="m7"><a href="../Goods/GList.do?start=59&end=68&range=0">행사 · 공연</a></li>
-				<li class="m8"><a href="../Goods/GList.do?start=69&end=79&range=0">노하우 · 상담</a></li>
-				<li class="m9"><a href="../Goods/GList.do?start=80&end=90&range=0">생활서비스</a></li>
-				<li class="m10"><a href="../Goods/GList.do?start=91&end=96&range=0">여행 · 가이드</a></li>
-				<li class="m11"><a href="../Goods/GList.do?start=97&end=109&range=0">핸드메이드</a></li>
+				<li class="m1"><a href="../Goods/GList.action?start=1&end=14&range=0">그래픽 · 디자인</a></li>
+				<li class="m2"><a href="../Goods/GList.action?start=15&end=22&range=0">사업 · 전문가</a></li>
+				<li class="m3"><a href="../Goods/GList.action?start=23&end=30&range=0">문서 · 레포트</a></li>
+				<li class="m4"><a href="../Goods/GList.action?start=31&end=41&range=0">컴퓨터 · IT</a></li>
+				<li class="m5"><a href="../Goods/GList.action?start=42&end=50&range=0">번역 · 외국어</a></li>
+				<li class="m6"><a href="../Goods/GList.action?start=51&end=58&range=0">음악 · 동영상</a></li>
+				<li class="m7"><a href="../Goods/GList.action?start=59&end=68&range=0">행사 · 공연</a></li>
+				<li class="m8"><a href="../Goods/GList.action?start=69&end=79&range=0">노하우 · 상담</a></li>
+				<li class="m9"><a href="../Goods/GList.action?start=80&end=90&range=0">생활서비스</a></li>
+				<li class="m10"><a href="../Goods/GList.action?start=91&end=96&range=0">여행 · 가이드</a></li>
+				<li class="m11"><a href="../Goods/GList.action?start=97&end=109&range=0">핸드메이드</a></li>
 				<li class="m12"><a href="javascript:alert('서비스 준비중 입니다');">프리미엄 재능관</a></li>
 
 			</ul>
@@ -629,7 +629,7 @@
 				회원가입이 완료되었습니다.<br /> 지금 바로 재능을 등록하여<br /> 내 재능을 판매해 보세요
 			</p>
 			<div class="registerTalent">
-				<a href="../My/SellProdReg.do">내 재능 등록하기</a>
+				<a href="../My/SellProdReg.action">내 재능 등록하기</a>
 			</div>
 		</div>
 		<div class="popClose">

@@ -31,7 +31,7 @@
     <!-- //마이페이지lnb -->
 
     <!-- 내용 -->
-    <form action="UpdateMyprofile.do" method="post" name="profileForm">
+    <form action="UpdateMyprofile.action" method="post" name="profileForm">
         <div class="contBlock">
             <div class="sectionTop">
                 <div class="profile_img">
