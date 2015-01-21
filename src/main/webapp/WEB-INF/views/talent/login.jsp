@@ -32,7 +32,7 @@
 			return;
 		}
 		
-		f.action = "<%=cp%>/choi/login_ok.do";
+		f.action = "<%=cp%>/choi/login_ok.action";
 		f.submit();	
 	}
 

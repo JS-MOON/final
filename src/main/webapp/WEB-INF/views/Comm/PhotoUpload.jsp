@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<form action="PhotoUpload_ok.do" name="uploadForm" method="post" enctype="multipart/form-data">
+<form action="PhotoUpload_ok.action" name="uploadForm" method="post" enctype="multipart/form-data">
 
 	<br/>
 	<div class="settingOption">

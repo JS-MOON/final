@@ -229,7 +229,7 @@
 		alert(f.completedOption.value);
 		alert(f.s1.value +" : "+ f.s2.value);
 
-        f.action = "SellProdReg_ok.do";
+        f.action = "SellProdReg_ok.action";
         f.submit();
 
 	}

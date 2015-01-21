@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<form action="<%=cp%>/choi/searchMember_ok.do" name="myForm">
+<form action="<%=cp%>/choi/searchMember_ok.action" name="myForm">
 
 <table>
 <tr>

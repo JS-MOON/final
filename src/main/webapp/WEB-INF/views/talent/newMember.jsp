@@ -28,7 +28,7 @@
 		f.mb_pw.focus();
 		return;
 	}
-	f.action = "<%=cp%>/choi/newMember_ok.do";
+	f.action = "<%=cp%>/choi/newMember_ok.action";
 	f.submit();
 }
 

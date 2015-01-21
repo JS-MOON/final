@@ -23,12 +23,6 @@ public class CommentsController {
 	@Autowired
 	MyUtil myUtil;
 	
-	@RequestMapping(value="/",method=RequestMethod.GET)
-	public String main() {
-		
-		return "index";
-	}
-	
 	@RequestMapping(value="/Goods/comments_ok.action",method=RequestMethod.GET)
 	public String comments_ok(int brNum, HttpServletRequest request, HttpServletResponse response){
 		
