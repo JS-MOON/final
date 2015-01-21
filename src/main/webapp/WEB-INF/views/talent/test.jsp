@@ -17,18 +17,18 @@
 
 <table>
 
-<tr><td><a href="<%=cp%>/choi/member.do">전체회원보기</a></td></tr>
-<tr><td><a href="<%=cp%>/choi/newMember.do">회원가입</a></td></tr>
-<tr><td><a href="<%=cp%>/choi/searchMember.do">회원검색</a></td></tr>
-<tr><td><a href="<%=cp%>/choi/updateMember.do">회원 정보 수정</a></td></tr>
+<tr><td><a href="<%=cp%>/choi/member.action">전체회원보기</a></td></tr>
+<tr><td><a href="<%=cp%>/choi/newMember.action">회원가입</a></td></tr>
+<tr><td><a href="<%=cp%>/choi/searchMember.action">회원검색</a></td></tr>
+<tr><td><a href="<%=cp%>/choi/updateMember.action">회원 정보 수정</a></td></tr>
 
 <c:if test="${empty sessionScope.session}">
-<tr><td><a href="<%=cp%>/choi/login.do">로그인</a></td></tr>
+<tr><td><a href="<%=cp%>/choi/login.action">로그인</a></td></tr>
 
 </c:if>
 <c:if test="${!empty sessionScope.session}">
-<tr><td><a href="<%=cp%>/choi/logout.do">로그아웃</a></td></tr>
-<tr><td><a href="<%=cp%>/choi/deleteMember.do">회원탈퇴</a></td></tr>
+<tr><td><a href="<%=cp%>/choi/logout.action">로그아웃</a></td></tr>
+<tr><td><a href="<%=cp%>/choi/deleteMember.action">회원탈퇴</a></td></tr>
 
 <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
 <tr><td> ${sessionScope.session.mb_id}님 환영합니다.</td></tr>

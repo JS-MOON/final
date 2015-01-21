@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<form action="<%=cp%>/choi/updateMember_ok.do">
+<form action="<%=cp%>/choi/updateMember_ok.action">
 
 <table>
 <tr><td align="right">아이디</td><td><input type="text" value="${sessionScope.session.mb_id}" name="mb_id" readonly="readonly"></td></tr>

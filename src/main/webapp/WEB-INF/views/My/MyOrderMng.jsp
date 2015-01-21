@@ -114,7 +114,7 @@
                                  ${seq.count }</div>
                         </td>
                         <td class="thumbnail">
-                            <div class="td"><a href="../Goods/GDetail.do?brNum=${dto.brNum }">
+                            <div class="td"><a href="../Goods/GDetail.action?brNum=${dto.brNum }">
                                 <img src="../Product/${dto.brMainphoto }" alt=""   Height=160px  Width=160px  /></div>
                         </td>
                         <td class="payResume">

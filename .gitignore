@@ -17,6 +17,8 @@ hs_err_pid*
 #Intellij
 .idea/
 out/
+target/project-1.0.0-BUILD-SNAPSHOT/
+*.iml
 
 #STS
 build/
@@ -25,7 +27,10 @@ build/
 *.project
 
 #Maven
-pom.properties
+target/MANIFEST.MF
+target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+target/m2e-wtp/web-resources/META-INF/maven/com.exe/project/pom.properties
+
 
 #Project Resource
 src/main/webapp/resources/
