@@ -38,8 +38,8 @@
 	                <span class="profile_thumb">
 	                
 	                <!-- ../resources/images/mypage/img_profile_img_blank_120x120.png -->
-	                    <img src="${imagePath}/${dto.mbPic}" alt="등록해주세요." height="120" width="120"/></span>
-                    <a href="javascript:popUP('../Comm/PhotoUpload.jsp','UploadProfilePhoto',50,50,200,100,'no','no','no','no','no');" class="replace">Replace</a>
+	                    <img src="../Profile/${dto.mbPic}" alt="등록해주세요." height="120" width="120"/></span>
+                    <a href="javascript:popUP('../Comm/PhotoUpload.aciton','UploadProfilePhoto',50,50,350,285,'no','no','no','no','no');" class="replace">Replace</a>
                 </div>
 
                 <ul class="i_r">
