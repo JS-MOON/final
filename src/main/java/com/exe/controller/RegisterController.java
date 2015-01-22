@@ -235,9 +235,6 @@ public class RegisterController {
 
 				String mbPicData = mbId + originalFileName;
 				
-				System.out.println(mbPicData);
-				System.out.println(mbId);
-				
 				dao.updatePicture(mbs.getMbId(),mbPicData );
 
 				is.close();

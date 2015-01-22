@@ -101,6 +101,16 @@
 		or B.mbnickName like '%'||#{searchValue}||'%') order by A.brnum desc
 		]]>
 	</select>
+	
+	<insert id="boardInsert" parameterType="com.exe.dto.BoardDTO">
+		insert into board(brnum,mbid,cgnum,brsubject,
+		brmainphoto,brmorephoto,brcontent,broptions,brprice,brdate,brcount)
+		values (#{brNum},#{mbId},#{cgNum},#{brSubject},#{brMainPhoto},#{brMorePhoto},
+		#{brContent},#{brOptions},#{brPrice},sysdate,0)
+	</insert>
 
+	<select id="brMaxNum" resultType="int">
+		select nvl(max(brnum),0) from board
+	</select>
 
 </mapper>
