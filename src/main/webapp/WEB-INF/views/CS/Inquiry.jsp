@@ -24,10 +24,10 @@
             </div>
         </div>
         <ul class="csMenu">
-            <li id="WUC_CSHeader1_liBtnNotice" class=""><a href="./Notice.jsp">공지사항</a></li>
-            <li id="WUC_CSHeader1_liBtnFAQ" class=""><a href="./FAQ.jsp">자주 묻는 질문</a></li>
-            <li id="WUC_CSHeader1_liBtnSuggest" class=""><a href="./Suggest.jsp">제안하기</a></li>
-            <li id="WUC_CSHeader1_liBtnInquiry" class="on"><a href="./Inquiry.jsp">1:1 문의</a></li>
+            <li id="WUC_CSHeader1_liBtnNotice" class="on"><a href="/final/Etc/Notice.action">공지사항</a></li>
+            <li id="WUC_CSHeader1_liBtnFAQ" class=""><a href="/final/Etc/FAQ.action">자주 묻는 질문</a></li>
+            <li id="WUC_CSHeader1_liBtnSuggest" class=""><a href="/final/Etc/Suggest.action">제안하기</a></li>
+            <li id="WUC_CSHeader1_liBtnInquiry" class=""><a href="/final/Etc/Inquiry.action">1:1 문의</a></li>
         </ul>
     </div>
 </div>
@@ -97,15 +97,15 @@
                     </th>
                     <td class="inquery_type">
                         <div class="td">
-                            <span class="input-radio"><input id="ctl00_ContentPlaceHolder1_WUC_CSInquiry1_inquiry_type1" type="radio" name="ctl00$ContentPlaceHolder1$WUC_CSInquiry1$inquiry_type1" value="inquiry_type1" checked="checked" /></span>
+                            <span class="input-radio"><input type="radio" name="inquiryType" value="inquiry_type1" checked="checked" /></span>
                             <label for="inquiry_type1" class="label">재능 등록 관련</label>
-                            <span class="input-radio"><input id="ctl00_ContentPlaceHolder1_WUC_CSInquiry1_inquiry_type2" type="radio" name="ctl00$ContentPlaceHolder1$WUC_CSInquiry1$inquiry_type2" value="inquiry_type2" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$WUC_CSInquiry1$inquiry_type2\&#39;,\&#39;\&#39;)&#39;, 0)" /></span>
+                            <span class="input-radio"><input type="radio" name="inquiryType" value="inquiry_type2" /></span>
                             <label for="inquiry_type2" class="label">재능 구매 관련</label>
-                            <span class="input-radio"><input id="ctl00_ContentPlaceHolder1_WUC_CSInquiry1_inquiry_type3" type="radio" name="ctl00$ContentPlaceHolder1$WUC_CSInquiry1$inquiry_type3" value="inquiry_type3" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$WUC_CSInquiry1$inquiry_type3\&#39;,\&#39;\&#39;)&#39;, 0)" /></span>
+                            <span class="input-radio"><input type="radio" name="inquiryType" value="inquiry_type3" /></span>
                             <label for="inquiry_type3" class="label">충전/구매/결제</label>
-                            <span class="input-radio"><input id="ctl00_ContentPlaceHolder1_WUC_CSInquiry1_inquiry_type4" type="radio" name="ctl00$ContentPlaceHolder1$WUC_CSInquiry1$inquiry_type4" value="inquiry_type4" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$WUC_CSInquiry1$inquiry_type4\&#39;,\&#39;\&#39;)&#39;, 0)" /></span>
+                            <span class="input-radio"><input type="radio" name="inquiryType" value="inquiry_type4" /></span>
                             <label for="inquiry_type4" class="label">프리미엄관 관련</label>
-                            <span class="input-radio"><input id="ctl00_ContentPlaceHolder1_WUC_CSInquiry1_inquiry_type5" type="radio" name="ctl00$ContentPlaceHolder1$WUC_CSInquiry1$inquiry_type5" value="inquiry_type5" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$WUC_CSInquiry1$inquiry_type5\&#39;,\&#39;\&#39;)&#39;, 0)" /></span>
+                            <span class="input-radio"><input type="radio" name="inquiryType" value="inquiry_type5" /></span>
                             <label for="inquiry_type5" class="label">기타문의</label>
                         </div>
                     </td>

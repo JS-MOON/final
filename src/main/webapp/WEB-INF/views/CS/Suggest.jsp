@@ -43,10 +43,10 @@
             </div>
         </div>
         <ul class="csMenu">
-            <li id="WUC_CSHeader1_liBtnNotice" class=""><a href="./Notice.jsp">공지사항</a></li>
-            <li id="WUC_CSHeader1_liBtnFAQ" class=""><a href="./FAQ.jsp">자주 묻는 질문</a></li>
-            <li id="WUC_CSHeader1_liBtnSuggest" class="on"><a href="./Suggest.jsp">제안하기</a></li>
-            <li id="WUC_CSHeader1_liBtnInquiry" class=""><a href="./Inquiry.jsp">1:1 문의</a></li>
+            <li class="on"><a href="/final/Etc/Notice.action">공지사항</a></li>
+            <li class=""><a href="/final/Etc/FAQ.action">자주 묻는 질문</a></li>
+            <li class=""><a href="/final/Etc/Suggest.action">제안하기</a></li>
+            <li class=""><a href="/final/Etc/Inquiry.action">1:1 문의</a></li>
         </ul>
     </div>
 </div>
@@ -73,7 +73,7 @@
                         <div class="th">이메일</div>
                     </th>
                     <td>
-                        <div class="td"><span id="ContentPlaceHolder1_WUC_CSSuggest1_hsp_userID" class="user_email">mjsung2@nate.com</span></div>
+                        <div class="td"><span class="user_email">mjsung2@nate.com</span></div>
                     </td>
                 </tr>
                 <tr>
@@ -82,7 +82,7 @@
                     </th>
                     <td>
                         <div class="td">
-                            <input name="ctl00$ContentPlaceHolder1$WUC_CSSuggest1$htxt_title" type="text" id="htxt_title" class="input-text" style="width: 90%;" onkeyup="keyUp();" maxlength="50" />
+                            <input type="text" id="htxt_title" class="input-text" style="width: 90%;" onkeyup="keyUp();" maxlength="50" />
                             <span class="char_limit" id="spLimit">(0/50)</span>
                         </div>
                     </td>
@@ -93,7 +93,7 @@
                     </th>
                     <td>
                         <div class="td">
-                            <textarea name="ctl00$ContentPlaceHolder1$WUC_CSSuggest1$htxt_content" id="ContentPlaceHolder1_WUC_CSSuggest1_htxt_content" class="textarea" style="width: 100%; height: 180px;"></textarea>
+                            <textarea class="textarea" style="width: 100%; height: 180px;"></textarea>
                         </div>
                     </td>
                 </tr>
@@ -103,7 +103,7 @@
                     </th>
                     <td>
                         <div class="td">
-                            <input type="file" name="ctl00$ContentPlaceHolder1$WUC_CSSuggest1$fup_attached" id="ContentPlaceHolder1_WUC_CSSuggest1_fup_attached" class="input-file" style="width: 90%;" />
+                            <input type="file" class="input-file" style="width: 90%;" />
                             <p class="pleaseNote">(최대용량 2MB 이내 파일만 등록하실 수 있습니다.)</p>
                         </div>
                     </td>
@@ -115,8 +115,8 @@
         </div>
 
         <div class="btnArea al_c">
-            <a id="ContentPlaceHolder1_WUC_CSSuggest1_lbtn_goSuggest" class="btnType7" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ContentPlaceHolder1$WUC_CSSuggest1$lbtn_goSuggest&quot;, &quot;&quot;, true, &quot;GuestSuggest&quot;, &quot;&quot;, false, true))"><span>제안하기</span></a>
-            <a id="ContentPlaceHolder1_WUC_CSSuggest1_lbtn_cancel" class="btnType8" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$WUC_CSSuggest1$lbtn_cancel&#39;,&#39;&#39;)"><span>취소</span></a>
+            <a class="btnType7" href="#"><span>제안하기</span></a>
+            <a class="btnType8" href="#"><span>취소</span></a>
         </div>
     </div>
     <!-- //contents -->
