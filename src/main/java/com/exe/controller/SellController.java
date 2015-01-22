@@ -48,8 +48,7 @@ public class SellController {
 	@RequestMapping(value="/My/SellProdReg_ok.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String sellProdReg_ok(HttpServletRequest req, HttpServletResponse res) {
 		
-		
-		return "Goods/Main";
+		return "redirect:/Goods/Main.action";
 	}
 
 

@@ -89,7 +89,7 @@
 		var noticePop;
 
 		$(document).ready(function() {
-			//            noticePop = window.open("/MainPage/Notice_PopUp_MainTop.jsp", "notice", "width=680 height=520 toolbar=no location=no titlebar=no status=no menubar=no scrollbars=no resizable=no left=50 top=20  ");
+			//            noticePop = window.open("/MainPage/Notice_PopUp_MainTop.action", "notice", "width=680 height=520 toolbar=no location=no titlebar=no status=no menubar=no scrollbars=no resizable=no left=50 top=20  ");
 
 			$(window).bind('scroll', function() {
 				var quick = $('#quick-best'); // 302px
@@ -338,7 +338,7 @@
 				<!-- 공지 -->
 				<div class="nowNotice">
 					<p class="article">
-						<a href="../CS/Notice.jsp">[공지] 재능 등록하시기 전 필독!</a>
+						<a href="/final/Etc/Notice.action">[공지] 재능 등록하시기 전 필독!</a>
 					</p>
 					<span class="va_m"></span>
 				</div>
@@ -502,12 +502,12 @@
 	<div id="footer">
 		<div class="centered_cont">
 			<ul class="footerUtil">
-				<li class="first"><a href="../Etc/LawService.jsp">서비스 이용약관</a></li>
-				<li><a href="../Etc/LawPersonal.jsp">개인정보 취급방침</a></li>
-				<li><a href="../CS/Suggest.jsp">제안하기</a></li>
-				<li><a href="../CS/Notice.jsp">고객센터</a></li>
-				<li><a href="../Etc/LawGoodsReg.jsp">재능등록심사규정</a></li>
-				<li><a href="../DisplayAD/ADPayment.jsp">재능광고신청</a></li>
+				<li class="first"><a href="/final/Etc/LawService.action">서비스 이용약관</a></li>
+				<li><a href="/final/Etc/LawPersonal.action">개인정보 취급방침</a></li>
+				<li><a href="/final/Etc/Suggest.action">제안하기</a></li>
+				<li><a href="/final/Etc/Notice.action">고객센터</a></li>
+				<li><a href="/final/Etc/LawGoodsReg.action">재능등록심사규정</a></li>
+				<li><a href="/final/Etc/ADPayment.action">재능광고신청</a></li>
 			</ul>
 			<div class="company_info">
 				<img src="../resources/images/common/footer.gif" style="margin-left: 36px" alt="" />
