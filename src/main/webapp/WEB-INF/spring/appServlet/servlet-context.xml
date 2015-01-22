@@ -60,9 +60,6 @@
 		<beans:property name="sessionTemplate" ref="sessionTemplate" />
 	</beans:bean>
 
-	<beans:bean id="fileTestDAO" class="com.exe.dao.FileTestDAO">
-		<beans:property name="sessionTemplate" ref="sessionTemplate" />
-	</beans:bean>
 
 	<beans:bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg ref="sessionFactory" />

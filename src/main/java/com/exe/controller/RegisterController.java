@@ -42,7 +42,7 @@ public class RegisterController {
 		MemberDTO dto = dao.registerMemberData(mbId);
 
 		if (dto != null) {
-			str = "¾ÆÀÌµð°¡ Á¸ÀçÇÕ´Ï´Ù.";
+			str = "ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.";
 		} else {
 
 			dto = new MemberDTO();
@@ -89,10 +89,10 @@ public class RegisterController {
 
 		if (dto == null) {
 
-			str = "¾ÆÀÌµð°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.";
+			str = "ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.";
 
 		} else if (!dto.getMbPw().equals(mbPw)) {
-			str = "ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
+			str = "ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.";
 
 		} else {
 			HttpSession session = request.getSession(true);
@@ -136,9 +136,9 @@ public class RegisterController {
 	 * 
 	 * if (dto == null) {
 	 * 
-	 * str = "¾ÆÀÌµð°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.";
+	 * str = "ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.";
 	 * 
-	 * } else if (!dto.getMbPw().equals(mbPw)) { str = "ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
+	 * } else if (!dto.getMbPw().equals(mbPw)) { str = "ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.";
 	 * 
 	 * } else { HttpSession session = request.getSession(true);
 	 * 
@@ -247,7 +247,7 @@ public class RegisterController {
 		return "Comm/complete";
 	}
 
-	@RequestMapping(value = "/My/UpdateMyProfile.action", method = {
+	@RequestMapping(value = "/My/UpdateMyprofile.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
 	public String updateMyProfile(MemberDTO dto, HttpServletRequest request) {
 
@@ -284,7 +284,7 @@ public class RegisterController {
 
 	}
 
-	@RequestMapping(value = "/Out.action", method = { RequestMethod.GET,
+	@RequestMapping(value = "/My/Out.action", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public String out(HttpServletRequest request) {
 
@@ -302,7 +302,7 @@ public class RegisterController {
 			session.invalidate();
 		}
 
-		return "Registr/Register";
+		return "Register/Register";
 
 	}
 }
