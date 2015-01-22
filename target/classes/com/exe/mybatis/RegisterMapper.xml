@@ -28,7 +28,7 @@
 	</delete>
 
 	<update id="updatePicMember" parameterType="hashMap">
-		update member set mbpic=#{mbpic} where mbid=#{mbId}
+		update member set mbpic=#{mbPic} where mbid=#{mbId}
 	</update>
 
 	<update id="updateMyMember" parameterType="com.exe.dto.MemberDTO">

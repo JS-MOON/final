@@ -14,14 +14,14 @@ public class RegisterDAO {
 		this.sessionTemplate = sessionTemplate;
 	}
 	
-	//회원가입
+	//�쉶�썝媛��엯
 	public void insertMember(MemberDTO dto){
 		
 		sessionTemplate.insert("memberMapper.insertMember",dto);
 		
 	}
 	
-	//가입이력확인
+	//媛��엯�씠�젰�솗�씤
 	public MemberDTO registerMemberData(String mbId){
 		
 		MemberDTO dto = sessionTemplate.selectOne("memberMapper.selectRegisterMember", mbId);
@@ -29,7 +29,7 @@ public class RegisterDAO {
 		return dto;
 	}
 	
-	//개인정보
+	//媛쒖씤�젙蹂�
 	public MemberDTO getReadMember(String mbId){
 		
 		MemberDTO dto = sessionTemplate.selectOne("memberMapper.selectReadMember", mbId);
@@ -38,7 +38,7 @@ public class RegisterDAO {
 		
 	}
 	
-	//회원탈퇴
+	//�쉶�썝�깉�눜
 	public int deleteMember(String mbId){
 
 		int result = sessionTemplate.delete("memberMapper.deleteMember",mbId);
@@ -46,8 +46,10 @@ public class RegisterDAO {
 		return result;
 	}
 	
-	//사진수정
+	//�궗吏꾩닔�젙
 	public void updatePicture(String mbId,String mbPic){
+		
+		System.out.println(mbId + mbPic);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("mbId", mbId);
@@ -57,13 +59,13 @@ public class RegisterDAO {
 	
 	}
 	
-	//회원정보수정(닉네임,소개글)
+	//�쉶�썝�젙蹂댁닔�젙(�땳�꽕�엫,�냼媛쒓�)
 	public void updateMyMember(MemberDTO dto){
 		
 		sessionTemplate.update("memberMapper.updateMyMember",dto);
 	}
 	
-	//비밀번호수정
+	//鍮꾨�踰덊샇�닔�젙
 	public void updatePwMember(String mbId, String changeMbPw1){
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();

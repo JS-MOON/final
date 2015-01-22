@@ -62,8 +62,7 @@ public class GoodsController {
 			HttpServletResponse response){
 		
 		String cp = request.getContextPath();
-
-		System.out.println(brNum);
+		
 		BoardDTO dto = dao.getReadData(brNum);
 
 		dao.updateBrCount(brNum);
@@ -209,6 +208,7 @@ public class GoodsController {
 
 		request.setAttribute("start", start);
 		request.setAttribute("end", end);
+		
 		
 		return "Goods/GList";
 	}

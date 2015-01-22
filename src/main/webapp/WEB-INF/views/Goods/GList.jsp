@@ -14,14 +14,9 @@
 <html>
 <head>
 <title></title>
-
-
-</head>
-<body>
-	<script type="text/javascript">
+<script type="text/javascript">
 
 	function sortIt() {
-		
 		var f = document.rangeForm;
 		var range = f.range.value;
 		
@@ -30,11 +25,13 @@
 				
 		f.action = "GList.action?start=" + start + "&end=" + end + "&range="+ range;
 		f.submit();
-		
 	}
-
-
+	
 </script>
+
+
+</head>
+<body>
 
 
 	<div id="container">
@@ -46,7 +43,7 @@
 				<div class="subCategory">
 					<ul>
 
-						<li><a href="GList.jsp?pg%3d1%26sr%3d1%26cy%3d140&ct=140">
+						<li><a href="GList.action?start=${start }&end=${end}&range=0">
 								<input type="submit" name=""
 								value="전체"
 								style="background-color: #EDEDED; border-style: None; height: 26px;" />
@@ -102,7 +99,7 @@
 									</span>
 								</div>
 							</div>
-							
+		
 							<a href="GDetail.action?brNum=${dto.brNum }">
 							<div>
 								

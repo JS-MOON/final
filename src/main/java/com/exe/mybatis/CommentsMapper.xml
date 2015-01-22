@@ -7,17 +7,17 @@
 
 <!-- commments -->
 <select id="cmMaxNum" resultType="integer">
-	select nvl(max(cm_num),0) from comments
+	select nvl(max(cmnum),0) from comments
 </select>
 
 <insert id="cmInsert" parameterType="com.exe.dto.CommentsDTO">
 	insert into comments(cmnum,brnum,cmcontent,cmnickName,cmdate,cmrating)
-	values (#{cmnum},#{brnum},#{cmcontent},#{cmnickName},sysdate,#{cmrating})
+	values (#{cmNum},#{brNum},#{cmContent},#{cmNickName},sysdate,#{cmRating})
 </insert>
 
 <select id="cmList" parameterType="integer" resultType="com.exe.dto.CommentsDTO">
 	select cmnum,brnum,cmcontent,cmnickName,cmdate,cmrating 
-	from comments where brnum=#{brnum}
+	from comments where brnum=#{brNum}
 
 </select>
 

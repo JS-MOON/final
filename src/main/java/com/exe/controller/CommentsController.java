@@ -23,13 +23,14 @@ public class CommentsController {
 	@Autowired
 	MyUtil myUtil;
 	
-	@RequestMapping(value="/Goods/comments_ok.action",method=RequestMethod.GET)
+	@RequestMapping(value="/Goods/comments_ok.action",method={RequestMethod.GET,RequestMethod.POST})
 	public String comments_ok(int brNum, HttpServletRequest request, HttpServletResponse response){
+
 		
 		CommentsDTO dto = new CommentsDTO();
-		
+
 		int cmMaxNum = dao.cmMaxNum();
-		
+
 		dto.setCmNum(cmMaxNum+1);
 		dto.setBrNum(brNum);
 		dto.setCmContent(request.getParameter("cm_content"));
@@ -38,7 +39,7 @@ public class CommentsController {
 		
 		dao.cmInsert(dto);
 		
-		return "redirect:/Goods/GDtail.action?brNum=" + brNum;
+		return "redirect:/Goods/GDetail.action?brNum=" + brNum;
 	}
 	
 	
