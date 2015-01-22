@@ -33,7 +33,7 @@
 	<beans:bean id="myUtil" class="com.exe.util.MyUtil" />
 	<beans:bean id="imageManager" class="com.exe.util.ImageManager" />
 	<beans:bean id="imageName" class="com.exe.util.ImageName" />
-	<beans:bean id="DivideOptions" class="com.exe.util.DivideOptions" />
+	<beans:bean id="divideOptions" class="com.exe.util.DivideOptions" />
 
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -57,10 +57,6 @@
 	</beans:bean>
 
 	<beans:bean id="registerDAO" class="com.exe.dao.RegisterDAO">
-		<beans:property name="sessionTemplate" ref="sessionTemplate" />
-	</beans:bean>
-
-	<beans:bean id="fileTestDAO" class="com.exe.dao.FileTestDAO">
 		<beans:property name="sessionTemplate" ref="sessionTemplate" />
 	</beans:bean>
 
