@@ -27,7 +27,7 @@ public class HistoryController {
 	@Autowired
 	MyUtil myUtil;
 	
-	@RequestMapping(value="GOrder_ok.action",method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/Goods/GOrder_ok.action",method={RequestMethod.GET,RequestMethod.POST})
 	public String gorder_ok(HttpServletRequest req, HttpServletResponse res, HistoryDTO dto){
 		
 		int hsMaxNum = dao.hsMaxNum();
@@ -41,7 +41,7 @@ public class HistoryController {
 		
 		dao.hsInsert(dto);
 		
-		return  "redirect:/My/MyOrderMng";
+		return  "redirect:/My/MyOrderMng.action";
 	}
 	
 	@RequestMapping(value="/My/MyOrderMng.action", method={RequestMethod.GET,RequestMethod.POST})
