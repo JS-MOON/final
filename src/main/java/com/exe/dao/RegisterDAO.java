@@ -14,14 +14,14 @@ public class RegisterDAO {
 		this.sessionTemplate = sessionTemplate;
 	}
 	
-	//È¸¿ø°¡ÀÔ Á¤º¸
+	//íšŒì›ê°€ì…
 	public void insertMember(MemberDTO dto){
 		
 		sessionTemplate.insert("memberMapper.insertMember",dto);
 		
 	}
 	
-	//°¡ÀÔµÈÁ¤º¸ÀÖ´ÂÁö È®ÀÎ(°¡ÀÔÇÒ¶§)
+	//ê°€ì…ì´ë ¥í™•ì¸
 	public MemberDTO registerMemberData(String mbId){
 		
 		MemberDTO dto = sessionTemplate.selectOne("memberMapper.selectRegisterMember", mbId);
@@ -29,7 +29,7 @@ public class RegisterDAO {
 		return dto;
 	}
 	
-	//È¸¿ø°³ÀÎÁ¤º¸
+	//ê°œì¸ì •ë³´
 	public MemberDTO getReadMember(String mbId){
 		
 		MemberDTO dto = sessionTemplate.selectOne("memberMapper.selectReadMember", mbId);
@@ -38,7 +38,7 @@ public class RegisterDAO {
 		
 	}
 	
-	//È¸¿øÅ»Åğ
+	//íšŒì›íƒˆí‡´
 	public int deleteMember(String mbId){
 
 		int result = sessionTemplate.delete("memberMapper.deleteMember",mbId);
@@ -46,7 +46,7 @@ public class RegisterDAO {
 		return result;
 	}
 	
-	//°³ÀÎÁ¤º¸ »çÁø¼öÁ¤
+	//ì‚¬ì§„ìˆ˜ì •
 	public void updatePicture(String mbId,String mbPic){
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -57,13 +57,13 @@ public class RegisterDAO {
 	
 	}
 	
-	//°³ÀÎÁ¤º¸¼öÁ¤(´Ğ³×ÀÓ,ÀÚ±â¼Ò°³)
+	//íšŒì›ì •ë³´ìˆ˜ì •(ë‹‰ë„¤ì„,ì†Œê°œê¸€)
 	public void updateMyMember(MemberDTO dto){
 		
 		sessionTemplate.update("memberMapper.updateMyMember",dto);
 	}
 	
-	//ºñ¹Ğ¹øÈ£¼öÁ¤
+	//ë¹„ë°€ë²ˆí˜¸ìˆ˜ì •
 	public void updatePwMember(String mbId, String changeMbPw1){
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();

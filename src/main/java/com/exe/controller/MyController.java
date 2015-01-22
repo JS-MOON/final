@@ -17,28 +17,28 @@ public class MyController {
 		return "My/MyAccount";
 	}
 	
-	@RequestMapping(value="MyFavority.action", method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/My/MyFavority.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String myFavority(HttpServletRequest req, HttpServletResponse res){
 		
 		
 		return "My/MyFavority";
 	}
 	
-	@RequestMapping(value="MyMessage.action", method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/My/MyMessage.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String myMessage(HttpServletRequest req, HttpServletResponse res){
 		
 		
 		return "My/MyMessage";
 	}
 	
-	@RequestMapping(value="MyMistus.action", method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/My/MyMistus.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String myMistus(HttpServletRequest req, HttpServletResponse res){
 		
 		
 		return "My/MyMistus";
 	}
 	
-	@RequestMapping(value="MyPoint.action", method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/My/MyPoint.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String myPoint(HttpServletRequest req, HttpServletResponse res){
 		
 		
