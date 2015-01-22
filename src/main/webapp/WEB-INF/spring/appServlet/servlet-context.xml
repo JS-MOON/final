@@ -42,7 +42,6 @@
 		<beans:property name="defaultEncoding" value="UTF-8" />
 	</beans:bean>
 
-
 	<!-- DAO 등록 -->
 	<beans:bean id="goodsDAO" class="com.exe.dao.GoodsDAO">
 		<beans:property name="sessionTemplate" ref="sessionTemplate" />
