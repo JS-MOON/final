@@ -66,6 +66,10 @@
 		from comments where
 		brnum=#{brnum}
 	</select>
+	
+	<select id="onePhoto" parameterType="int" resultType="string">
+		select brMainPhoto from board where brnum = #{brNum}
+	</select>
 	<!-- GList -->
 	<select id="gList" parameterType="hashMap" resultType="com.exe.dto.BoardDTO">
 		<![CDATA[

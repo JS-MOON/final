@@ -42,6 +42,7 @@ public class GoodsDAO {
 	//mainaction end
 
 	//gDetail start
+	//한개의 데이터 가져오기
 	public BoardDTO getReadData(int brNum) {
 
 		BoardDTO dto = sessionTemplate.selectOne("GoodsMapper.getReadData",brNum);
@@ -85,10 +86,19 @@ public class GoodsDAO {
 	 
 	 return lists;
 	}
+	
+	//선택한 상품의 이미지 가져오기
+	public String onePhoto(int brNum) {
+		
+		String mainPhoto = sessionTemplate.selectOne("GoodsMapper.onePhoto", brNum);
+		
+		return mainPhoto;
+		
+	}
 	//gDetail end
 	
 	//gList start
-	public List<BoardDTO> list(int start, int end) {//ī�װ� ���Ĺ�� ���� ���
+	public List<BoardDTO> list(int start, int end) {
 		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("start", start);
@@ -100,26 +110,20 @@ public class GoodsDAO {
 		return lists;
 	}
 
-	public List<BoardDTO> list(int start, int end,String column,String order) {//ī�װ� ���Ĺ�� �ִ� ���
+	public List<BoardDTO> list(int start, int end,String column,String order) {
 		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("start", start);
 		params.put("end", end);
 		params.put("column", column);
 		params.put("order", order);
-		
-		System.out.println(start);
-		System.out.println(end);
-		System.out.println(column);
-		System.out.println(order);
-		
-		
+
 		List<BoardDTO> lists = sessionTemplate.selectList("GoodsMapper.gList",params);
 		
 		return lists; 
 	}
 	
-	public List<CategoryDTO> getReadCategory(int start,int end){//ī�װ� �˻�
+	public List<CategoryDTO> getReadCategory(int start,int end){
 		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("start", start);
@@ -152,7 +156,6 @@ public class GoodsDAO {
 		int result = 0;
 		result = sessionTemplate.selectOne("GoodsMapper.brMaxNum");
 		
-		System.out.println("1"+result);
 		return result;
 	}
 
