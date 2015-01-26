@@ -28,14 +28,14 @@ public class GoodsController {
 	
 	
 	
-	//¸ÞÀÎ
+	//ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value="/", 	method={RequestMethod.GET,RequestMethod.POST})
 	public String main() {
 		
 		return "index";
 	}
 	
-	//¸ÞÀÎ
+	//ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value="/Goods/Main.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String mainaction(HttpServletRequest request,
 			HttpServletResponse response){
@@ -56,14 +56,13 @@ public class GoodsController {
 		
 	}
 	
-	//»óÇ°»ó¼¼¼³¸íÃ¢
+	//ï¿½ï¿½Ç°ï¿½ó¼¼¼ï¿½ï¿½ï¿½Ã¢
 	@RequestMapping(value="/Goods/GDetail.action",method={RequestMethod.GET,RequestMethod.POST})
 	public String gDetail(int brNum,HttpServletRequest request,
 			HttpServletResponse response){
 		
 		String cp = request.getContextPath();
 
-		System.out.println(brNum);
 		BoardDTO dto = dao.getReadData(brNum);
 
 		dao.updateBrCount(brNum);
@@ -75,7 +74,7 @@ public class GoodsController {
 		String category1 = cgdto.getCgCategory1();
 		String category2 = cgdto.getCgCategory2();
 
-		//°ü·ÃÀç´É select
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ select
 		List<BoardDTO> relists = dao.list(cgNum);
 
 		request.setAttribute("relists", relists);
@@ -135,17 +134,17 @@ public class GoodsController {
 
 		String option = request.getParameter("range");
 
-		if(option.equals("1")){//°¡°Ý ³»¸²Â÷¼ø
+		if(option.equals("1")){//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			String column = "brprice";
 			String order = "desc";
 			List<BoardDTO> lists = dao.list(start, end, column, order);
 			request.setAttribute("lists", lists);
-		}else if(option.equals("2")){//°¡°Ý ¿Ã¸²Â÷¼ø
+		}else if(option.equals("2")){//ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½
 			String column = "brprice";
 			String order = "asc";
 			List<BoardDTO> lists = dao.list(start, end, column, order);
 			request.setAttribute("lists", lists);
-		}else if(option.equals("3")){//³¯Â¥¼ø
+		}else if(option.equals("3")){//ï¿½ï¿½Â¥ï¿½ï¿½
 			String column = "brdate";
 			String order = "desc";
 			List<BoardDTO> lists = dao.list(start, end, column, order);
@@ -200,7 +199,7 @@ public class GoodsController {
 			}
 		}
 		
-		//Ä«Å×°í¸® Âï¾îÁÖ±â
+		//Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 		List<CategoryDTO> cglists = dao.getReadCategory(start, end);
 		request.setAttribute("cglists", cglists);
 

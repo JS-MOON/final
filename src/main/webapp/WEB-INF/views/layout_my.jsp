@@ -86,47 +86,6 @@
         });
     </script>
 
-    <script>
-        var noticePop;
-
-        $(document).ready(function() {
-            //            noticePop = window.open("/MainPage/Notice_PopUp_MainTop.jsp", "notice", "width=680 height=520 toolbar=no location=no titlebar=no status=no menubar=no scrollbars=no resizable=no left=50 top=20  ");
-
-            $(window).bind('scroll', function() {
-                var quick = $('#quick-best'); // 302px
-                var docT = $(document).scrollTop();
-
-                var quickH = $(quick).height();
-                var footH = $('#footer').height();
-                var docH = $(document).height();
-                var stopH = docH - (quickH + footH) - 100;
-                // alert(stopH);
-                if (docT < 1200) {
-                    $(quick).fadeOut(500); // 상단으로 올라 올때 다시 사라지도록 함
-                    $(quick).removeClass('on');
-                } else if (docT > 1200 && docT < stopH) {
-                    $(quick).fadeIn(1500);
-                    $(quick).addClass('on');
-                } else if (docT > stopH) {
-                    $(quick).css({
-                        position : 'fixed',
-                        bottom : 30
-                    });
-                }
-            });
-
-            $('ul , li').click(function() {
-                $('li .a').css("color", "hotpink");
-
-            });
-
-        });
-
-        function popClose() {
-            noticePop.Close();
-        }
-    </script>
-
     <script type="text/javascript">
         $(document).ready(function() {
             $('.adBannerWrap .adBanner').cycle({
