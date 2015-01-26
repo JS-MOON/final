@@ -85,6 +85,8 @@
 		});
 	</script>
 
+<<<<<<< HEAD
+=======
 	<script>
 		var noticePop;
 
