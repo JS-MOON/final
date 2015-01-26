@@ -126,7 +126,6 @@
 		}
 	</script>
 
->>>>>>> origin/master
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.adBannerWrap .adBanner').cycle({

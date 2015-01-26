@@ -1,7 +1,6 @@
 package com.exe.controller;
 
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,29 +43,30 @@ public class GoodsController {
 	public String mainaction(HttpServletRequest request,
 							 HttpServletResponse response) {
 
-		Cookie[] ck = request.getCookies();
-		String cookies[] = new String[100];
-		String cookiesPhoto[] = new String[100];
+		Cookie[] cookies = request.getCookies();
+		String[] brNumbs = new String[4];
+		String[] photos = new String[4];
+
 		try {
-			if (ck != null) {
+			if (cookies != null && cookies.length > 0) {
+				for (Cookie cooky : cookies) {
+					if(cooky.getName().equals("myWishList")) {
+						String temp = cooky.getValue();
 
-				int Photon = 0;
-				int brNumn = 0;
-				for (int i = ck.length - 2; i >= 0; i--) {
+						String[] wishListsArray = temp.split(",,");
 
-					if (ck[i].getName().indexOf("main") != -1) {
-						cookiesPhoto[Photon] = URLDecoder.decode(
-								ck[i].getName(), "UTF-8");
-						Photon++;
+						System.out.println("temp: " + temp);
+						System.out.println("wishList: " + wishListsArray[0]);
 
-					} else {
-						cookies[brNumn] = URLDecoder.decode(ck[i].getName(),
-								"UTF-8");
-						brNumn++;
+						for (int i = 0; i < wishListsArray.length; i++) {
+							if (i % 2 == 0)
+								brNumbs[i / 2] = wishListsArray[i];
+							else
+								photos[i / 2] = wishListsArray[i];
+						}
 					}
 				}
 			}
-
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -82,8 +82,8 @@ public class GoodsController {
 		request.setAttribute("str", str);
 		request.setAttribute("newLists", newLists);
 		request.setAttribute("countLists", countLists);
-		request.setAttribute("cookies", cookies);
-		request.setAttribute("cookiesPhoto", cookiesPhoto);
+		request.setAttribute("cookies", brNumbs);
+		request.setAttribute("cookiesPhoto", photos);
 
 		return "/Goods/Main";
 
@@ -96,26 +96,45 @@ public class GoodsController {
 						  HttpServletResponse response) {
 
 		try {
+			String wishLists = "";
+			Cookie[] cookies = request.getCookies();
 
-			Cookie c = new Cookie(brNum, URLEncoder.encode(brNum, "UTF-8"));
+			if(cookies != null && cookies.length > 0) {
+				for (Cookie cooky : cookies) {
+					if (cooky.getName().equals("myWishList")) {
+						wishLists = cooky.getValue();
 
-			// c.setMaxAge(30);
+						if (!wishLists.contains(brNum + ",,")) {
+							String[] wishListsArray = wishLists.split(",,");
+							if (wishListsArray.length >= 8) {
+								wishLists = "";
+								for (int j = 2; j < wishListsArray.length; j++) {
+									wishLists += wishListsArray[j];
+									wishLists += ",,";
+								}
+							} else {
+								wishLists += ",,";
+							}
+						}
+					}
+				}
+			}
 
-			String cookiesPhoto = dao.onePhoto(Integer.parseInt(brNum));
+			if(!wishLists.contains(brNum + ",,")) {
+				wishLists += brNum;
+				wishLists += ",,";
+				wishLists += dao.onePhoto(Integer.parseInt(brNum));
+			}
 
-			Cookie photo = new Cookie(cookiesPhoto, URLEncoder.encode(
-					cookiesPhoto, "UTF-8"));
+			Cookie c = new Cookie("myWishList", wishLists);
 
-			response.addCookie(photo);
 			response.addCookie(c);
-
 
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
 
 		return "redirect:/Goods/RGDetail.action?brNum=" + brNum;
-
 	}
 
 	// 상품상세설명창
@@ -127,26 +146,32 @@ public class GoodsController {
 		String cp = request.getContextPath();
 
 		try {
+			Cookie[] cookies = request.getCookies();
+			String[] brNumbs = new String[4];
+			String[] photos = new String[4];
 
-			Cookie[] ck = request.getCookies();
-			String cookies[] = new String[100];
-			String cookiesPhoto[] = new String[100];
+			try {
+				if (cookies != null && cookies.length > 0) {
+					for (Cookie cooky : cookies) {
+						if(cooky.getName().equals("myWishList")) {
+							String temp = cooky.getValue();
 
-			if (ck != null) {
+							String[] wishListsArray = temp.split(",,");
 
-				int Photon = 0;
-				int brNumn = 0;
-				for (int i = ck.length - 2; i >= 0; i--) {
+							System.out.println("temp: " + temp);
+							System.out.println("wishList: " + wishListsArray[0]);
 
-					if (ck[i].getName().indexOf("main") != -1) {
-						cookiesPhoto[Photon] = URLDecoder.decode(ck[i].getName(), "UTF-8");
-						Photon++;
-
-					} else {
-						cookies[brNumn] = URLDecoder.decode(ck[i].getName(),"UTF-8");
-						brNumn++;
+							for (int i = 0; i < wishListsArray.length; i++) {
+								if (i % 2 == 0)
+									brNumbs[i / 2] = wishListsArray[i];
+								else
+									photos[i / 2] = wishListsArray[i];
+							}
+						}
 					}
 				}
+			} catch (Exception e) {
+				System.out.println(e.toString());
 			}
 
 			int brNum = Integer.parseInt(request.getParameter("brNum"));
@@ -196,11 +221,11 @@ public class GoodsController {
 
 			}
 
-			request.setAttribute("cookies", cookies);
-			request.setAttribute("cookiesPhoto", cookiesPhoto);
+			request.setAttribute("cookies", brNumbs);
+			request.setAttribute("cookiesPhoto", photos);
 			request.setAttribute("lists", newLists);
 			request.setAttribute("subject", subject);
-			request.setAttribute("ck", ck);
+			request.setAttribute("ck", cookies);
 			request.setAttribute("nickName", nickName);
 			request.setAttribute("category1", category1);
 			request.setAttribute("category2", category2);
@@ -228,19 +253,19 @@ public class GoodsController {
 		try {
 			if (ck != null) {
 
-				int Photon = 0;
-				int brNumn = 0;
+				int photoOnCookie = 0;
+				int brNumOnCookie = 0;
 				for (int i = ck.length - 2; i >= 0; i--) {
 
 					if (ck[i].getName().indexOf("main") != -1) {
-						cookiesPhoto[Photon] = URLDecoder.decode(
+						cookiesPhoto[photoOnCookie] = URLDecoder.decode(
 								ck[i].getName(), "UTF-8");
-						Photon++;
+						photoOnCookie++;
 
 					} else {
-						cookies[brNumn] = URLDecoder.decode(ck[i].getName(),
+						cookies[brNumOnCookie] = URLDecoder.decode(ck[i].getName(),
 								"UTF-8");
-						brNumn++;
+						brNumOnCookie++;
 					}
 				}
 			}
@@ -359,19 +384,19 @@ public class GoodsController {
 		try {
 			if (ck != null) {
 
-				int Photon = 0;
-				int brNumn = 0;
+				int photoOnCookie = 0;
+				int brNumOnCookie = 0;
 				for (int i = ck.length - 2; i >= 0; i--) {
 
 					if (ck[i].getName().indexOf("main") != -1) {
-						cookiesPhoto[Photon] = URLDecoder.decode(
+						cookiesPhoto[photoOnCookie] = URLDecoder.decode(
 								ck[i].getName(), "UTF-8");
-						Photon++;
+						photoOnCookie++;
 
 					} else {
-						cookies[brNumn] = URLDecoder.decode(ck[i].getName(),
+						cookies[brNumOnCookie] = URLDecoder.decode(ck[i].getName(),
 								"UTF-8");
-						brNumn++;
+						brNumOnCookie++;
 					}
 				}
 			}
