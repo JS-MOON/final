@@ -24,10 +24,10 @@
             </div>
         </div>
         <ul class="csMenu">
-            <li id="WUC_CSHeader1_liBtnNotice" class="on"><a href="./Notice.jsp">공지사항</a></li>
-            <li id="WUC_CSHeader1_liBtnFAQ" class=""><a href="./FAQ.jsp">자주 묻는 질문</a></li>
-            <li id="WUC_CSHeader1_liBtnSuggest" class=""><a href="./Suggest.jsp">제안하기</a></li>
-            <li id="WUC_CSHeader1_liBtnInquiry" class=""><a href="./Inquiry.jsp">1:1 문의</a></li>
+            <li id="WUC_CSHeader1_liBtnNotice" class="on"><a href="/final/Etc/Notice.action">공지사항</a></li>
+            <li id="WUC_CSHeader1_liBtnFAQ" class=""><a href="/final/Etc/FAQ.action">자주 묻는 질문</a></li>
+            <li id="WUC_CSHeader1_liBtnSuggest" class=""><a href="/final/Etc/Suggest.action">제안하기</a></li>
+            <li id="WUC_CSHeader1_liBtnInquiry" class=""><a href="/final/Etc/Inquiry.action">1:1 문의</a></li>
         </ul>
     </div>
 </div>

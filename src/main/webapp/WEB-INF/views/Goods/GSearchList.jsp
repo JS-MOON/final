@@ -82,44 +82,27 @@
 
 			<!-- quick link -->
 			<div id="quickLinks">
-
-				<!-- 사이드 퀵마이페이지 -->
+          <!-- 사이드 퀵마이페이지 -->
 				<div class="quick-mypage quick-mypage-re">
 					<ul class="menuList">
 						<li class="wishPdt"><a class="wishPdt" href=""><span>찜한재능</span></a>
 						</li>
 						<li class="recentPdt"><span class="t"><span>최근본재능</span></span>
 							<ul>
-								<li><a
-									href="../Goods/GDetail.jsp?&cd=G00141027915739W&ct=1301004">
-										<img
-										src="../Product/M00141027494883W/Product/P141113123054.jpg"
-										alt="혹시 취업하고 싶니? 자소서..." Height=78px Width=78px />
-								</a></li>
-								<li><a
-									href="../Goods/GDetail.jsp?&cd=G00141114429841W&ct=1801007">
-										<img
-										src="../Product/M00141114120734W/Product/P141119123948.jpg"
-										alt="중고차 거래 도와드립니다." Height=78px Width=78px />
-								</a></li>
-								<li><a
-									href="../Goods/GDetail.jsp?&cd=G00141121760220W&ct=1801011">
-										<img
-										src="../Product/M00141106553600W/Product/P141121102007.jpg"
-										alt="이 멘트 하나면 열 썸녀!!..." Height=78px Width=78px />
-								</a></li>
-								<li><a
-									href="../Goods/GDetail.jsp?&cd=G00141111234780W&ct=1801011">
-										<img
-										src="../Product/M00141023346855W/Product/P141113125134.jpg"
-										alt="[연애경력5년차] 연애상담,..." Height=78px Width=78px />
-								</a></li>
-								<li><a
-									href="../Goods/GDetail.jsp?&cd=G00141116522190W&ct=1101002">
-										<img
-										src="../Product/M00141114627107W/Product/P141124170623.jpg"
-										alt="동글동글 귀여운 캘리그라피 ..." Height=78px Width=78px />
-								</a></li>
+							<c:if test="${cookies[0] != null}">
+								<c:forEach var="i" begin="0" end="3" step="1">	
+								<c:if test="${cookies[i] != null }">
+								<li>
+									<a href="GDetail.action?brNum=${cookies[i]}" style="border: none;">
+									<img src="../Product/${cookiesPhoto[i]}" width="80%" style="border: none;">
+									</a>
+								</li>
+								</c:if>
+								</c:forEach>
+							</c:if>
+							<c:if test="${cookies[0] == null}">
+							내역이 없습니다.
+							</c:if>
 							</ul></li>
 					</ul>
 				</div>

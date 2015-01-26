@@ -66,6 +66,10 @@
 		from comments where
 		brnum=#{brnum}
 	</select>
+	
+	<select id="onePhoto" parameterType="int" resultType="string">
+		select brMainPhoto from board where brnum = #{brNum}
+	</select>
 	<!-- GList -->
 	<select id="gList" parameterType="hashMap" resultType="com.exe.dto.BoardDTO">
 		<![CDATA[
@@ -101,6 +105,16 @@
 		or B.mbnickName like '%'||#{searchValue}||'%') order by A.brnum desc
 		]]>
 	</select>
+	
+	<insert id="boardInsert" parameterType="com.exe.dto.BoardDTO">
+		insert into board(brnum,mbid,cgnum,brsubject,
+		brmainphoto,brmorephoto,brcontent,broptions,brprice,brdate,brcount)
+		values (#{brNum},#{mbId},#{cgNum},#{brSubject},#{brMainPhoto},#{brMorePhoto},
+		#{brContent},#{brOptions},#{brPrice},sysdate,0)
+	</insert>
 
+	<select id="brMaxNum" resultType="int">
+		select nvl(max(brnum),0) from board
+	</select>
 
 </mapper>

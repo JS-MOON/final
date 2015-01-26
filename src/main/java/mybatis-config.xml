@@ -27,6 +27,7 @@
   		<mapper resource="com/exe/mybatis/GoodsMapper.xml"/>
   		<mapper resource="com/exe/mybatis/RegisterMapper.xml"/>
   		<mapper resource="com/exe/mybatis/HistoryMapper.xml"/>
+  		<mapper resource="com/exe/mybatis/CommentsMapper.xml"/>
   	</mappers>
 
   </configuration>

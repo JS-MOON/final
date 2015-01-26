@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -42,7 +43,7 @@ public class RegisterController {
 		MemberDTO dto = dao.registerMemberData(mbId);
 
 		if (dto != null) {
-			str = "���̵� �����մϴ�.";
+			str = "占쏙옙占싱듸옙 占쏙옙占쏙옙占쌌니댐옙.";
 		} else {
 
 			dto = new MemberDTO();
@@ -89,10 +90,10 @@ public class RegisterController {
 
 		if (dto == null) {
 
-			str = "���̵� �������� �ʽ��ϴ�.";
+			str = "占쏙옙占싱듸옙 占쏙옙占쏙옙占쏙옙占쏙옙 占십쏙옙占싹댐옙.";
 
 		} else if (!dto.getMbPw().equals(mbPw)) {
-			str = "��й�ȣ�� ��ġ���� �ʽ��ϴ�.";
+			str = "占쏙옙橘占싫ｏ옙占� 占쏙옙치占쏙옙占쏙옙 占십쏙옙占싹댐옙.";
 
 		} else {
 			HttpSession session = request.getSession(true);
@@ -136,9 +137,9 @@ public class RegisterController {
 	 * 
 	 * if (dto == null) {
 	 * 
-	 * str = "���̵� �������� �ʽ��ϴ�.";
+	 * str = "占쏙옙占싱듸옙 占쏙옙占쏙옙占쏙옙占쏙옙 占십쏙옙占싹댐옙.";
 	 * 
-	 * } else if (!dto.getMbPw().equals(mbPw)) { str = "��й�ȣ�� ��ġ���� �ʽ��ϴ�.";
+	 * } else if (!dto.getMbPw().equals(mbPw)) { str = "占쏙옙橘占싫ｏ옙占� 占쏙옙치占쏙옙占쏙옙 占십쏙옙占싹댐옙.";
 	 * 
 	 * } else { HttpSession session = request.getSession(true);
 	 * 
@@ -234,8 +235,8 @@ public class RegisterController {
 				}
 
 				String mbPicData = mbId + originalFileName;
-
-				dao.updatePicture(mbPicData, mbs.getMbId());
+				
+				dao.updatePicture(mbs.getMbId(),mbPicData );
 
 				is.close();
 				fos.close();
@@ -247,7 +248,7 @@ public class RegisterController {
 		return "Comm/complete";
 	}
 
-	@RequestMapping(value = "/My/UpdateMyProfile.action", method = {
+	@RequestMapping(value = "/My/UpdateMyprofile.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
 	public String updateMyProfile(MemberDTO dto, HttpServletRequest request) {
 
@@ -284,7 +285,7 @@ public class RegisterController {
 
 	}
 
-	@RequestMapping(value = "/Out.action", method = { RequestMethod.GET,
+	@RequestMapping(value = "/My/Out.action", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public String out(HttpServletRequest request) {
 
@@ -302,7 +303,11 @@ public class RegisterController {
 			session.invalidate();
 		}
 
-		return "Registr/Register";
+		return "Register/Register";
 
 	}
+	
+
+	
 }
+

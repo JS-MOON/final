@@ -7,6 +7,7 @@
 	MemberSession mbs = (MemberSession) session.getAttribute("session");
 
 	String mbPw_r = mbs.getMbPw();
+/* 	String mb = request.getParameter("mbPw1"); */
 %>
 <!DOCTYPE html>
 <html>
@@ -21,18 +22,18 @@
 		function changePw() {
 			var f = document.changePwForm;
 
-			if (f.mbPw.value !=<%=mbPw_r%>) {
-
+			if (f.mbPw.value !="<%=mbPw_r%>") {
+				
 				alert("현재비밀번호를 확인해 주세요");
 				f.mbPw.focus();
 				return;
 
-			} else if (f.changeMbPw1.value != f.changeMbPw2.value) {
+			}  else if (f.changeMbPw1.value != f.changeMbPw2.value) {
 				alert("비밀번호가 틀립니다");
 				f.changeMbPw1.focus();
 				return;
-			}
-
+			} 
+			 
 			alert("비밀번호가 수정되었습니다.");
 			f.action = "ChangePw.action";
 			f.submit();
@@ -43,16 +44,18 @@
 
 			var f = document.outMemberForm;
 			
-			if(f.mbPw.value !=<%=mbPw_r%>) {
+			if(f.mbPw1.value !="<%=mbPw_r%>") {
 				
 				alert("비밀번호가 틀렸습니다.");
 				f.mbpw.focus();
 				return;				
 			} 
-		
+			
+			f.action = "Out.action";
 			f.submit();
 
 		}
+		
 
 		$('input:radio[name="rbtnCause"]').change();
 
@@ -77,7 +80,7 @@
 		<!-- //마이페이지lnb -->
 
 		<!-- 내용 -->
-		<form action="./changePw.action" method="post" name="changePwForm">
+		<form action="/My/changePw.action" method="post" name="changePwForm">
 
 			<div class="contBlock">
 				<h4>비밀번호 변경</h4>
@@ -130,7 +133,7 @@
 				</div>
 		</form>
 
-		<form action="./Out.action" method="post" name="outMemberForm">
+		<form action="" method="post" name="outMemberForm">
 			<h4>회원 탈퇴하기</h4>
 			<div class="tblType">
 				<table cellpadding="0" cellspacing="0">
@@ -175,7 +178,7 @@
 							</th>
 							<td>
 								<div class="td">
-									<input name="mbPw" type="password" maxlength="20"
+									<input name="mbPw1" type="password" maxlength="20"
 										class="input-text" style="width: 100%;" />
 								</div>
 							</td>

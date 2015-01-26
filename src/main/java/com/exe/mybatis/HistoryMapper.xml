@@ -7,18 +7,18 @@
 
 <!-- history -->
 <select id="hsMaxNum" resultType="integer">
-	select nvl(max(cmnum),0) from comments
+	select nvl(max(hsnum),0) from history
 </select>
 
 <insert id="hsInsert" parameterType="com.exe.dto.HistoryDTO">
 	insert into history (hsnum,mbid,brnum,hsdate,hsprice,hstotalPrice,hsoptions)
-	values (#{hsnum},#{mbid},#{brnum},#{hsdate},#{hsprice},#{hstotalPrice},#{hsoptions})
+	values (#{hsNum},#{mbId},#{brNum},sysdate,#{hsPrice},#{hsTotalPrice},#{hsOptions})
 </insert>
 
 <select id="selectHistory" parameterType="String" resultType="com.exe.dto.HistoryDTO">
 	select hs.hsdate, hs.hsprice, hs.hstotalprice, hs.hsoptions,br.brnum, br.brsubject, br.brmainphoto
 	from history hs inner join board br on hs.brnum = br.brnum 
-	where hs.mbid = #{mbid}
+	where hs.mbid = #{mbId}
 </select>
 
 

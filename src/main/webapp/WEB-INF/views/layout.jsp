@@ -85,6 +85,50 @@
 		});
 	</script>
 
+<<<<<<< HEAD
+=======
+	<script>
+		var noticePop;
+
+		$(document).ready(function() {
+			//            noticePop = window.open("/MainPage/Notice_PopUp_MainTop.action", "notice", "width=680 height=520 toolbar=no location=no titlebar=no status=no menubar=no scrollbars=no resizable=no left=50 top=20  ");
+
+			$(window).bind('scroll', function() {
+				var quick = $('#quick-best'); // 302px
+				var docT = $(document).scrollTop();
+
+				var quickH = $(quick).height();
+				var footH = $('#footer').height();
+				var docH = $(document).height();
+				var stopH = docH - (quickH + footH) - 100;
+				// alert(stopH);
+				if (docT < 1200) {
+					$(quick).fadeOut(500); // 상단으로 올라 올때 다시 사라지도록 함
+					$(quick).removeClass('on');
+				} else if (docT > 1200 && docT < stopH) {
+					$(quick).fadeIn(1500);
+					$(quick).addClass('on');
+				} else if (docT > stopH) {
+					$(quick).css({
+						position : 'fixed',
+						bottom : 30
+					});
+				}
+			});
+
+			$('ul , li').click(function() {
+				$('li .a').css("color", "hotpink");
+
+			});
+
+		});
+
+		function popClose() {
+			noticePop.Close();
+		}
+	</script>
+
+>>>>>>> origin/master
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.adBannerWrap .adBanner').cycle({
@@ -297,7 +341,7 @@
 				<!-- 공지 -->
 				<div class="nowNotice">
 					<p class="article">
-						<a href="../CS/Notice.jsp">[공지] 재능 등록하시기 전 필독!</a>
+						<a href="/final/Etc/Notice.action">[공지] 재능 등록하시기 전 필독!</a>
 					</p>
 					<span class="va_m"></span>
 				</div>
@@ -340,7 +384,7 @@
 					<li id="myPageDrop" class="user"><a href="#"> <!--<img src="../../resources/images/common/ico_my_default_thumb.png" alt="" />-->
 						<img src="../resources/images/common/ico_my_default_thumb.png"
 							 alt=""> <span></span>
-					</a> <a onclick="return confirm('로그아웃하시겠습니까?');" href="../logout/logout.action">${sessionScope.session.mbId}</a>
+					</a> <a onclick="return confirm('로그아웃하시겠습니까?');" href="../Goods/logout.action">${sessionScope.session.mbId}</a>
 						<div class="myPageDrop">
 							<span class="arr"></span>
 							<div class="innerWrap">
@@ -461,12 +505,12 @@
 	<div id="footer">
 		<div class="centered_cont">
 			<ul class="footerUtil">
-				<li class="first"><a href="../Etc/LawService.jsp">서비스 이용약관</a></li>
-				<li><a href="../Etc/LawPersonal.jsp">개인정보 취급방침</a></li>
-				<li><a href="../CS/Suggest.jsp">제안하기</a></li>
-				<li><a href="../CS/Notice.jsp">고객센터</a></li>
-				<li><a href="../Etc/LawGoodsReg.jsp">재능등록심사규정</a></li>
-				<li><a href="../DisplayAD/ADPayment.jsp">재능광고신청</a></li>
+				<li class="first"><a href="/final/Etc/LawService.action">서비스 이용약관</a></li>
+				<li><a href="/final/Etc/LawPersonal.action">개인정보 취급방침</a></li>
+				<li><a href="/final/Etc/Suggest.action">제안하기</a></li>
+				<li><a href="/final/Etc/Notice.action">고객센터</a></li>
+				<li><a href="/final/Etc/LawGoodsReg.action">재능등록심사규정</a></li>
+				<li><a href="/final/Etc/ADPayment.action">재능광고신청</a></li>
 			</ul>
 			<div class="company_info">
 				<img src="../resources/images/common/footer.gif" style="margin-left: 36px" alt="" />

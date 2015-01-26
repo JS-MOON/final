@@ -42,6 +42,7 @@ public class GoodsDAO {
 	//mainaction end
 
 	//gDetail start
+	//í•œê°œì˜ ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
 	public BoardDTO getReadData(int brNum) {
 
 		BoardDTO dto = sessionTemplate.selectOne("GoodsMapper.getReadData",brNum);
@@ -85,10 +86,19 @@ public class GoodsDAO {
 	 
 	 return lists;
 	}
+	
+	//ì„ íƒí•œ ìƒí’ˆì˜ ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ê¸°
+	public String onePhoto(int brNum) {
+		
+		String mainPhoto = sessionTemplate.selectOne("GoodsMapper.onePhoto", brNum);
+		
+		return mainPhoto;
+		
+	}
 	//gDetail end
 	
 	//gList start
-	public List<BoardDTO> list(int start, int end) {//Ä«Å×°í¸® Á¤·Ä¹æ½Ä ¾ø´Â °æ¿ì
+	public List<BoardDTO> list(int start, int end) {
 		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("start", start);
@@ -100,26 +110,20 @@ public class GoodsDAO {
 		return lists;
 	}
 
-	public List<BoardDTO> list(int start, int end,String column,String order) {//Ä«Å×°í¸® Á¤·Ä¹æ½Ä ÀÖ´Â °æ¿ì
+	public List<BoardDTO> list(int start, int end,String column,String order) {
 		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("start", start);
 		params.put("end", end);
 		params.put("column", column);
 		params.put("order", order);
-		
-		System.out.println(start);
-		System.out.println(end);
-		System.out.println(column);
-		System.out.println(order);
-		
-		
+
 		List<BoardDTO> lists = sessionTemplate.selectList("GoodsMapper.gList",params);
 		
 		return lists; 
 	}
 	
-	public List<CategoryDTO> getReadCategory(int start,int end){//Ä«Å×°í¸® °Ë»ö
+	public List<CategoryDTO> getReadCategory(int start,int end){
 		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("start", start);
@@ -142,7 +146,18 @@ public class GoodsDAO {
 		return lists;
 		
 	}
+	
+	public void boardInsert(BoardDTO dto){
+		
+		sessionTemplate.insert("GoodsMapper.boardInsert",dto);
+	}
 
+	public int brMaxNum(){
+		int result = 0;
+		result = sessionTemplate.selectOne("GoodsMapper.brMaxNum");
+		
+		return result;
+	}
 
 	
 }
