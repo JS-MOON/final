@@ -36,8 +36,21 @@ public class HistoryController {
 	@RequestMapping(value="/Goods/GOrder_ok.action",method={RequestMethod.GET,RequestMethod.POST})
 	public String gorder_ok(HttpServletRequest req, HttpServletResponse res, HistoryDTO dto){
 
-		//포인트 관련
-		int point = (int) (Integer.parseInt(req.getParameter("totalPrice"))*0.1);
+		//포인트 사용 관련
+		int absUsedPoint = Integer.parseInt(req.getParameter("usedPoint"));
+		if(absUsedPoint > 0) {
+			int usedPoint = -1 * Integer.parseInt(req.getParameter("usedPoint"));
+			int ptMaxNum = pdao.ptMaxNum();
+			PointDTO pdto = new PointDTO();
+			pdto.setPtNum(ptMaxNum+1);
+			pdto.setMbId(req.getParameter("mbId"));
+			pdto.setPtPoint(usedPoint);
+			pdto.setPtHistory("포인트 사용 차감");
+			pdao.ptInsert(pdto);
+		}
+
+		//포인트 적립 관련
+		int point = (int) (Integer.parseInt(req.getParameter("price"))*0.1);
 		int ptMaxNum = pdao.ptMaxNum();
 		PointDTO pdto = new PointDTO();
 		pdto.setPtNum(ptMaxNum+1);
@@ -56,7 +69,6 @@ public class HistoryController {
 		dto.setHsPrice(Integer.parseInt(req.getParameter("price")));
 		dto.setHsTotalPrice(Integer.parseInt(req.getParameter("totalPrice")));
 		dto.setPtNum(ptMaxNum);
-
 		dao.hsInsert(dto);
 
 		return  "redirect:/My/MyOrderMng.action";

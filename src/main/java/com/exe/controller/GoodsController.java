@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.exe.dao.PointDAO;
+import com.exe.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -16,10 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.exe.dao.GoodsDAO;
-import com.exe.dto.BoardDTO;
-import com.exe.dto.CategoryDTO;
-import com.exe.dto.CommentsDTO;
-import com.exe.dto.MemberDTO;
 import com.exe.util.DivideOptions;
 
 @Controller
@@ -29,6 +27,9 @@ public class GoodsController {
 	@Qualifier("goodsDAO")
 	GoodsDAO dao;
 
+	@Autowired
+	@Qualifier("pointDAO")
+	PointDAO pdao;
 
 	// 메인
 	@RequestMapping(value = "/", method = { RequestMethod.GET,
@@ -429,7 +430,6 @@ public class GoodsController {
 		String category2 = request.getParameter("category2");
 		String brNum = request.getParameter("brNum");
 		String srId = request.getParameter("srId");
-		System.out.println(srId);
 
 		request.setAttribute("option", option);
 		request.setAttribute("basicPrice", basicPrice);
@@ -456,8 +456,12 @@ public class GoodsController {
 		int vatAddedtotalPrice = (int) (Integer.parseInt(totalPrice) * 1.1);
 		request.setAttribute("vatAddedtotalPrice", vatAddedtotalPrice);
 
-		return "Goods/GOrder";
+		HttpSession session = request.getSession();
+		MemberSession mbs = (MemberSession) session.getAttribute("session");
+		int restPoint = pdao.ptGetSum(mbs.getMbId());
+		request.setAttribute("restPoint", restPoint);
 
+		return "Goods/GOrder";
 	}
 
 	@RequestMapping(value = "/Goods/logout.action", method = { RequestMethod.GET,

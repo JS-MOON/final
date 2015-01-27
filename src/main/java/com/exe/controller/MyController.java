@@ -4,14 +4,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.exe.dao.PointDAO;
+import com.exe.dto.PointDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.exe.dto.MemberSession;
 
+import java.util.List;
+
 @Controller
 public class MyController {
+
+	@Autowired
+	@Qualifier("pointDAO")
+	PointDAO pdao;
 	
 	@RequestMapping(value="/My/MyAccount.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String myAccount(HttpServletRequest req, HttpServletResponse res){
@@ -53,8 +63,11 @@ public class MyController {
 	
 	@RequestMapping(value="/My/MyPoint.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String myPoint(HttpServletRequest req, HttpServletResponse res){
-		
-		
+		HttpSession session = req.getSession();
+		MemberSession mbs = (MemberSession) session.getAttribute("session");
+		List<PointDTO> pointDTOList = pdao.ptGetAll(mbs.getMbId());
+		req.setAttribute("pointDTOList", pointDTOList);
+
 		return "My/MyPoint";
 	}
 	

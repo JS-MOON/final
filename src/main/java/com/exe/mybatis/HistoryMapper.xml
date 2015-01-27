@@ -11,8 +11,8 @@
 </select>
 
 <insert id="hsInsert" parameterType="com.exe.dto.HistoryDTO">
-	insert into history (hsnum,mbid,srid,brnum,hsdate,hsprice,hstotalPrice,hsoptions)
-	values (#{hsNum},#{mbId},#{srId},#{brNum},sysdate,#{hsPrice},#{hsTotalPrice},#{hsOptions})
+	insert into history (hsnum,mbid,srid,brnum,hsdate,hsprice,hstotalPrice,hsoptions,ptNum)
+	values (#{hsNum},#{mbId},#{srId},#{brNum},sysdate,#{hsPrice},#{hsTotalPrice},#{hsOptions},#{hsOptions})
 </insert>
 
 <select id="selectHistory" parameterType="String" resultType="com.exe.dto.HistoryDTO">

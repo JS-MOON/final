@@ -333,3 +333,39 @@ function changeWishList(id) {
     else
         parent.addClass('on');
 }
+
+function selectUsePoint() {
+    var usePoint = document.getElementsByName("usePoint");
+
+    if(usePoint[0].checked===true) {
+        usePoint[1].checked = false;
+        document.getElementById("pointInputBox").hidden = "";
+    } else {
+        usePoint[0].checked = false;
+        document.getElementById("pointInputBox").hidden = "hidden";
+    }
+}
+
+function gOrderSubmit() {
+    if(Number(document.getElementById("pointInputBox").value) <= Number(document.getElementById("restPoint").value)) {
+        if(document.getElementById("pointInputBox").value === "") {
+            document.getElementById("usedPoint").value = 0;
+        } else {
+            document.getElementById("usedPoint").value = document.getElementById("pointInputBox").value;
+        }
+        alert("hiddenTotalPrice=" + document.getElementById("hiddenTotalPrice").value);
+        alert("hiddenVatAddedTotalPrice=" + document.getElementById("hiddenVatAddedTotalPrice").value);
+        document.orderForm.submit();
+    } else {
+        alert("포인트가 모자랍니다.");
+    }
+}
+
+function updatePointValue() {
+    $("#pointValue").text(document.getElementById("pointInputBox").value);
+    $("#totalPrice").text(document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value);
+    $("#vatAddedTotalPrice")
+        .text(parseInt((document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value)*1.1));
+    document.getElementById("hiddenVatAddedTotalPrice").value = (document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value)*1.1;
+    document.getElementById("hiddenTotalPrice").value = (document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value);
+}

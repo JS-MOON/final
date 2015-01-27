@@ -32,7 +32,7 @@ public class PointDAO {
     }
 
     public int ptGetSum(String mbId){
-        return sessionTemplate.selectOne("point.ptMaxNum",mbId);
+        return sessionTemplate.selectOne("point.ptGetSum",mbId);
     }
 
 }
