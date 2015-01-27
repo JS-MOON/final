@@ -32,6 +32,6 @@ target/m2e-wtp/web-resources/META-INF/maven/com.exe/project/pom.properties
 
 
 #Project Resource
-src/main/webapp/resources/
+src/main/webapp/resources/images/
 src/main/webapp/WEB-INF/images/
 *.MF

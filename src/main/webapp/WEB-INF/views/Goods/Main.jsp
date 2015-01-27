@@ -57,7 +57,7 @@
 
             <div class="pdtListWrap">
                 <div class="pdtList">
-                	<c:forEach var="dto" begin="0" end="17" items="${countLists}">
+                	<c:forEach var="dto" begin="0" end="17" items="${countLists}" varStatus="status">
                     <div class="pdtWrap">
                         <div class="sellerResume" >
                         <span class="sellingUser">
@@ -76,7 +76,7 @@
                             <span class="pdtThumb">
                                 <img src="../Product/${dto.brMainPhoto}" alt="기업용 홈페이지 제작해드립니다."  Height=308px  Width=308px   />
                                 <span class="btnWistList on">
-                                    <input type="image" name="" id="ContentPlaceHolder1_WUC_Guest_AbilityList1_rptList_ImageZZim_0" src="../resources/images/product/btn_wishList_on.png" style="border-style:None;" />
+                                    <input type="button" id="wishList_${status.index}" style="border-style:None;" onclick="changeWishList(${status.index});return false;"/>
                                 </span>
                             </span>
                             </a>
