@@ -186,6 +186,7 @@
 						</div>
 						<!-- 제품상세 -->
 					</div>
+					<input type="hidden" name="srId" value="${dto.mbId}">	
 					<!-- //제품정보 -->
 				</form>
 				<!-- 제품상세정보 -->

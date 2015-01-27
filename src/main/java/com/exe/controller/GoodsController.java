@@ -30,7 +30,7 @@ public class GoodsController {
 	@Qualifier("goodsDAO")
 	GoodsDAO dao;
 
-	// ¸ÞÀÎ
+	// ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public String main() {
@@ -38,7 +38,7 @@ public class GoodsController {
 		return "index";
 	}
 
-	// ¸ÞÀÎ
+	// ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/Goods/Main.action", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public String mainaction(HttpServletRequest request,
@@ -89,7 +89,7 @@ public class GoodsController {
 
 	}
 
-	// ÃÖ±Ù º» ¸ñ·Ï ÄíÅ° Ãß°¡
+	// ï¿½Ö±ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å° ï¿½ß°ï¿½
 	@RequestMapping(value = "/Goods/GDetail.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
 	public String gDetail(String brNum, HttpServletRequest request,
@@ -118,7 +118,7 @@ public class GoodsController {
 
 	}
 
-	// »óÇ°»ó¼¼¼³¸íÃ¢
+	// ï¿½ï¿½Ç°ï¿½ó¼¼¼ï¿½ï¿½ï¿½Ã¢
 	@RequestMapping(value = "/Goods/RGDetail.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
 	public String redirectGDetail(HttpServletRequest request,
@@ -162,7 +162,7 @@ public class GoodsController {
 			String category1 = cgdto.getCgCategory1();
 			String category2 = cgdto.getCgCategory2();
 
-			// °ü·ÃÀç´É select
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ select
 			List<BoardDTO> relists = dao.list(cgNum);
 
 			request.setAttribute("relists", relists);
@@ -257,17 +257,17 @@ public class GoodsController {
 
 		String option = request.getParameter("range");
 
-		if (option.equals("1")) {// °¡°Ý ³»¸²Â÷¼ø
+		if (option.equals("1")) {// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			String column = "brprice";
 			String order = "desc";
 			List<BoardDTO> lists = dao.list(start, end, column, order);
 			request.setAttribute("lists", lists);
-		} else if (option.equals("2")) {// °¡°Ý ¿Ã¸²Â÷¼ø
+		} else if (option.equals("2")) {// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½
 			String column = "brprice";
 			String order = "asc";
 			List<BoardDTO> lists = dao.list(start, end, column, order);
 			request.setAttribute("lists", lists);
-		} else if (option.equals("3")) {// ³¯Â¥¼ø
+		} else if (option.equals("3")) {// ï¿½ï¿½Â¥ï¿½ï¿½
 			String column = "brdate";
 			String order = "desc";
 			List<BoardDTO> lists = dao.list(start, end, column, order);
@@ -322,7 +322,7 @@ public class GoodsController {
 			}
 		}
 
-		// Ä«Å×°í¸® Âï¾îÁÖ±â
+		// Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 		String imagePath = cp + "/Product";
 		
 		List<CategoryDTO> cglists = dao.getReadCategory(start, end);
@@ -405,6 +405,8 @@ public class GoodsController {
 		String category1 = request.getParameter("category1");
 		String category2 = request.getParameter("category2");
 		String brNum = request.getParameter("brNum");
+		String srId = request.getParameter("srId");
+		System.out.println(srId);
 
 		request.setAttribute("option", option);
 		request.setAttribute("basicPrice", basicPrice);
@@ -414,6 +416,7 @@ public class GoodsController {
 		request.setAttribute("category1", category1);
 		request.setAttribute("category2", category2);
 		request.setAttribute("brNum", brNum);
+		request.setAttribute("srId", srId);
 
 		DivideOptions divideOptions = new DivideOptions();
 		List<String> op = divideOptions.parse(option);
@@ -440,7 +443,7 @@ public class GoodsController {
 		
 		String str = "";
 
-		str = "·Î±×¾Æ¿ô µÇ¼Ì½À´Ï´Ù.";
+		str = "ï¿½Î±×¾Æ¿ï¿½ ï¿½Ç¼Ì½ï¿½ï¿½Ï´ï¿½.";
 		
 		Cookie[] ck = request.getCookies();
 

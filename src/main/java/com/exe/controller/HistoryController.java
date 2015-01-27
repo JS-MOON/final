@@ -34,10 +34,12 @@ public class HistoryController {
 		
 		dto.setHsNum(hsMaxNum+1);
 		dto.setMbId(req.getParameter("mbId"));
+		dto.setSrId(req.getParameter("srId"));
 		dto.setBrNum(Integer.parseInt(req.getParameter("brNum")));
 		dto.setHsOptions(req.getParameter("options"));
 		dto.setHsPrice(Integer.parseInt(req.getParameter("price")));
 		dto.setHsTotalPrice(Integer.parseInt(req.getParameter("totalPrice")));
+		
 		
 		dao.hsInsert(dto);
 		
@@ -58,6 +60,27 @@ public class HistoryController {
 		req.setAttribute("lists", lists);
 		
 		return "/My/MyOrderMng";
+	}
+	
+	@RequestMapping(value="/My/SellMng.action", method={RequestMethod.GET,RequestMethod.POST})
+	public String sellMng(HttpServletRequest req, HttpServletResponse res){
+		
+		//판매내역 
+		HttpSession session = req.getSession();
+		
+		MemberSession mbs = (MemberSession)session.getAttribute("session");
+		
+		String mbId = mbs.getMbId();
+		
+		System.out.println(mbId);
+		
+		List<HistoryDTO> lists = dao.selectSellHistory(mbId);
+		
+		req.setAttribute("lists", lists);
+		
+		System.out.println(lists);
+		
+		return "My/SellMng";
 	}
 	
 

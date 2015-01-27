@@ -31,5 +31,10 @@ public class HistoryDAO {
 		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectHistory",MbId);
 		return lists;
 	}
+	
+	public List<HistoryDTO> selectSellHistory(String mbId){
+		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectSellHistory",mbId);
+		return lists;
+	}
 
 }
