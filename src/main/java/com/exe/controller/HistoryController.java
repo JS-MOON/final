@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.exe.dao.PointDAO;
+import com.exe.dto.PointDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -23,24 +25,38 @@ public class HistoryController {
 	@Autowired
 	@Qualifier("historyDAO")
 	HistoryDAO dao;
+
+	@Autowired
+	@Qualifier("pointDAO")
+	PointDAO pdao;
 	
 	@Autowired
 	MyUtil myUtil;
 	
 	@RequestMapping(value="/Goods/GOrder_ok.action",method={RequestMethod.GET,RequestMethod.POST})
 	public String gorder_ok(HttpServletRequest req, HttpServletResponse res, HistoryDTO dto){
-		
+
+		//포인트 관련
+		int point = (int) (Integer.parseInt(req.getParameter("totalPrice"))*0.1);
+		int ptMaxNum = pdao.ptMaxNum();
+		PointDTO pdto = new PointDTO();
+		pdto.setPtNum(ptMaxNum+1);
+		pdto.setMbId(req.getParameter("mbId"));
+		pdto.setPtPoint(point);
+		pdto.setPtHistory("상품 구매 10% 적립");
+		pdao.ptInsert(pdto);
+
+		//구입관리 관련
 		int hsMaxNum = dao.hsMaxNum();
-		
 		dto.setHsNum(hsMaxNum+1);
 		dto.setMbId(req.getParameter("mbId"));
 		dto.setBrNum(Integer.parseInt(req.getParameter("brNum")));
 		dto.setHsOptions(req.getParameter("options"));
 		dto.setHsPrice(Integer.parseInt(req.getParameter("price")));
 		dto.setHsTotalPrice(Integer.parseInt(req.getParameter("totalPrice")));
-		
+		dto.setPtNum(ptMaxNum);
 		dao.hsInsert(dto);
-		
+
 		return  "redirect:/My/MyOrderMng.action";
 	}
 	
@@ -59,7 +75,4 @@ public class HistoryController {
 		
 		return "/My/MyOrderMng";
 	}
-	
-
-
 }

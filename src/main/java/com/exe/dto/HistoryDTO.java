@@ -16,6 +16,15 @@ public class HistoryDTO {
 	private String hsOptions;
 	private String brSubject;
 	private String brMainphoto;
+	private int ptNum;
+
+	public int getPtNum() {
+		return ptNum;
+	}
+
+	public void setPtNum(int ptNum) {
+		this.ptNum = ptNum;
+	}
 
 	public int getHsNum() {
 		return hsNum;

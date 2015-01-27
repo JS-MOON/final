@@ -55,9 +55,6 @@ public class GoodsController {
 
 						String[] wishListsArray = temp.split(",,");
 
-						System.out.println("temp: " + temp);
-						System.out.println("wishList: " + wishListsArray[0]);
-
 						for (int i = 0; i < wishListsArray.length; i++) {
 							if (i % 2 == 0)
 								brNumbs[i / 2] = wishListsArray[i];
@@ -157,9 +154,6 @@ public class GoodsController {
 							String temp = cooky.getValue();
 
 							String[] wishListsArray = temp.split(",,");
-
-							System.out.println("temp: " + temp);
-							System.out.println("wishList: " + wishListsArray[0]);
 
 							for (int i = 0; i < wishListsArray.length; i++) {
 								if (i % 2 == 0)

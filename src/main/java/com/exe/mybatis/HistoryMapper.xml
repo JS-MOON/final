@@ -6,7 +6,7 @@
 <mapper namespace="history">
 
 <!-- history -->
-<select id="hsMaxNum" resultType="integer">
+<select id="hsMaxNum" resultType="int">
 	select nvl(max(hsnum),0) from history
 </select>
 
