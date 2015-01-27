@@ -6,6 +6,7 @@ import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,12 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 
 import com.exe.dao.GoodsDAO;
-import com.exe.dao.RegisterDAO;
 import com.exe.dto.BoardDTO;
-import com.exe.dto.MemberDTO;
+import com.exe.dto.MemberSession;
 import com.exe.util.ImageName;
 
 
@@ -36,13 +35,6 @@ public class SellController {
 		
 		
 		return "My/SellIncome";
-	}
-	
-	@RequestMapping(value="/My/SellMng.action", method={RequestMethod.GET,RequestMethod.POST})
-	public String sellMng(HttpServletRequest req, HttpServletResponse res){
-		
-		
-		return "My/SellMng";
 	}
 	
 	@RequestMapping(value="/My/SellProdListMy.action", method={RequestMethod.GET,RequestMethod.POST})

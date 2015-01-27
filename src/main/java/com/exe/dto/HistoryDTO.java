@@ -9,6 +9,7 @@ public class HistoryDTO {
 
     private int hsNum;
     private String mbId;
+    private String srId;
     private int brNum;
     private Date hsDate;
     private int hsPrice;
@@ -56,6 +57,13 @@ public class HistoryDTO {
 
 	public void setMbId(String mbId) {
 		this.mbId = mbId;
+	}
+	public String getSrId() {
+		return srId;
+	}
+
+	public void setSrId(String srId) {
+		this.srId = srId;
 	}
 
 	public int getBrNum() {

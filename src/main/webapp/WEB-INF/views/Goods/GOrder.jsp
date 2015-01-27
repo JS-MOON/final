@@ -27,7 +27,7 @@
                 </div>
                 <!-- //location -->
 
-                <h2 class="paymentTitle">이 재능 결제하기</h2>
+                <h2 class="paymentTitle">이 재능 결제하기${srId}</h2>
                 <div class="payment">
                     <!-- 결제대상 -->
                     <div class="payTarget">
@@ -176,6 +176,7 @@
                     <input type="hidden" name="options" value="${option}" />
                     <input type="hidden" name="price" value="${totalPrice }" />
                     <input type="hidden" name="totalPrice" value="${vatAddedtotalPrice}" />
+                    <input type="hidden" name="srId" value="${srId}"/>
 
                 </div>
             </div>

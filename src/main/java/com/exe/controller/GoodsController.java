@@ -29,6 +29,7 @@ public class GoodsController {
 	@Qualifier("goodsDAO")
 	GoodsDAO dao;
 
+
 	// 메인
 	@RequestMapping(value = "/", method = { RequestMethod.GET,
 			RequestMethod.POST })
@@ -38,6 +39,7 @@ public class GoodsController {
 	}
 
 	// 메인
+
 	@RequestMapping(value = "/Goods/Main.action", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public String mainaction(HttpServletRequest request,
@@ -85,7 +87,7 @@ public class GoodsController {
 		return "/Goods/Main";
 
 	}
-
+	
 	// 최근 본 목록 쿠키 추가
 	@RequestMapping(value = "/Goods/GDetail.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
@@ -281,11 +283,13 @@ public class GoodsController {
 			String order = "desc";
 			List<BoardDTO> lists = dao.list(start, end, column, order);
 			request.setAttribute("lists", lists);
+		} else if (option.equals("2")) {// ���� �ø�����
 		} else if (option.equals("2")) {// 가격 올림차순
 			String column = "brprice";
 			String order = "asc";
 			List<BoardDTO> lists = dao.list(start, end, column, order);
 			request.setAttribute("lists", lists);
+		} else if (option.equals("3")) {// ��¥��
 		} else if (option.equals("3")) {// 날짜순
 			String column = "brdate";
 			String order = "desc";
@@ -424,6 +428,8 @@ public class GoodsController {
 		String category1 = request.getParameter("category1");
 		String category2 = request.getParameter("category2");
 		String brNum = request.getParameter("brNum");
+		String srId = request.getParameter("srId");
+		System.out.println(srId);
 
 		request.setAttribute("option", option);
 		request.setAttribute("basicPrice", basicPrice);
@@ -433,6 +439,7 @@ public class GoodsController {
 		request.setAttribute("category1", category1);
 		request.setAttribute("category2", category2);
 		request.setAttribute("brNum", brNum);
+		request.setAttribute("srId", srId);
 
 		DivideOptions divideOptions = new DivideOptions();
 		List<String> op = divideOptions.parse(option);
@@ -458,7 +465,7 @@ public class GoodsController {
 	public String logout(HttpServletRequest request,HttpServletResponse response) {
 
 		String str = "";
-
+		
 		str = "로그아웃 되셨습니다.";
 
 		Cookie[] ck = request.getCookies();
