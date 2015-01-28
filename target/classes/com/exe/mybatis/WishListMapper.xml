@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wishList">
+
+<!-- history -->
+<select id="wiMaxNum" resultType="int">
+	select nvl(max(winum),0) from wishList
+</select>
+
+<insert id="wiInsert" parameterType="com.exe.dto.WishListDTO">
+	insert into wishList (mbid,brnum,winum,widate)
+	values (#{mbId},#{brNum},#{wiNum},sysdate)
+</insert>
+
+<select id="selectWishList" parameterType="String" resultType="com.exe.dto.BoardDTO">
+	SELECT D.MBID,C.mbnickName,C.mbpic,B.cgcategory1,A.brnum,A.brsubject,A.brmainphoto,A.brprice,A.brcount
+	from board A,category B,member C,WISHLIST D where A.cgnum=B.cgnum AND d.BRNUM = a.BRNUM and
+	A.mbid=C.mbid order by A.brcount desc
+
+</select>
+
+<select id="searchWishList" parameterType="String" resultType="com.exe.dto.BoardDTO">
+	SELECT mbId,brNum from wishList where mbId = #{mbId}
+
+</select>
+
+<delete id="delWishList" parameterType="hashMap">
+	delete wishList where brNum=#{brNum} and mbId = #{mbId}
+</delete>
+
+</mapper>

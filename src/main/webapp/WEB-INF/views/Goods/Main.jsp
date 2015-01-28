@@ -75,9 +75,25 @@
                             <a href="../Goods/GDetail.action?brNum=${dto.brNum}">
                             <span class="pdtThumb">
                                 <img src="../Product/${dto.brMainPhoto}" alt="기업용 홈페이지 제작해드립니다."  Height=308px  Width=308px   />
-                                <span class="btnWistList on">
-                                    <input type="button" id="wishList_${status.index}" style="border-style:None;" onclick="changeWishList(${status.index});return false;"/>
+                                <c:if test="${empty wishLists }">
+                                 <span class="btnWistList on">
+                                    <input type="button" id="wishList_${status.index}" value="${dto.brNum }" style="border-style:None;" onclick="changeWishList(${status.index});return false;"/>
                                 </span>
+                                </c:if>
+                                <c:if test="${!empty wishLists }">
+                                <c:forEach var="wishdto" items="${wishLists }">
+                                <c:if test="${wishdto.brNum==dto.brNum }">
+                                <span class="btnWistList">
+                                    <input type="button" id="wishList_${status.index}" value="${dto.brNum }" style="border-style:None;" onclick="changeWishList(${status.index});return false;"/>
+                                </span>
+                                </c:if>
+                              	<c:if test="${wishdto.brNum!=dto.brNum }">
+                                <span class="btnWistList on">
+                                    <input type="button" id="wishList_${status.index}" value="${dto.brNum }" style="border-style:None;" onclick="changeWishList(${status.index});return false;"/>
+                                </span>
+                                </c:if>
+                                </c:forEach>
+                                </c:if>
                             </span>
                             </a>
                         </div>
@@ -105,7 +121,7 @@
           <!-- 사이드 퀵마이페이지 -->
 				<div class="quick-mypage quick-mypage-re">
 					<ul class="menuList">
-						<li class="wishPdt"><a class="wishPdt" href=""><span>찜한재능</span></a>
+						<li class="wishPdt"><a class="wishPdt" href="../My/MyFavority.action"><span>찜한재능</span></a>
 						</li>
 						<li class="recentPdt"><span class="t"><span>최근본재능</span></span>
 							<ul>

@@ -327,12 +327,45 @@ jQuery(function () {
 
 // 2조 추가사항
 function changeWishList(id) {
-    var parent = $("#wishList_" + id).parent();
-    if(parent.hasClass('on'))
-        parent.removeClass('on');
-    else
-        parent.addClass('on');
+
+	var parent = $("#wishList_" + id).parent();
+
+	if (parent.hasClass('on')) {
+		$.ajax({
+			type : "POST",
+			url : "../My/AddMyFavority.action",
+			data : {
+				brNum : $("#wishList_" + id).val()
+			},
+			success : function(args) {
+					parent.removeClass('on');
+					
+			},
+			error : function(request, status, error) {
+				alert("code : " + request.status + "\n" + "message : "
+						+ request.responseText + "\n" + "error : " + error);
+			}
+
+		});
+	}else if(!parent.hasClass('on')){
+		$.ajax({
+			type : "POST",
+			url : "../My/DelMyFavority.action",
+			data : {
+				brNum : $("#wishList_" + id).val()
+			},
+			success : function(args){
+				parent.addClass('on');
+				window.location.reload();
+			},
+			error : function(request, status, error) {
+				alert("code : " + request.status + "\n" + "message : "
+						+ request.responseText + "\n" + "error : " + error);
+			}
+		});
+	}
 }
+
 
 function selectUsePoint() {
     var usePoint = document.getElementsByName("usePoint");

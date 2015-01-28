@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.exe.dao.PointDAO;
+import com.exe.dao.WishListDAO;
 import com.exe.dto.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,10 @@ public class GoodsController {
 	@Autowired
 	@Qualifier("pointDAO")
 	PointDAO pdao;
+	
+	@Autowired
+	@Qualifier("wishListDAO")
+	WishListDAO widao;
 
 	// 메인
 	@RequestMapping(value = "/", method = { RequestMethod.GET,
@@ -44,7 +50,22 @@ public class GoodsController {
 	@RequestMapping(value = "/Goods/Main.action", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public String mainaction(HttpServletRequest request,
-							 HttpServletResponse response) {
+			HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		List<WishListDTO> wishLists = null;
+		
+		if(session.getAttribute("session")!=null){
+			
+			MemberSession mbs = (MemberSession) session.getAttribute("session");
+
+			String MbId = mbs.getMbId();
+			
+			wishLists = widao.searchWishList(MbId);
+		
+		}
+
+		
 
 		Cookie[] cookies = request.getCookies();
 		String[] brNumbs = new String[4];
@@ -78,12 +99,14 @@ public class GoodsController {
 		List<BoardDTO> newLists = dao.newTalentList();
 
 		List<BoardDTO> countLists = dao.mainCountList();
+		
 
 		request.setAttribute("str", str);
 		request.setAttribute("newLists", newLists);
 		request.setAttribute("countLists", countLists);
 		request.setAttribute("cookies", brNumbs);
 		request.setAttribute("cookiesPhoto", photos);
+		request.setAttribute("wishLists", wishLists);
 
 		return "/Goods/Main";
 
