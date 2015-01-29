@@ -96,9 +96,7 @@
 
 
                 </table>
-                <div class="seeMore">
-                    <a href="">더보기</a>
-                </div>
+
             </div>
             <!-- //게시판영역 -->
         </div>
