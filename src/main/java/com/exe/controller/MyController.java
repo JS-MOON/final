@@ -95,7 +95,7 @@ public class MyController {
 		
 		String MbId = mbs.getMbId();
 		
-		List<BoardDTO> lists = widao.selectWishList();
+		List<BoardDTO> lists = widao.selectWishList(MbId);
 		
 		req.setAttribute("lists", lists);
 

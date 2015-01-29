@@ -342,8 +342,10 @@ function changeWishList(id) {
 					
 			},
 			error : function(request, status, error) {
-				alert("code : " + request.status + "\n" + "message : "
-						+ request.responseText + "\n" + "error : " + error);
+				/*alert("code : " + request.status + "\n" + "message : "
+						+ request.responseText + "\n" + "error : " + error);*/
+				alert("로그인 후 이용 가능합니다.");
+				
 			}
 
 		});

@@ -61,38 +61,27 @@
                     <div class="pdtWrap">
                         <div class="sellerResume" >
                         <span class="sellingUser">
-
-									<img
-                                            src="../pds/imageFile/${dto.mbPic }"
-                                            alt="" Height=36px Width=36px /> <span class="user_id">${dto.mbNickName} </span>
+							<img src="../pds/imageFile/${dto.mbPic }" alt="" Height=36px Width=36px /> 
+							<span class="user_id">${dto.mbNickName}</span>
                         </span>
                             <div class="sellerCondition">
                                 <span class="onOff on">ONLINE</span>
-                                <span class="response">평균 응답시간 <span class="num">10</span>분</span>
+                                <span class="response">평균 응답시간<span class="num">10</span>분</span>
                             </div>
                         </div>
                         <div >
                             <a href="../Goods/GDetail.action?brNum=${dto.brNum}">
                             <span class="pdtThumb">
                                 <img src="../Product/${dto.brMainPhoto}" alt="기업용 홈페이지 제작해드립니다."  Height=308px  Width=308px   />
-                                <c:if test="${empty wishLists }">
+                                <c:if test="${dto.mbId.equals(mbId)}">
+                                 <span class="btnWistList">
+                                    <input type="button" id="wishList_${status.index}" value="${dto.brNum }" style="border-style:None;" onclick="changeWishList(${status.index});return false;"/>
+                                </span>
+                                </c:if>
+                                <c:if test="${!dto.mbId.equals(mbId)}">
                                  <span class="btnWistList on">
                                     <input type="button" id="wishList_${status.index}" value="${dto.brNum }" style="border-style:None;" onclick="changeWishList(${status.index});return false;"/>
                                 </span>
-                                </c:if>
-                                <c:if test="${!empty wishLists }">
-                                <c:forEach var="wishdto" items="${wishLists }">
-                                <c:if test="${wishdto.brNum==dto.brNum }">
-                                <span class="btnWistList">
-                                    <input type="button" id="wishList_${status.index}" value="${dto.brNum }" style="border-style:None;" onclick="changeWishList(${status.index});return false;"/>
-                                </span>
-                                </c:if>
-                              	<c:if test="${wishdto.brNum!=dto.brNum }">
-                                <span class="btnWistList on">
-                                    <input type="button" id="wishList_${status.index}" value="${dto.brNum }" style="border-style:None;" onclick="changeWishList(${status.index});return false;"/>
-                                </span>
-                                </c:if>
-                                </c:forEach>
                                 </c:if>
                             </span>
                             </a>

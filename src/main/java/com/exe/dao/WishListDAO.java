@@ -33,9 +33,9 @@ public class WishListDAO {
 		
 	}
 	
-	public List<BoardDTO> selectWishList(){
+	public List<BoardDTO> selectWishList(String mbId){
 		
-		List<BoardDTO> lists = sessionTemplate.selectList("wishList.selectWishList");
+		List<BoardDTO> lists = sessionTemplate.selectList("wishList.selectWishList",mbId);
 		
 		return lists;
 	}

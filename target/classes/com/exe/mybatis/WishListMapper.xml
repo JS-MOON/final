@@ -16,9 +16,15 @@
 </insert>
 
 <select id="selectWishList" parameterType="String" resultType="com.exe.dto.BoardDTO">
-	SELECT D.MBID,C.mbnickName,C.mbpic,B.cgcategory1,A.brnum,A.brsubject,A.brmainphoto,A.brprice,A.brcount
-	from board A,category B,member C,WISHLIST D where A.cgnum=B.cgnum AND d.BRNUM = a.BRNUM and
-	A.mbid=C.mbid order by A.brcount desc
+	SELECT board.brnum,nvl(wishlist.MBID,'no') mbId, CATEGORY.CGNUM,
+	member.MBID,member.MBNICKNAME,CATEGORY.CGNUM,board.BRSUBJECT,
+	board.BRMAINPHOTO,board.BRPRICE,board.brcount,CATEGORY.cgCategory1
+	FROM BOARD, WISHLIST,CATEGORY,MEMBER
+	WHERE board.BRNUM = wishList.BRNUM
+	AND board.CGNUM=CATEGORY.CGNUM
+	AND board.MBID = member.MBID
+	AND wishList.MBID(+) = #{mbId}
+	ORDER BY board.BRCOUNT DESC
 
 </select>
 
