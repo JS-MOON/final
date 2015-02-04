@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 
 import com.exe.dao.GoodsDAO;
-import com.exe.dao.RegisterDAO;
 import com.exe.dto.BoardDTO;
 import com.exe.dto.HistoryDTO;
 import com.exe.dto.MemberDTO;
@@ -40,13 +38,6 @@ public class SellController {
 		
 		
 		return "My/SellIncome";
-	}
-	
-	@RequestMapping(value="/My/SellMng.action", method={RequestMethod.GET,RequestMethod.POST})
-	public String sellMng(HttpServletRequest req, HttpServletResponse res){
-		
-		
-		return "My/SellMng";
 	}
 	
 	@RequestMapping(value="/My/SellProdListMy.action", method={RequestMethod.GET,RequestMethod.POST})

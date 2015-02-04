@@ -176,7 +176,6 @@ public class RegisterController {
 		request.setAttribute("imagePath", imagePath);
 
 		return "/My/MyProfile";
-
 	}
 
 	@RequestMapping(value = "/Comm/PhotoUpload.aciton", method = {

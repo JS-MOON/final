@@ -57,27 +57,32 @@
 
             <div class="pdtListWrap">
                 <div class="pdtList">
-                	<c:forEach var="dto" begin="0" end="17" items="${countLists}">
+                	<c:forEach var="dto" begin="0" end="17" items="${countLists}" varStatus="status">
                     <div class="pdtWrap">
                         <div class="sellerResume" >
                         <span class="sellingUser">
-
-									<img
-                                            src="../pds/imageFile/${dto.mbPic }"
-                                            alt="" Height=36px Width=36px /> <span class="user_id">${dto.mbNickName} </span>
+							<img src="../pds/imageFile/${dto.mbPic }" alt="" Height=36px Width=36px /> 
+							<span class="user_id">${dto.mbNickName}</span>
                         </span>
                             <div class="sellerCondition">
                                 <span class="onOff on">ONLINE</span>
-                                <span class="response">평균 응답시간 <span class="num">10</span>분</span>
+                                <span class="response">평균 응답시간<span class="num">10</span>분</span>
                             </div>
                         </div>
                         <div >
                             <a href="../Goods/GDetail.action?brNum=${dto.brNum}">
                             <span class="pdtThumb">
                                 <img src="../Product/${dto.brMainPhoto}" alt="기업용 홈페이지 제작해드립니다."  Height=308px  Width=308px   />
-                                <span class="btnWistList on">
-                                    <input type="image" name="" id="ContentPlaceHolder1_WUC_Guest_AbilityList1_rptList_ImageZZim_0" src="../resources/images/product/btn_wishList_on.png" style="border-style:None;" />
+                                <c:if test="${dto.mbId.equals(mbId)}">
+                                 <span class="btnWistList">
+                                    <input type="button" id="wishList_${status.index}" value="${dto.brNum }" style="border-style:None;" onclick="changeWishList(${status.index});return false;"/>
                                 </span>
+                                </c:if>
+                                <c:if test="${!dto.mbId.equals(mbId)}">
+                                 <span class="btnWistList on">
+                                    <input type="button" id="wishList_${status.index}" value="${dto.brNum }" style="border-style:None;" onclick="changeWishList(${status.index});return false;"/>
+                                </span>
+                                </c:if>
                             </span>
                             </a>
                         </div>
@@ -105,7 +110,7 @@
           <!-- 사이드 퀵마이페이지 -->
 				<div class="quick-mypage quick-mypage-re">
 					<ul class="menuList">
-						<li class="wishPdt"><a class="wishPdt" href=""><span>찜한재능</span></a>
+						<li class="wishPdt"><a class="wishPdt" href="../My/MyFavority.action"><span>찜한재능</span></a>
 						</li>
 						<li class="recentPdt"><span class="t"><span>최근본재능</span></span>
 							<ul>

@@ -1,5 +1,6 @@
 package com.exe.dto;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.exe.util.DivideOptions;
@@ -24,6 +25,8 @@ public class BoardDTO {
     private String cgCategory1;
     private int brCount;
     private String mbPic;
+	private int wiNum;
+	private Date wiDate;
 
     public String getMbPic() {
         return mbPic;
@@ -148,4 +151,21 @@ public class BoardDTO {
     public void setBrDate(String brDate) {
         this.brDate = brDate;
     }
+
+	public int getWiNum() {
+		return wiNum;
+	}
+
+	public void setWiNum(int wiNum) {
+		this.wiNum = wiNum;
+	}
+
+	public Date getWiDate() {
+		return wiDate;
+	}
+
+	public void setWiDate(Date wiDate) {
+		this.wiDate = wiDate;
+	}
+    
 }

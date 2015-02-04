@@ -95,10 +95,20 @@
                     <div class="paymentDetail usePoint">
                         <ul>
                             <li>
-                                <span class="aspNetDisabled input-radio"><input type="radio" name="" value="rUseYesPoint" disabled="disabled" onclick="" /></span><label class="label">포인트 <span>(현재:0
-                                P)</span></label></li>
+                                <span class="input-radio">
+                                    <input type="radio" name="usePoint" value="use" id="usePoint" onclick="selectUsePoint()" />
+                                </span>
+                                <label class="label">포인트 <span>
+                                    <input id="pointInputBox" type="number" hidden="hidden" value="0" max="${restPoint}" min="0" step="100" onchange="updatePointValue()"/>(잔여포인트:${restPoint} P)</span>
+                                    <input type="hidden" id="restPoint" value="${restPoint}" />
+                                </label>
+                            </li>
                             <li>
-                                <span class="input-radio"><input type="radio" name="" value="rUseNoPoint" checked="checked" /></span><label class="label">사용안함 <span></span></label>
+                                <span class="input-radio">
+                                    <input type="radio" name="usePoint" value="noUse" checked="checked" onclick="selectUsePoint()" />
+                                </span>
+                                <label class="label">사용안함 <span></span>
+                                </label>
                             </li>
                         </ul>
                     </div>
@@ -118,16 +128,17 @@
                         <span class="paymentOptions minus">더하기</span>
                         <div class="orderSumDetail point">
                             <strong class="tit">포인트</strong>
-                        <span class="sum"><span class="num">
-                            0</span> 원</span>
+                        <span class="sum"><span class="num" id="pointValue">0
+                            </span> 원</span>
                         </div>
                         <span class="paymentOptions equal">더하기</span>
                         <div class="orderSumDetail amount">
                             <strong class="tit">총 주문 금액</strong>
                             <span class="vat">(VAT 10% 별도)</span>
-                        <span class="sum"><span class="num">
+                        <span class="sum"><span class="num" id="totalPrice">
                             ${totalPrice}</span> 원</span>
                         </div>
+                        <input id="temporaryTotalPrice" type="hidden" value="${totalPrice}" />
                     </div>
 
                     <h3 class="payment_h_tit">결제방식</h3>
@@ -137,7 +148,7 @@
                                 <li>
                                     <span class="input-radio"><input type="radio" name="" value="rPayTypePointAll" /></span><label class="label">포인트 전액</label></li>
                             </div>
-                            <div style="display:;">
+                            <div>
                                 <li>
                                     <span class="input-radio"><input type="radio" name="" value="rPayTypeBankInput" checked="checked"/></span><label class="label">무통장 입금</label></li>
                             </div>
@@ -156,7 +167,7 @@
                     <div class="totalAmount">
                         <dl class="dl1">
                             <dt>총 결제 금액</dt>
-                            <dd><span class="num">
+                            <dd><span class="num" id="vatAddedTotalPrice">
                                 ${vatAddedtotalPrice}</span> 원</dd>
                         </dl>
                         <div class="vat">(VAT 10% 포함)</div>
@@ -168,14 +179,16 @@
                     </div>
 
                     <div class="btnArea al_c">
-                        <a class="btnType3" href="javascript:document.orderForm.submit()"><span>결제하기</span></a>
+                        <a class="btnType3" href="javascript:gOrderSubmit()"><span>결제하기</span></a>
                     </div>
 
                     <input type="hidden" name="mbId" value="${sessionScope.session.mbId}" />
                     <input type="hidden" name="brNum" value="${brNum }" />
                     <input type="hidden" name="options" value="${option}" />
-                    <input type="hidden" name="price" value="${totalPrice }" />
-                    <input type="hidden" name="totalPrice" value="${vatAddedtotalPrice}" />
+                    <input type="hidden" name="price" id="hiddenTotalPrice" value="${totalPrice }" />
+                    <input type="hidden" name="totalPrice" id="hiddenVatAddedTotalPrice" value="${vatAddedtotalPrice}" />
+                    <input type="hidden" name="srId" value="${srId}"/>
+                    <input type="hidden" name="usedPoint" id="usedPoint" value="0"/>
 
                 </div>
             </div>

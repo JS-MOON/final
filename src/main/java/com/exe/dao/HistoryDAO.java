@@ -27,8 +27,13 @@ public class HistoryDAO {
 		sessionTemplate.insert("history.hsInsert", dto);
 	}
 	
-	public List<HistoryDTO> selectHistory(String MbId){
-		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectHistory",MbId);
+	public List<HistoryDTO> selectHistory(String mbId){
+		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectHistory",mbId);
+		return lists;
+	}
+	
+	public List<HistoryDTO> selectSellHistory(String mbId){
+		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectSellHistory",mbId);
 		return lists;
 	}
 

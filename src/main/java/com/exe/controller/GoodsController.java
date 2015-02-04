@@ -1,7 +1,6 @@
 package com.exe.controller;
 
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.exe.dao.PointDAO;
+import com.exe.dao.WishListDAO;
+import com.exe.dto.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -17,10 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.exe.dao.GoodsDAO;
-import com.exe.dto.BoardDTO;
-import com.exe.dto.CategoryDTO;
-import com.exe.dto.CommentsDTO;
-import com.exe.dto.MemberDTO;
 import com.exe.util.DivideOptions;
 
 @Controller
@@ -30,7 +29,15 @@ public class GoodsController {
 	@Qualifier("goodsDAO")
 	GoodsDAO dao;
 
-	// ∏ﬁ¿Œ
+	@Autowired
+	@Qualifier("pointDAO")
+	PointDAO pdao;
+	
+	@Autowired
+	@Qualifier("wishListDAO")
+	WishListDAO widao;
+
+	// Î©îÏù∏
 	@RequestMapping(value = "/", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public String main() {
@@ -38,115 +45,147 @@ public class GoodsController {
 		return "index";
 	}
 
-	// ∏ﬁ¿Œ
+	// Î©îÏù∏ÌôîÎ©¥
 	@RequestMapping(value = "/Goods/Main.action", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public String mainaction(HttpServletRequest request,
 			HttpServletResponse response) {
 
-		Cookie[] ck = request.getCookies();
-		String cookies[] = new String[100];
-		String cookiesPhoto[] = new String[100];
+		//get Cookie
+		Cookie[] cookies = request.getCookies();
+		String[] brNumbs = new String[4];
+		String[] photos = new String[4];
+
 		try {
-			if (ck != null) {
+			if (cookies != null && cookies.length > 0) {
+				for (Cookie cooky : cookies) {
+					if(cooky.getName().equals("myWishList")) {
+						String temp = cooky.getValue();
 
-				int Photon = 0;
-				int brNumn = 0;
-				for (int i = ck.length - 2; i >= 0; i--) {
+						String[] wishListsArray = temp.split(",,");
 
-					if (ck[i].getName().indexOf("main") != -1) {
-						cookiesPhoto[Photon] = URLDecoder.decode(
-								ck[i].getName(), "UTF-8");
-						Photon++;
-
-					} else {
-						cookies[brNumn] = URLDecoder.decode(ck[i].getName(),
-								"UTF-8");
-						brNumn++;
+						for (int i = 0; i < wishListsArray.length; i++) {
+							if (i % 2 == 0)
+								brNumbs[i / 2] = wishListsArray[i];
+							else
+								photos[i / 2] = wishListsArray[i];
+						}
 					}
 				}
 			}
-
-		} catch (Exception e) {
+		}catch (Exception e) {
 			System.out.println(e.toString());
+		}
+		
+		//getSession
+		HttpSession session = request.getSession();
+		String sessionMbId = "";
+		List<BoardDTO> countLists = null;
+		
+		//sessionÏù¥ Ï°¥Ïû¨Ìï† Í≤ΩÏö∞ÏóêÎßå idÏ†ÄÏû•
+		if(session.getAttribute("session")!=null){
+			MemberSession mbs = (MemberSession) session.getAttribute("session");
+			sessionMbId = mbs.getMbId();
+			countLists = dao.mainWishList(sessionMbId);
+		}else if(session.getAttribute("session")==null){	
+			countLists = dao.mainCountList();
 		}
 
 		String str = "";
-
 		str = (String) request.getAttribute("str");
 
 		List<BoardDTO> newLists = dao.newTalentList();
-
-		List<BoardDTO> countLists = dao.mainCountList();
-
+		
 		request.setAttribute("str", str);
 		request.setAttribute("newLists", newLists);
 		request.setAttribute("countLists", countLists);
-		request.setAttribute("cookies", cookies);
-		request.setAttribute("cookiesPhoto", cookiesPhoto);
+		request.setAttribute("cookies", brNumbs);
+		request.setAttribute("cookiesPhoto", photos);
+		request.setAttribute("mbId", sessionMbId);
 
 		return "/Goods/Main";
 
 	}
-
-	// √÷±Ÿ ∫ª ∏Ò∑œ ƒÌ≈∞ √ﬂ∞°
+	
+	// ÏµúÍ∑º Î≥∏ Î™©Î°ù Ïø†ÌÇ§ Ï∂îÍ∞Ä
 	@RequestMapping(value = "/Goods/GDetail.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
 	public String gDetail(String brNum, HttpServletRequest request,
-			HttpServletResponse response) {
+						  HttpServletResponse response) {
 
 		try {
+			String wishLists = "";
+			Cookie[] cookies = request.getCookies();
 
-			Cookie c = new Cookie(brNum, URLEncoder.encode(brNum, "UTF-8"));
+			if(cookies != null && cookies.length > 0) {
+				for (Cookie cooky : cookies) {
+					if (cooky.getName().equals("myWishList")) {
+						wishLists = cooky.getValue();
 
-			// c.setMaxAge(30);
+						if (!wishLists.contains(brNum + ",,")) {
+							String[] wishListsArray = wishLists.split(",,");
+							if (wishListsArray.length >= 8) {
+								wishLists = "";
+								for (int j = 2; j < wishListsArray.length; j++) {
+									wishLists += wishListsArray[j];
+									wishLists += ",,";
+								}
+							} else {
+								wishLists += ",,";
+							}
+						}
+					}
+				}
+			}
 
-			String cookiesPhoto = dao.onePhoto(Integer.parseInt(brNum));
+			if(!wishLists.contains(brNum + ",,")) {
+				wishLists += brNum;
+				wishLists += ",,";
+				wishLists += dao.onePhoto(Integer.parseInt(brNum));
+			}
 
-			Cookie photo = new Cookie(cookiesPhoto, URLEncoder.encode(
-					cookiesPhoto, "UTF-8"));
+			Cookie c = new Cookie("myWishList", wishLists);
 
-			response.addCookie(photo);
 			response.addCookie(c);
-			
 
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
 
 		return "redirect:/Goods/RGDetail.action?brNum=" + brNum;
-
 	}
 
-	// ªÛ«∞ªÛººº≥∏Ì√¢
+	// ÏÉÅÌíàÏÉÅÏÑ∏ÏÑ§Î™ÖÏ∞Ω
 	@RequestMapping(value = "/Goods/RGDetail.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
 	public String redirectGDetail(HttpServletRequest request,
-			HttpServletResponse response) {
+								  HttpServletResponse response) {
 
-		String cp = request.getContextPath();
 
 		try {
+			Cookie[] cookies = request.getCookies();
+			String[] brNumbs = new String[4];
+			String[] photos = new String[4];
 
-			Cookie[] ck = request.getCookies();
-			String cookies[] = new String[100];
-			String cookiesPhoto[] = new String[100];
+			try {
+				if (cookies != null && cookies.length > 0) {
+					for (Cookie cooky : cookies) {
+						if(cooky.getName().equals("myWishList")) {
+							String temp = cooky.getValue();
 
-			if (ck != null) {
+							String[] wishListsArray = temp.split(",,");
 
-				int Photon = 0;
-				int brNumn = 0;
-				for (int i = ck.length - 2; i >= 0; i--) {
-
-					if (ck[i].getName().indexOf("main") != -1) {
-						cookiesPhoto[Photon] = URLDecoder.decode(ck[i].getName(), "UTF-8");
-						Photon++;
-
-					} else {
-						cookies[brNumn] = URLDecoder.decode(ck[i].getName(),"UTF-8");
-						brNumn++;
+							for (int i = 0; i < wishListsArray.length; i++) {
+								if (i % 2 == 0)
+									brNumbs[i / 2] = wishListsArray[i];
+								else
+									photos[i / 2] = wishListsArray[i];
+							}
+						}
 					}
 				}
+			} catch (Exception e) {
+				System.out.println(e.toString());
 			}
 
 			int brNum = Integer.parseInt(request.getParameter("brNum"));
@@ -158,22 +197,22 @@ public class GoodsController {
 			List<String> op = dto.getBrOptionsList();
 
 			int cgNum = dto.getCgNum();
+			
 			CategoryDTO cgdto = dao.getReadCategory(cgNum);
 			String category1 = cgdto.getCgCategory1();
 			String category2 = cgdto.getCgCategory2();
 
-			// ∞¸∑√¿Á¥… select
+			// Í¥ÄÎ†®Ïû¨Îä• select
 			List<BoardDTO> relists = dao.list(cgNum);
 
 			request.setAttribute("relists", relists);
 
-			String MbId = dto.getMbId();
+			String mbId = dto.getMbId();
 
-			MemberDTO mbdto = dao.getReadMember(MbId);
+			MemberDTO mbdto = dao.getReadMember(mbId);
 			String nickName = mbdto.getMbNickName();
 
 			dto.setBrContent(dto.getBrContent().replaceAll("\n", "<br/>"));
-			String imagePath = cp + "/Product";
 
 			List<CommentsDTO> lists = dao.cmList(brNum);
 			List<CommentsDTO> newLists = new ArrayList<CommentsDTO>();
@@ -196,16 +235,15 @@ public class GoodsController {
 
 			}
 
-			request.setAttribute("cookies", cookies);
-			request.setAttribute("cookiesPhoto", cookiesPhoto);
+			request.setAttribute("cookies", brNumbs);
+			request.setAttribute("cookiesPhoto", photos);
 			request.setAttribute("lists", newLists);
 			request.setAttribute("subject", subject);
-			request.setAttribute("ck", ck);
+			request.setAttribute("ck", cookies);
 			request.setAttribute("nickName", nickName);
 			request.setAttribute("category1", category1);
 			request.setAttribute("category2", category2);
 			request.setAttribute("op", op);
-			request.setAttribute("imagePath", imagePath);
 			request.setAttribute("dto", dto);
 			request.setAttribute("brNum", brNum);
 
@@ -221,26 +259,26 @@ public class GoodsController {
 	@RequestMapping(value = "/Goods/GList.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
 	public String gList(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		Cookie[] ck = request.getCookies();
 		String cookies[] = new String[100];
 		String cookiesPhoto[] = new String[100];
 		try {
 			if (ck != null) {
 
-				int Photon = 0;
-				int brNumn = 0;
+				int photoOnCookie = 0;
+				int brNumOnCookie = 0;
 				for (int i = ck.length - 2; i >= 0; i--) {
 
 					if (ck[i].getName().indexOf("main") != -1) {
-						cookiesPhoto[Photon] = URLDecoder.decode(
+						cookiesPhoto[photoOnCookie] = URLDecoder.decode(
 								ck[i].getName(), "UTF-8");
-						Photon++;
+						photoOnCookie++;
 
 					} else {
-						cookies[brNumn] = URLDecoder.decode(ck[i].getName(),
+						cookies[brNumOnCookie] = URLDecoder.decode(ck[i].getName(),
 								"UTF-8");
-						brNumn++;
+						brNumOnCookie++;
 					}
 				}
 			}
@@ -248,8 +286,12 @@ public class GoodsController {
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
-
-
+		
+		//getSession
+		HttpSession session = request.getSession();
+		String sessionMbId = "";
+		List<BoardDTO> lists = null;
+		
 		String cp = request.getContextPath();
 
 		int start = Integer.parseInt(request.getParameter("start"));
@@ -257,23 +299,47 @@ public class GoodsController {
 
 		String option = request.getParameter("range");
 
-		if (option.equals("1")) {// ∞°∞› ≥ª∏≤¬˜º¯
+		if (option.equals("1")) {// Í∞ÄÍ≤© ÎÇ¥Î¶ºÏ∞®Ïàú(ÏµúÍ≥†Í∞ÄÏàú)
 			String column = "brprice";
 			String order = "desc";
-			List<BoardDTO> lists = dao.list(start, end, column, order);
+			if(session.getAttribute("session")!=null){
+				MemberSession mbs = (MemberSession) session.getAttribute("session");
+				sessionMbId = mbs.getMbId();
+				lists = dao.wishlist(start, end, column, order,sessionMbId);
+			}else if(session.getAttribute("session")==null){	
+				lists = dao.list(start, end, column, order);
+			}
 			request.setAttribute("lists", lists);
-		} else if (option.equals("2")) {// ∞°∞› ø√∏≤¬˜º¯
+		} else if (option.equals("2")) {// Í∞ÄÍ≤© Ïò¨Î¶ºÏ∞®Ïàú(ÏµúÏ†ÄÍ∞ÄÏàú)
 			String column = "brprice";
 			String order = "asc";
-			List<BoardDTO> lists = dao.list(start, end, column, order);
+			if(session.getAttribute("session")!=null){
+				MemberSession mbs = (MemberSession) session.getAttribute("session");
+				sessionMbId = mbs.getMbId();
+				lists = dao.wishlist(start, end, column, order,sessionMbId);
+			}else if(session.getAttribute("session")==null){	
+				lists = dao.list(start, end, column, order);
+			}
 			request.setAttribute("lists", lists);
-		} else if (option.equals("3")) {// ≥Ø¬•º¯
+		} else if (option.equals("3")) {// ÎÇ†ÏßúÏàú
 			String column = "brdate";
 			String order = "desc";
-			List<BoardDTO> lists = dao.list(start, end, column, order);
+			if(session.getAttribute("session")!=null){
+				MemberSession mbs = (MemberSession) session.getAttribute("session");
+				sessionMbId = mbs.getMbId();
+				lists = dao.wishlist(start, end, column, order,sessionMbId);
+			}else if(session.getAttribute("session")==null){	
+				lists = dao.list(start, end, column, order);
+			}
 			request.setAttribute("lists", lists);
 		} else {
-			List<BoardDTO> lists = dao.list(start, end);
+			if(session.getAttribute("session")!=null){
+				MemberSession mbs = (MemberSession) session.getAttribute("session");
+				sessionMbId = mbs.getMbId();
+				lists = dao.wishlist(start, end,sessionMbId);
+			}else if(session.getAttribute("session")==null){	
+				lists = dao.list(start,end);
+			}
 			request.setAttribute("lists", lists);
 
 			if (1 <= start && start <= 14) {
@@ -322,17 +388,18 @@ public class GoodsController {
 			}
 		}
 
-		// ƒ´≈◊∞Ì∏Æ ¬ÔæÓ¡÷±‚
+		// Ïπ¥ÌÖåÍ≥†Î¶¨ Ï∞çÏñ¥Ï£ºÍ∏∞
 		String imagePath = cp + "/Product";
-		
+
 		List<CategoryDTO> cglists = dao.getReadCategory(start, end);
-		
+
 		request.setAttribute("cglists", cglists);
 		request.setAttribute("imagePath", imagePath);
 		request.setAttribute("start", start);
 		request.setAttribute("end", end);
 		request.setAttribute("cookies", cookies);
 		request.setAttribute("cookiesPhoto", cookiesPhoto);
+		request.setAttribute("mbId", sessionMbId);
 
 		return "Goods/GList";
 	}
@@ -340,7 +407,7 @@ public class GoodsController {
 	@RequestMapping(value = "/Goods/GList_ok.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
 	public String gList_ok(HttpServletRequest request,
-			HttpServletResponse response) {
+						   HttpServletResponse response) {
 
 		int cgNum = Integer.parseInt(request.getParameter("cgNum"));
 
@@ -352,26 +419,26 @@ public class GoodsController {
 			RequestMethod.GET, RequestMethod.POST })
 	public String gSearchList(HttpServletRequest request,
 			HttpServletResponse response) {
-		
+
 		Cookie[] ck = request.getCookies();
 		String cookies[] = new String[100];
 		String cookiesPhoto[] = new String[100];
 		try {
 			if (ck != null) {
 
-				int Photon = 0;
-				int brNumn = 0;
+				int photoOnCookie = 0;
+				int brNumOnCookie = 0;
 				for (int i = ck.length - 2; i >= 0; i--) {
 
 					if (ck[i].getName().indexOf("main") != -1) {
-						cookiesPhoto[Photon] = URLDecoder.decode(
+						cookiesPhoto[photoOnCookie] = URLDecoder.decode(
 								ck[i].getName(), "UTF-8");
-						Photon++;
+						photoOnCookie++;
 
 					} else {
-						cookies[brNumn] = URLDecoder.decode(ck[i].getName(),
-								"UTF-8");
-						brNumn++;
+						cookies[brNumOnCookie] = URLDecoder.decode(
+								ck[i].getName(), "UTF-8");
+						brNumOnCookie++;
 					}
 				}
 			}
@@ -379,14 +446,27 @@ public class GoodsController {
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
-
+		
 		String searchValue = request.getParameter("searchValue");
 
-		List<BoardDTO> lists = dao.selectSubject(searchValue);
-
+		//getSession
+		HttpSession session = request.getSession();
+		String sessionMbId = "";
+		List<BoardDTO> lists = null;
+		
+		//sessionÏù¥ Ï°¥Ïû¨Ìï† Í≤ΩÏö∞ÏóêÎßå idÏ†ÄÏû•
+		if(session.getAttribute("session")!=null){
+			MemberSession mbs = (MemberSession) session.getAttribute("session");
+			sessionMbId = mbs.getMbId();
+			lists = dao.selectWishSubject(searchValue,sessionMbId);
+			
+		}else if(session.getAttribute("session")==null){	
+			lists = dao.selectSubject(searchValue);
+		}
 		request.setAttribute("lists", lists);
 		request.setAttribute("cookies", cookies);
 		request.setAttribute("cookiesPhoto", cookiesPhoto);
+		request.setAttribute("mbId", sessionMbId);
 
 		return "/Goods/GSearchList";
 
@@ -395,7 +475,7 @@ public class GoodsController {
 	@RequestMapping(value = "/Goods/GOrder.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
 	public String gOrder(HttpServletRequest request,
-			HttpServletResponse response) {
+						 HttpServletResponse response) {
 
 		String option = request.getParameter("completedOption");
 		String basicPrice = request.getParameter("basicPrice");
@@ -405,6 +485,7 @@ public class GoodsController {
 		String category1 = request.getParameter("category1");
 		String category2 = request.getParameter("category2");
 		String brNum = request.getParameter("brNum");
+		String srId = request.getParameter("srId");
 
 		request.setAttribute("option", option);
 		request.setAttribute("basicPrice", basicPrice);
@@ -414,6 +495,7 @@ public class GoodsController {
 		request.setAttribute("category1", category1);
 		request.setAttribute("category2", category2);
 		request.setAttribute("brNum", brNum);
+		request.setAttribute("srId", srId);
 
 		DivideOptions divideOptions = new DivideOptions();
 		List<String> op = divideOptions.parse(option);
@@ -430,28 +512,32 @@ public class GoodsController {
 		int vatAddedtotalPrice = (int) (Integer.parseInt(totalPrice) * 1.1);
 		request.setAttribute("vatAddedtotalPrice", vatAddedtotalPrice);
 
-		return "Goods/GOrder";
+		HttpSession session = request.getSession();
+		MemberSession mbs = (MemberSession) session.getAttribute("session");
+		int restPoint = pdao.ptGetSum(mbs.getMbId());
+		request.setAttribute("restPoint", restPoint);
 
+		return "Goods/GOrder";
 	}
-	
+
 	@RequestMapping(value = "/Goods/logout.action", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public String logout(HttpServletRequest request,HttpServletResponse response) {
-		
-		String str = "";
 
-		str = "∑Œ±◊æ∆øÙ µ«ºÃΩ¿¥œ¥Ÿ.";
+		String str = "";
 		
+		str = "Î°úÍ∑∏ÏïÑÏõÉ ÎêòÏÖ®ÏäµÎãàÎã§.";
+
 		Cookie[] ck = request.getCookies();
 
 		if(ck != null && ck.length > 0){
 			for (int i = 0; i < ck.length; i++) {
-			
-				
+
+
 				Cookie cookie = new Cookie(ck[i].getName(), ck[i].getValue());
 				cookie.setMaxAge(0);
 				response.addCookie(cookie);
-				
+
 			}
 		}
 
@@ -459,10 +545,10 @@ public class GoodsController {
 
 		HttpSession session = request.getSession();
 		session.invalidate();
-		
-		
+
+
 		return "Register/Register";
-		
+
 	}
 
 }

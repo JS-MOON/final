@@ -6,13 +6,13 @@
 <mapper namespace="history">
 
 <!-- history -->
-<select id="hsMaxNum" resultType="integer">
+<select id="hsMaxNum" resultType="int">
 	select nvl(max(hsnum),0) from history
 </select>
 
 <insert id="hsInsert" parameterType="com.exe.dto.HistoryDTO">
-	insert into history (hsnum,mbid,brnum,hsdate,hsprice,hstotalPrice,hsoptions)
-	values (#{hsNum},#{mbId},#{brNum},sysdate,#{hsPrice},#{hsTotalPrice},#{hsOptions})
+	insert into history (hsnum,mbid,srid,brnum,hsdate,hsprice,hstotalPrice,hsoptions,ptNum)
+	values (#{hsNum},#{mbId},#{srId},#{brNum},sysdate,#{hsPrice},#{hsTotalPrice},#{hsOptions},#{hsOptions})
 </insert>
 
 <select id="selectHistory" parameterType="String" resultType="com.exe.dto.HistoryDTO">
@@ -21,5 +21,10 @@
 	where hs.mbid = #{mbId}
 </select>
 
+<select id="selectSellHistory" parameterType="String" resultType="com.exe.dto.HistoryDTO">
+	select hs.hsdate, hs.hsprice, hs.hstotalprice, hs.hsoptions,br.brnum, br.brsubject, br.brmainphoto
+	from history hs inner join board br on hs.brnum = br.brnum 
+	where hs.srid = #{mbId}
+</select>
 
 </mapper>
