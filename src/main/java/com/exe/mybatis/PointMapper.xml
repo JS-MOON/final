@@ -19,6 +19,7 @@
 	select ptNum,mbId,ptPoint,ptDate,ptHistory
 	from point
 	where mbid = #{mbId}
+	order by ptNum desc
 </select>
 
 <select id="ptGetSum" parameterType="String" resultType="int">

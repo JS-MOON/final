@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.exe.dao.PointDAO;
+import com.exe.dao.WishListDAO;
 import com.exe.dto.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,10 @@ public class GoodsController {
 	@Autowired
 	@Qualifier("pointDAO")
 	PointDAO pdao;
+	
+	@Autowired
+	@Qualifier("wishListDAO")
+	WishListDAO widao;
 
 	// 메인
 	@RequestMapping(value = "/", method = { RequestMethod.GET,
@@ -39,13 +45,13 @@ public class GoodsController {
 		return "index";
 	}
 
-	// 메인
-
+	// 메인화면
 	@RequestMapping(value = "/Goods/Main.action", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public String mainaction(HttpServletRequest request,
-							 HttpServletResponse response) {
+			HttpServletResponse response) {
 
+		//get Cookie
 		Cookie[] cookies = request.getCookies();
 		String[] brNumbs = new String[4];
 		String[] photos = new String[4];
@@ -67,23 +73,35 @@ public class GoodsController {
 					}
 				}
 			}
-		} catch (Exception e) {
+		}catch (Exception e) {
 			System.out.println(e.toString());
+		}
+		
+		//getSession
+		HttpSession session = request.getSession();
+		String sessionMbId = "";
+		List<BoardDTO> countLists = null;
+		
+		//session이 존재할 경우에만 id저장
+		if(session.getAttribute("session")!=null){
+			MemberSession mbs = (MemberSession) session.getAttribute("session");
+			sessionMbId = mbs.getMbId();
+			countLists = dao.mainWishList(sessionMbId);
+		}else if(session.getAttribute("session")==null){	
+			countLists = dao.mainCountList();
 		}
 
 		String str = "";
-
 		str = (String) request.getAttribute("str");
 
 		List<BoardDTO> newLists = dao.newTalentList();
-
-		List<BoardDTO> countLists = dao.mainCountList();
-
+		
 		request.setAttribute("str", str);
 		request.setAttribute("newLists", newLists);
 		request.setAttribute("countLists", countLists);
 		request.setAttribute("cookies", brNumbs);
 		request.setAttribute("cookiesPhoto", photos);
+		request.setAttribute("mbId", sessionMbId);
 
 		return "/Goods/Main";
 
@@ -143,7 +161,6 @@ public class GoodsController {
 	public String redirectGDetail(HttpServletRequest request,
 								  HttpServletResponse response) {
 
-		String cp = request.getContextPath();
 
 		try {
 			Cookie[] cookies = request.getCookies();
@@ -180,6 +197,7 @@ public class GoodsController {
 			List<String> op = dto.getBrOptionsList();
 
 			int cgNum = dto.getCgNum();
+			
 			CategoryDTO cgdto = dao.getReadCategory(cgNum);
 			String category1 = cgdto.getCgCategory1();
 			String category2 = cgdto.getCgCategory2();
@@ -189,13 +207,12 @@ public class GoodsController {
 
 			request.setAttribute("relists", relists);
 
-			String MbId = dto.getMbId();
+			String mbId = dto.getMbId();
 
-			MemberDTO mbdto = dao.getReadMember(MbId);
+			MemberDTO mbdto = dao.getReadMember(mbId);
 			String nickName = mbdto.getMbNickName();
 
 			dto.setBrContent(dto.getBrContent().replaceAll("\n", "<br/>"));
-			String imagePath = cp + "/Product";
 
 			List<CommentsDTO> lists = dao.cmList(brNum);
 			List<CommentsDTO> newLists = new ArrayList<CommentsDTO>();
@@ -227,7 +244,6 @@ public class GoodsController {
 			request.setAttribute("category1", category1);
 			request.setAttribute("category2", category2);
 			request.setAttribute("op", op);
-			request.setAttribute("imagePath", imagePath);
 			request.setAttribute("dto", dto);
 			request.setAttribute("brNum", brNum);
 
@@ -270,8 +286,12 @@ public class GoodsController {
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
-
-
+		
+		//getSession
+		HttpSession session = request.getSession();
+		String sessionMbId = "";
+		List<BoardDTO> lists = null;
+		
 		String cp = request.getContextPath();
 
 		int start = Integer.parseInt(request.getParameter("start"));
@@ -279,25 +299,47 @@ public class GoodsController {
 
 		String option = request.getParameter("range");
 
-		if (option.equals("1")) {// 가격 내림차순
+		if (option.equals("1")) {// 가격 내림차순(최고가순)
 			String column = "brprice";
 			String order = "desc";
-			List<BoardDTO> lists = dao.list(start, end, column, order);
+			if(session.getAttribute("session")!=null){
+				MemberSession mbs = (MemberSession) session.getAttribute("session");
+				sessionMbId = mbs.getMbId();
+				lists = dao.wishlist(start, end, column, order,sessionMbId);
+			}else if(session.getAttribute("session")==null){	
+				lists = dao.list(start, end, column, order);
+			}
 			request.setAttribute("lists", lists);
-		} else if (option.equals("2")) {// ���� �ø�����
-		} else if (option.equals("2")) {// 가격 올림차순
+		} else if (option.equals("2")) {// 가격 올림차순(최저가순)
 			String column = "brprice";
 			String order = "asc";
-			List<BoardDTO> lists = dao.list(start, end, column, order);
+			if(session.getAttribute("session")!=null){
+				MemberSession mbs = (MemberSession) session.getAttribute("session");
+				sessionMbId = mbs.getMbId();
+				lists = dao.wishlist(start, end, column, order,sessionMbId);
+			}else if(session.getAttribute("session")==null){	
+				lists = dao.list(start, end, column, order);
+			}
 			request.setAttribute("lists", lists);
-		} else if (option.equals("3")) {// ��¥��
 		} else if (option.equals("3")) {// 날짜순
 			String column = "brdate";
 			String order = "desc";
-			List<BoardDTO> lists = dao.list(start, end, column, order);
+			if(session.getAttribute("session")!=null){
+				MemberSession mbs = (MemberSession) session.getAttribute("session");
+				sessionMbId = mbs.getMbId();
+				lists = dao.wishlist(start, end, column, order,sessionMbId);
+			}else if(session.getAttribute("session")==null){	
+				lists = dao.list(start, end, column, order);
+			}
 			request.setAttribute("lists", lists);
 		} else {
-			List<BoardDTO> lists = dao.list(start, end);
+			if(session.getAttribute("session")!=null){
+				MemberSession mbs = (MemberSession) session.getAttribute("session");
+				sessionMbId = mbs.getMbId();
+				lists = dao.wishlist(start, end,sessionMbId);
+			}else if(session.getAttribute("session")==null){	
+				lists = dao.list(start,end);
+			}
 			request.setAttribute("lists", lists);
 
 			if (1 <= start && start <= 14) {
@@ -357,6 +399,7 @@ public class GoodsController {
 		request.setAttribute("end", end);
 		request.setAttribute("cookies", cookies);
 		request.setAttribute("cookiesPhoto", cookiesPhoto);
+		request.setAttribute("mbId", sessionMbId);
 
 		return "Goods/GList";
 	}
@@ -375,7 +418,7 @@ public class GoodsController {
 	@RequestMapping(value = "/Goods/GSearchList.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
 	public String gSearchList(HttpServletRequest request,
-							  HttpServletResponse response) {
+			HttpServletResponse response) {
 
 		Cookie[] ck = request.getCookies();
 		String cookies[] = new String[100];
@@ -393,8 +436,8 @@ public class GoodsController {
 						photoOnCookie++;
 
 					} else {
-						cookies[brNumOnCookie] = URLDecoder.decode(ck[i].getName(),
-								"UTF-8");
+						cookies[brNumOnCookie] = URLDecoder.decode(
+								ck[i].getName(), "UTF-8");
 						brNumOnCookie++;
 					}
 				}
@@ -403,14 +446,27 @@ public class GoodsController {
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
-
+		
 		String searchValue = request.getParameter("searchValue");
 
-		List<BoardDTO> lists = dao.selectSubject(searchValue);
-
+		//getSession
+		HttpSession session = request.getSession();
+		String sessionMbId = "";
+		List<BoardDTO> lists = null;
+		
+		//session이 존재할 경우에만 id저장
+		if(session.getAttribute("session")!=null){
+			MemberSession mbs = (MemberSession) session.getAttribute("session");
+			sessionMbId = mbs.getMbId();
+			lists = dao.selectWishSubject(searchValue,sessionMbId);
+			
+		}else if(session.getAttribute("session")==null){	
+			lists = dao.selectSubject(searchValue);
+		}
 		request.setAttribute("lists", lists);
 		request.setAttribute("cookies", cookies);
 		request.setAttribute("cookiesPhoto", cookiesPhoto);
+		request.setAttribute("mbId", sessionMbId);
 
 		return "/Goods/GSearchList";
 

@@ -345,7 +345,7 @@
 			<!-- 사이드 퀵마이페이지 -->
 				<div class="quick-mypage quick-mypage-re">
 					<ul class="menuList">
-						<li class="wishPdt"><a class="wishPdt" href=""><span>찜한재능</span></a>
+						<li class="wishPdt"><a class="wishPdt" href="../My/MyFavority.action"><span>찜한재능</span></a>
 						</li>
 						<li class="recentPdt"><span class="t"><span>최근본재능</span></span>
 							<ul>

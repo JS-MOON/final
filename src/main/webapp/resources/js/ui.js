@@ -327,12 +327,47 @@ jQuery(function () {
 
 // 2조 추가사항
 function changeWishList(id) {
-    var parent = $("#wishList_" + id).parent();
-    if(parent.hasClass('on'))
-        parent.removeClass('on');
-    else
-        parent.addClass('on');
+
+	var parent = $("#wishList_" + id).parent();
+
+	if (parent.hasClass('on')) {
+		$.ajax({
+			type : "POST",
+			url : "../My/AddMyFavority.action",
+			data : {
+				brNum : $("#wishList_" + id).val()
+			},
+			success : function(args) {
+					parent.removeClass('on');
+					
+			},
+			error : function(request, status, error) {
+				/*alert("code : " + request.status + "\n" + "message : "
+						+ request.responseText + "\n" + "error : " + error);*/
+				alert("로그인 후 이용 가능합니다.");
+				
+			}
+
+		});
+	}else if(!parent.hasClass('on')){
+		$.ajax({
+			type : "POST",
+			url : "../My/DelMyFavority.action",
+			data : {
+				brNum : $("#wishList_" + id).val()
+			},
+			success : function(args){
+				parent.addClass('on');
+				window.location.reload();
+			},
+			error : function(request, status, error) {
+				alert("code : " + request.status + "\n" + "message : "
+						+ request.responseText + "\n" + "error : " + error);
+			}
+		});
+	}
 }
+
 
 function selectUsePoint() {
     var usePoint = document.getElementsByName("usePoint");
@@ -353,8 +388,6 @@ function gOrderSubmit() {
         } else {
             document.getElementById("usedPoint").value = document.getElementById("pointInputBox").value;
         }
-        alert("hiddenTotalPrice=" + document.getElementById("hiddenTotalPrice").value);
-        alert("hiddenVatAddedTotalPrice=" + document.getElementById("hiddenVatAddedTotalPrice").value);
         document.orderForm.submit();
     } else {
         alert("포인트가 모자랍니다.");
@@ -362,10 +395,15 @@ function gOrderSubmit() {
 }
 
 function updatePointValue() {
+    if(Number(document.getElementById("pointInputBox").value)>Number(document.getElementById("temporaryTotalPrice").value)) {
+        document.getElementById("pointInputBox").value = document.getElementById("temporaryTotalPrice").value;
+        alert("합계금액 이상 포인트를 사용할 수 없습니다.")
+    }
+
     $("#pointValue").text(document.getElementById("pointInputBox").value);
     $("#totalPrice").text(document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value);
     $("#vatAddedTotalPrice")
-        .text(parseInt((document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value)*1.1));
-    document.getElementById("hiddenVatAddedTotalPrice").value = (document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value)*1.1;
+        .text(parseInt((document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value) * 1.1));
+    document.getElementById("hiddenVatAddedTotalPrice").value = (document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value) * 1.1;
     document.getElementById("hiddenTotalPrice").value = (document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value);
 }

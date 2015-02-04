@@ -46,7 +46,7 @@
 			<div class="subCategory">
 				<ul>
 
-					<li><a href="GList.jsp?pg%3d1%26sr%3d1%26cy%3d140&ct=140">
+					<li><a href="GList.action?start=${start }&end=${end }&range=0">
 						<input type="submit" name=""
 							   value="전체"
 							   style="background-color: #EDEDED; border-style: None; height: 26px;" />
@@ -104,22 +104,33 @@
 							</div>
 
 							<a href="GDetail.action?brNum=${dto.brNum }">
-								<div>
-								
-									<span class="pdtThumb">
-										<img src="${imagePath }/${dto.brMainPhoto}" alt="기업용 홈페이지 제작해드립니다." Height=308px Width=308px />
-										<span class="btnWistList on">
-											<input type="button" id="wishList_${status.index}" style="border-style:None;" onclick="changeWishList(${status.index});return false;"/>
+									<div>
+
+										<span class="pdtThumb"> <img
+											src="${imagePath }/${dto.brMainPhoto}"
+											alt="기업용 홈페이지 제작해드립니다." Height=308px Width=308px /> <c:if
+												test="${dto.mbId.equals(mbId)}">
+												<span class="btnWistList"> <input type="button"
+													id="wishList_${status.index}" value="${dto.brNum }"
+													style="border-style: None;"
+													onclick="changeWishList(${status.index});return false;" />
+												</span>
+											</c:if> <c:if test="${!dto.mbId.equals(mbId)}">
+												<span class="btnWistList on"> <input type="button"
+													id="wishList_${status.index}" value="${dto.brNum }"
+													style="border-style: None;"
+													onclick="changeWishList(${status.index});return false;" />
+												</span>
+											</c:if>
 										</span>
-									</span>
-								</div>
-								<div class="pdt_info">
+									</div>
+									<div class="pdt_info">
 								<span class="category">[${dto.cgCategory1}]
 								</span> <span class="pdtTitle">${dto.brSubject }</span>
 									<div class="counting">
 									<span class="buying"> <span class="num">${dto.brCount}</span> <span>View</span>
-									</span> <span class="price"> <span class="num">${dto.brPrice }</span> 원
-									</span>
+									</span> 
+									<span class="price"> <span class="num">${dto.brPrice }</span> 원</span>
 									</div>
 								</div>
 							</a>
@@ -141,7 +152,7 @@
 			<!-- 사이드 퀵마이페이지 -->
 			<div class="quick-mypage quick-mypage-re">
 				<ul class="menuList">
-					<li class="wishPdt"><a class="wishPdt" href=""><span>찜한재능</span></a>
+					<li class="wishPdt"><a class="wishPdt" href="../My/MyFavority.action"><span>찜한재능</span></a>
 					</li>
 					<li class="recentPdt"><span class="t"><span>최근본재능</span></span>
 						<ul>
