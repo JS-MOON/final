@@ -36,7 +36,7 @@ public class GoodsController {
 	@Autowired
 	@Qualifier("wishListDAO")
 	WishListDAO widao;
-
+	
 	// 메인
 	@RequestMapping(value = "/", method = { RequestMethod.GET,
 			RequestMethod.POST })

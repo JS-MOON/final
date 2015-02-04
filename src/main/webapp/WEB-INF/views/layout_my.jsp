@@ -198,6 +198,7 @@
             showLayer('joinCertification', 'modalpop');
             return false;
         }
+        
     </script>
 </head>
 
@@ -438,10 +439,10 @@
             <h4 class="popTitle">로그인</h4>
             <div class="layerPopBody">
                 <div class="loginSet">
-                    <label class="label">이메일 아이디</label> <input name="mbId"
+                    <label class="label">이메일 아이디</label> <input name="mbId" id="mbIdEmail"
                                                                 type="text" maxlength="50" class="input-text"
                                                                 onkeydown="javascript:Keydown_Login();" title="이메일 아이디"
-                                                                placeholder="이메일 아이디" />
+                                                                placeholder="이메일 아이디" onchange="emailCheck();"/>
                 </div>
                 <div class="loginSet">
                     <label class="label">비밀번호</label> <input name="mbPw"

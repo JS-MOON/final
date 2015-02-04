@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="emailAuth">
+
+<!-- emailAuth -->
+<select id="eaMaxNum" resultType="integer">
+	select nvl(max(authNum),0) from emailAuth
+</select>
+
+<insert id="eaInsert" parameterType="com.exe.dto.EmailAuthDTO">
+	insert into emailAuth(authNum,mbId,emailAuth,authCode)
+	values (#{authNum},#{mbId},#{emailAuth},#{authCode})
+</insert>
+
+<select id="searchAuth" parameterType="int" resultType="com.exe.dto.EmailAuthDTO">
+	select authNum,mbId,emailAuth,authCode from emailAuth where authCode=#{authCode}
+</select>
+
+<update id="updateMailAuth" parameterType="int">
+	update emailAuth set emailAuth=1 where authCode=#{authCode}
+</update>
+
+</mapper>

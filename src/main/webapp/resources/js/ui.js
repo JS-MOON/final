@@ -326,6 +326,7 @@ jQuery(function () {
 })
 
 // 2조 추가사항
+//[찜목록]
 function changeWishList(id) {
 
 	var parent = $("#wishList_" + id).parent();
@@ -407,3 +408,7 @@ function updatePointValue() {
     document.getElementById("hiddenVatAddedTotalPrice").value = (document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value) * 1.1;
     document.getElementById("hiddenTotalPrice").value = (document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value);
 }
+
+
+
+

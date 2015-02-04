@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.exe.dao.EmailAuthDAO;
 import com.exe.dao.RegisterDAO;
+import com.exe.dto.EmailAuthDTO;
 import com.exe.dto.MemberDTO;
 import com.exe.dto.MemberSession;
 
@@ -28,6 +33,13 @@ public class RegisterController {
 	@Autowired
 	@Qualifier("registerDAO")
 	RegisterDAO dao;
+	
+	@Autowired
+	@Qualifier("emailAuthDAO")
+	EmailAuthDAO eadao;
+	
+	@Autowired 
+	private JavaMailSender mailSender;
 
 	@RequestMapping(value = "/Register/Register.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
@@ -43,7 +55,7 @@ public class RegisterController {
 		MemberDTO dto = dao.registerMemberData(mbId);
 
 		if (dto != null) {
-			str = "占쏙옙占싱듸옙 占쏙옙占쏙옙占쌌니댐옙.";
+			str = "아이디가 존재합니다.";
 		} else {
 
 			dto = new MemberDTO();
@@ -52,6 +64,16 @@ public class RegisterController {
 			dto.setMbPw(mbPw1);
 			dto.setMbPic(mbPic);
 			dao.insertMember(dto);
+			
+			EmailAuthDTO eadto = new EmailAuthDTO();
+			int maxNum = eadao.eaMaxNum();
+			int authCode = mbId.hashCode();
+			
+			eadto.setAuthNum(maxNum+1);
+			eadto.setMbId(mbId);
+			eadto.setEmailAuth(0);
+			eadto.setAuthCode(authCode);
+			eadao.eaInsert(eadto);
 
 			HttpSession session = request.getSession(true);
 
@@ -59,6 +81,20 @@ public class RegisterController {
 
 			mbs.setMbId(mbId);
 			mbs.setMbPw(mbPw1);
+			
+			try {
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+				messageHelper.setTo("ichigo0524@naver.com");
+				messageHelper.setSubject("[TALENT]가입을 축하드립니다.");
+				messageHelper.setText("안녕하세요. 'TALENT'입니다.\n"+"["+mbId+"]고객님의 가입을 축하드립니다.\n"
+						+"email인증을 하려면 다음 링크를 클릭하세요.\n"+"http://192.168.16.9:8080/final/Register/EmailAuth.action?code="+ authCode);
+				
+				mailSender.send(message);
+			} catch(Exception e){
+				System.out.println(e);
+			}
+			
 
 			session.setAttribute("session", mbs);
 
@@ -90,10 +126,10 @@ public class RegisterController {
 
 		if (dto == null) {
 
-			str = "占쏙옙占싱듸옙 占쏙옙占쏙옙占쏙옙占쏙옙 占십쏙옙占싹댐옙.";
+			str = "아이디가 없습니다.";
 
 		} else if (!dto.getMbPw().equals(mbPw)) {
-			str = "占쏙옙橘占싫ｏ옙占� 占쏙옙치占쏙옙占쏙옙 占십쏙옙占싹댐옙.";
+			str = "비밀번호가 틀렸습니다.";
 
 		} else {
 			HttpSession session = request.getSession(true);
@@ -284,8 +320,7 @@ public class RegisterController {
 
 	}
 
-	@RequestMapping(value = "/My/Out.action", method = { RequestMethod.GET,
-			RequestMethod.POST })
+	@RequestMapping(value = "/My/Out.action", method = {RequestMethod.GET,RequestMethod.POST})
 	public String out(HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
@@ -306,7 +341,32 @@ public class RegisterController {
 
 	}
 	
+	@RequestMapping(value = "/Register/EmailAuth.action", method = {RequestMethod.GET,RequestMethod.POST})
+	public String emailAuth(HttpServletRequest request) {
+		
+		String str = "";
+		int code = Integer.parseInt(request.getParameter("code"));
+		
+		EmailAuthDTO dto = eadao.searchAuth(code);
+		
+		if(dto!=null){
+			
+			if(dto.getEmailAuth()==1){
+				str = "이미 인증 된 이메일 입니다.";
+				request.setAttribute("str", str);
+				return "Register/Register";
+			}
+			eadao.updateEmailAuth(code);
+			str = dto.getMbId() + "님 인증이 성공하였습니다.";
+		}else{
+			str = "인증 실패!! 관리자에게 문의하시기 바랍니다.";
+		}
+		
+		request.setAttribute("str", str);
+		
+		return "Register/Register";
 
+	}
 	
 }
 
