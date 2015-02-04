@@ -3,9 +3,11 @@ package com.exe.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +21,9 @@ import org.springframework.web.multipart.MultipartRequest;
 import com.exe.dao.GoodsDAO;
 import com.exe.dao.RegisterDAO;
 import com.exe.dto.BoardDTO;
+import com.exe.dto.HistoryDTO;
 import com.exe.dto.MemberDTO;
+import com.exe.dto.MemberSession;
 import com.exe.util.ImageName;
 
 
@@ -48,8 +52,30 @@ public class SellController {
 	@RequestMapping(value="/My/SellProdListMy.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String sellProdListMy(HttpServletRequest req, HttpServletResponse res){
 		
+		HttpSession session = req.getSession();
+		
+		MemberSession mbs = (MemberSession)session.getAttribute("session");
+		
+		String mbId = mbs.getMbId();
+		
+		List<BoardDTO> lists = dao.myBoardList(mbId);
+		
+		req.setAttribute("lists", lists);
 		
 		return "My/SellProdListMy";
+		
+	}
+	
+	@RequestMapping(value="/My/SellProdListMydelete.action", method={RequestMethod.GET,RequestMethod.POST})
+	public String sellProdListMyDeleted(BoardDTO dto, HttpServletRequest req, HttpServletResponse res){
+		
+		System.out.println("eaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		int brNum = Integer.parseInt(req.getParameter("brNum"));
+		
+		dao.myBoardDelete(brNum);
+		
+		return "redirect:/My/SellProdListMy.action";
+		
 	}
 	
 	@RequestMapping(value="/My/SellProdReg.action", method={RequestMethod.GET,RequestMethod.POST})
@@ -134,7 +160,7 @@ public class SellController {
 
 		return "redirect:/Goods/Main.action";
 	}
-
-
+	
+	
 
 }

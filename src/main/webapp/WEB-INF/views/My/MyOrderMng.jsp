@@ -80,7 +80,6 @@
                 <table cellpadding="0" cellspacing="0">
                     <colgroup>
                         <col width="70px" />
-                        <col />
                         <col width="300px" />
                         <col width="100px" />
                         <col width="80px" />
@@ -89,13 +88,13 @@
                     <thead>
                     <tr>
                         <th scope="col">
-                            <div class="th">주문번호</div>
+                            <div class="th">재능번호</div>
                         </th>
                         <th scope="col">
                             <div class="th">재능상품</div>
                         </th>
                         <th scope="col">
-                            <div class="th">구매정보</div>
+                            <div class="th">재능수정</div>
                         </th>
                         <th scope="col">
                             <div class="th">구매/마감일</div>
@@ -115,7 +114,7 @@
                         </td>
                         <td class="thumbnail">
                             <div class="td"><a href="../Goods/GDetail.action?brNum=${dto.brNum }">
-                                <img src="../Product/${dto.brMainphoto }" alt=""   Height=160px  Width=160px  /></div>
+                                <img src="../Product/${dto.brmainphoto }" alt=""   Height=160px  Width=160px  /></div>
                         </td>
                         <td class="payResume">
                             <div class="td">
@@ -159,7 +158,7 @@
 
                 <div class="paging">
 
-                    <b>1 </b>
+                    <b>2 </b>
 
                 </div>
             </div>

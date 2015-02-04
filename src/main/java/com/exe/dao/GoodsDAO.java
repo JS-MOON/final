@@ -42,7 +42,7 @@ public class GoodsDAO {
 	//mainaction end
 
 	//gDetail start
-	//한개의 데이터 가져오기
+	//�븳媛쒖쓽 �뜲�씠�꽣 媛��졇�삤湲�
 	public BoardDTO getReadData(int brNum) {
 
 		BoardDTO dto = sessionTemplate.selectOne("GoodsMapper.getReadData",brNum);
@@ -87,7 +87,6 @@ public class GoodsDAO {
 	 return lists;
 	}
 	
-	//선택한 상품의 이미지 가져오기
 	public String onePhoto(int brNum) {
 		
 		String mainPhoto = sessionTemplate.selectOne("GoodsMapper.onePhoto", brNum);
@@ -158,6 +157,22 @@ public class GoodsDAO {
 		
 		return result;
 	}
-
+	
+	public List<BoardDTO> myBoardList(String mbId){
+		
+		List<BoardDTO> lists = sessionTemplate.selectList("GoodsMapper.myBoardList",mbId);
+		
+		return lists;
+		
+	}
+	//
+	public int myBoardDelete(int brNum){
+		
+		int result = sessionTemplate.delete("GoodsMapper.brDeleteData", brNum);
+		
+		return result;
+		
+	}
+	
 	
 }
