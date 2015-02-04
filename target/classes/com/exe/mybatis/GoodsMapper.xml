@@ -109,7 +109,7 @@
 		order by A.${column} ${order}
 		]]>
 	</select>
-	
+
 	<select id="firstGlist" parameterType="hashMap" resultType="com.exe.dto.BoardDTO">
 		<![CDATA[
 			select C.cgcategory1,B.mbnickName,B.mbpic,A.brnum,A.mbid,A.cgnum,A.brsubject,
@@ -141,7 +141,6 @@
 	</select>
 	
 	<!-- GSearchList -->
-	
 	<select id="selectSubject" parameterType="String" resultType="com.exe.dto.BoardDTO">
 	<![CDATA[
 		select C.cgcategory1,B.mbnickName,B.mbpic,A.brnum,A.mbid,A.cgnum,A.brsubject,
@@ -176,5 +175,13 @@
 	<select id="brMaxNum" resultType="int">
 		select nvl(max(brnum),0) from board
 	</select>
+	
+	<select id="myBoardList" parameterType="String" resultType="com.exe.dto.BoardDTO">
+		select brnum,brsubject,brmainphoto,brmorephoto,brcontent,broptions,brprice,brdate,brmainphoto from board where mbid = #{mbId}
+	</select>
+	
+	<delete id="brDeleteData" parameterType="int">
+		delete board where brnum=#{brNum}
+	</delete>
 
 </mapper>

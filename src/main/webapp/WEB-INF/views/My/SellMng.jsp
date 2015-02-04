@@ -17,6 +17,24 @@
     .dealList table tbody tr td.process.step9 .td { no-repeat 50% 0;}
 </style>
 
+<script language="javascript">
+
+	function searchSellData(){
+	
+		var f = document.searchSellDataForm;
+	
+		if(f.searchSellValue.value==null){
+			alert("검색어를 입력해주세요");
+			f.searchSellValue.focus();
+			return;
+		}
+	
+		f.action = "../My/SellMng.action";
+		f.submit();
+	}
+
+</script>
+
 <script>
     $(document).ready(function () {
         $('#NoData').addClass('hidden');
@@ -33,6 +51,7 @@
     });
 </script>
 <!-- 마이페이지컨텐츠 시작 -->
+<form action="" method="post" name="searchSellDataForm">
 <div class="primaryContents mySell">
     <!-- 마이페이지lnb -->
     <div class="mypage_lnb">
@@ -57,11 +76,17 @@
                     <option value="2">주문상태</option>
                     <option value="3">완료일자</option>
 
+
+
                 </select> -->
 
-                <div class="listSearch">
+<!--                 <div class="listSearch">
                     <input name="ctl00$ContentPlaceHolder1$WUC_My_SellingList$txt_searchValue" type="text" id="ContentPlaceHolder1_WUC_My_SellingList_txt_searchValue" class="input-text" style="width: 210px;" />
                     <input type="image" name="ctl00$ContentPlaceHolder1$WUC_My_SellingList$ibtn_search" id="ContentPlaceHolder1_WUC_My_SellingList_ibtn_search" class="btnSearch" src="" />
+                </div> -->
+                <div class="listSearch">
+                    <input name="searchSellValue" type="text" id="" class="input-text" style="width: 210px;" />
+                    <input type="image" name="" id="" class="btnSearch" onclick="searchSellData();"/>
                 </div>
             </div>
             <!-- 게시판영역 -->
@@ -103,7 +128,7 @@
                         </td>
                         <td class="thumbnail">
                             <div class="td"><a href="../Goods/GDetail.action?brNum=${dto.brNum}">
-                                <img src="../Product/${dto.brMainphoto}" alt="" Height=160px  Width=160px  /></div>
+                                <img src="../Product/${dto.brMainphoto}" alt="" Height=160px  Width=160px  /></a></div>
                         </td>
                         <td class="payResume">
                             <div class="td">
@@ -148,6 +173,6 @@
     </div>
     <!-- //내용 -->
 </div>
-
+</form>
 </body>
 </html>

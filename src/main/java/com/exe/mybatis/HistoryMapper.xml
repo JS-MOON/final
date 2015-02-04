@@ -21,10 +21,10 @@
 	where hs.mbid = #{mbId}
 </select>
 
-<select id="selectSellHistory" parameterType="String" resultType="com.exe.dto.HistoryDTO">
+<select id="selectSellHistory" parameterType="hashMap" resultType="com.exe.dto.HistoryDTO">
 	select hs.hsdate, hs.hsprice, hs.hstotalprice, hs.hsoptions,br.brnum, br.brsubject, br.brmainphoto
 	from history hs inner join board br on hs.brnum = br.brnum 
-	where hs.srid = #{mbId}
+	where hs.srid = #{mbId} and (br.brsubject like '%'||#{searchSellValue}||'%')
 </select>
 
 </mapper>
