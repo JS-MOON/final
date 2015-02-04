@@ -100,9 +100,15 @@ public class HistoryController {
 		
 		String mbId = mbs.getMbId();
 		
+		String searchSellValue = req.getParameter("searchSellValue");
+		
+		if(searchSellValue==null){
+			searchSellValue="";
+		}
+		
 		System.out.println(mbId);
 		
-		List<HistoryDTO> lists = dao.selectSellHistory(mbId);
+		List<HistoryDTO> lists = dao.selectSellHistory(mbId,searchSellValue);
 		
 		req.setAttribute("lists", lists);
 		

@@ -1,5 +1,6 @@
 package com.exe.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -32,8 +33,14 @@ public class HistoryDAO {
 		return lists;
 	}
 	
-	public List<HistoryDTO> selectSellHistory(String mbId){
-		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectSellHistory",mbId);
+	public List<HistoryDTO> selectSellHistory(String mbId,String searchSellValue){
+		
+		HashMap<String, Object> hMap = new HashMap<String, Object>();
+		
+		hMap.put("mbId", mbId);
+		hMap.put("searchSellValue", searchSellValue);
+		
+		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectSellHistory",hMap);
 		return lists;
 	}
 
