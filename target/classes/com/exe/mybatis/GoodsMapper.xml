@@ -175,5 +175,13 @@
 	<select id="brMaxNum" resultType="int">
 		select nvl(max(brnum),0) from board
 	</select>
+	
+	<select id="myBoardList" parameterType="String" resultType="com.exe.dto.BoardDTO">
+		select brnum,brsubject,brmainphoto,brmorephoto,brcontent,broptions,brprice,brdate,brmainphoto from board where mbid = #{mbId}
+	</select>
+	
+	<delete id="brDeleteData" parameterType="int">
+		delete board where brnum=#{brNum}
+	</delete>
 
 </mapper>
