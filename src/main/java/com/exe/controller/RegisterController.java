@@ -180,7 +180,13 @@ public class RegisterController {
 	 * 
 	 * }
 	 */
-	
+
+    @RequestMapping(value = "/Register/Login.action", method = {RequestMethod.GET, RequestMethod.POST})
+    public String login(HttpServletRequest request) {
+
+        return "/Register/Login";
+    }
+
 	//프로필 관리
 	@RequestMapping(value = "/My/MyProfile.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String MyProfile(HttpServletRequest request) {

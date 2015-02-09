@@ -30,6 +30,38 @@
             src="../resources/js/jquery.cycle2.carousel.js"></script>
     <script type="text/javascript" src="../resources/js/ui.js"></script>
 
+    <script src="../resources/js/url.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var str = jQuery.url.segment(2) // jQueryURL.htm 반환.
+            //$('#id1').append('<p>' + 'segment 2 : ' + str + '</p>');
+
+            if(str.indexOf("MyMistus")!==-1) {
+                $(".mypageSnb ul.personal li.m2 a").css("color","#db1515");
+            } else if(str.indexOf("MyProfile")!==-1) {
+                $(".mypageSnb ul.personal li.m3 a").css("color","#db1515");
+            } else if(str.indexOf("MyAccount")!==-1) {
+                $(".mypageSnb ul.personal li.m4 a").css("color","#db1515");
+            } else if(str.indexOf("MyMessage")!==-1) {
+                $(".mypageSnb ul.personal li.m5 a").css("color","#db1515");
+            } else if(str.indexOf("MyFavority")!==-1) {
+                $(".mypageSnb ul.personal li.m6 a").css("color","#db1515");
+            } else if(str.indexOf("MyPoint")!==-1) {
+                $(".mypageSnb ul.personal li.m7 a").css("color","#db1515");
+            } else if(str.indexOf("MyOrderMng")!==-1) {
+                $(".mypageSnb ul.personal li.m8 a").css("color","#db1515");
+            } else if(str.indexOf("SellProdReg")!==-1) {
+                $(".mypageSnb ul.sell li.m1 a").css("color","#db1515");
+            } else if(str.indexOf("SellProdListMy")!==-1) {
+                $(".mypageSnb ul.sell li.m2 a").css("color","#db1515");
+            } else if(str.indexOf("SellMng")!==-1) {
+                $(".mypageSnb ul.sell li.m3 a").css("color","#db1515");
+            } else if(str.indexOf("SellIncome")!==-1) {
+                $(".mypageSnb ul.sell li.m4 a").css("color","#db1515");
+            }
+        });
+    </script>
+
     <style type="text/css">
 
         .quick-mypage-re .on {
