@@ -40,16 +40,14 @@ public class RegisterController {
 	
 	@Autowired 
 	private JavaMailSender mailSender;
-
-	@RequestMapping(value = "/Register/Register.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
-	public String register(HttpServletRequest request,
-			HttpServletResponse response) {
+	
+	//회원가입
+	@RequestMapping(value = "/Register/Register.action", method = {RequestMethod.GET, RequestMethod.POST})
+	public String register(HttpServletRequest request,HttpServletResponse response) {
 
 		String mbId = request.getParameter("mbId");
 		String mbPw1 = request.getParameter("mbPw1");
 		String mbPic = "img_profile_img_blank_120x120.png";
-
 		String str = "";
 
 		MemberDTO dto = dao.registerMemberData(mbId);
@@ -57,9 +55,7 @@ public class RegisterController {
 		if (dto != null) {
 			str = "아이디가 존재합니다.";
 		} else {
-
 			dto = new MemberDTO();
-
 			dto.setMbId(mbId);
 			dto.setMbPw(mbPw1);
 			dto.setMbPic(mbPic);
@@ -78,7 +74,6 @@ public class RegisterController {
 			HttpSession session = request.getSession(true);
 
 			MemberSession mbs = new MemberSession();
-
 			mbs.setMbId(mbId);
 			mbs.setMbPw(mbPw1);
 			
@@ -89,29 +84,28 @@ public class RegisterController {
 				messageHelper.setSubject("[TALENT]가입을 축하드립니다.");
 				messageHelper.setText("안녕하세요. 'TALENT'입니다.\n"+"["+mbId+"]고객님의 가입을 축하드립니다.\n"
 						+"email인증을 하려면 다음 링크를 클릭하세요.\n"+"http://192.168.16.9:8080/final/Register/EmailAuth.action?code="+ authCode);
-				
 				mailSender.send(message);
 			} catch(Exception e){
 				System.out.println(e);
 			}
 			
-
 			session.setAttribute("session", mbs);
 
 			return "redirect:/Goods/Main.action";
 		}
-
 		request.setAttribute("str", str);
 
 		return "/Register/Register";
+		
 	}
-
-	@RequestMapping(value = "/Register/Register_ok.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	
+	//회원가입 후
+	@RequestMapping(value = "/Register/Register_ok.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String register_ok() {
 		return "redirect:/Goods/Main.action";
 	}
-
+	
+	//로그인
 	@RequestMapping(value = "/Login/Login.action")
 	public ModelAndView login(HttpServletRequest request,
 			HttpServletResponse response, MemberDTO dto) throws Exception {
@@ -125,40 +119,33 @@ public class RegisterController {
 		dto = dao.getReadMember(mbId);
 
 		if (dto == null) {
-
 			str = "아이디가 없습니다.";
-
 		} else if (!dto.getMbPw().equals(mbPw)) {
 			str = "비밀번호가 틀렸습니다.";
-
 		} else {
 			HttpSession session = request.getSession(true);
 
 			MemberSession mbs = new MemberSession();
-
 			mbs.setMbId(mbId);
 			mbs.setMbPw(mbPw);
 
 			session.setAttribute("session", mbs);
-
 			/*
 			 * String cp = request.getContextPath(); String url = cp +
 			 * "/Goods/Main.action";
 			 * 
 			 * response.sendRedirect(url);
 			 */
-
 			mav.setViewName("redirect:/Goods/Main.action");
 			return mav;
 			// return "redirect:/Goods/Main.action";
-
 		}
-
 		mav.addObject("str", str);
 		// request.setAttribute("str", str);
-
 		mav.setViewName("/Register/Register");
+		
 		return mav;
+		
 	}
 
 	/*
@@ -193,13 +180,12 @@ public class RegisterController {
 	 * 
 	 * }
 	 */
-
-	@RequestMapping(value = "/My/MyProfile.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	
+	//프로필 관리
+	@RequestMapping(value = "/My/MyProfile.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String MyProfile(HttpServletRequest request) {
 
 		String cp = request.getContextPath();
-
 		String imagePath = cp + "/pds/imageFile";
 
 		HttpSession session = request.getSession();
@@ -212,10 +198,11 @@ public class RegisterController {
 		request.setAttribute("imagePath", imagePath);
 
 		return "/My/MyProfile";
+		
 	}
 
-	@RequestMapping(value = "/Comm/PhotoUpload.aciton", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	//사진 업로드 창 띄우기
+	@RequestMapping(value = "/Comm/PhotoUpload.aciton", method = {RequestMethod.GET, RequestMethod.POST})
 	public String photoUpload(HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
@@ -224,24 +211,21 @@ public class RegisterController {
 
 		return "Comm/PhotoUpload";
 	}
-
-	@RequestMapping(value = "/Comm/PhotoUpload_ok.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
-	public String photoUpload_ok(MultipartHttpServletRequest multipartrRequest,
-			HttpServletRequest request) throws Exception {
+	
+	//사진 업로드 실행
+	@RequestMapping(value = "/Comm/PhotoUpload_ok.action", method = {RequestMethod.GET, RequestMethod.POST})
+	public String photoUpload_ok(MultipartHttpServletRequest multipartrRequest,HttpServletRequest request) throws Exception {
 
 		HttpSession session = request.getSession();
 
 		MemberSession mbs = (MemberSession) session.getAttribute("session");
 
-		String path = multipartrRequest.getSession().getServletContext()
-				.getRealPath("/WEB-INF/images/Profile/");
+		String path = multipartrRequest.getSession().getServletContext().getRealPath("/WEB-INF/images/Profile/");
 
 		MultipartFile file = multipartrRequest.getFile("mbPic");
 
 		if (file != null && file.getSize() > 0) {
 			try {
-				
 				MemberDTO dto = dao.getReadMember(mbs.getMbId());
 				
 				String filepath = path + File.separator + dto.getMbPic() ;
@@ -254,9 +238,7 @@ public class RegisterController {
 				String originalFileName = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
 				String mbId = mbs.getMbId().substring(0, mbs.getMbId().indexOf("."));
 				
-				FileOutputStream fos = new FileOutputStream(path + "/"
-						+ mbId + originalFileName);
-
+				FileOutputStream fos = new FileOutputStream(path + "/"+ mbId + originalFileName);
 				InputStream is = file.getInputStream();
 
 				byte[] buffer = new byte[512];
@@ -281,10 +263,11 @@ public class RegisterController {
 			}
 		}
 		return "Comm/complete";
+		
 	}
-
-	@RequestMapping(value = "/My/UpdateMyprofile.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	
+	//프로필 업데이트
+	@RequestMapping(value = "/My/UpdateMyprofile.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String updateMyProfile(MemberDTO dto, HttpServletRequest request) {
 
 		dto = new MemberDTO();
@@ -300,10 +283,11 @@ public class RegisterController {
 		dao.updateMyMember(dto);
 
 		return "redirect:/My/MyProfile.action";
+		
 	}
 
-	@RequestMapping(value = "/My/ChangePw.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	//비밀번호 바꾸기
+	@RequestMapping(value = "/My/ChangePw.action", method={RequestMethod.GET, RequestMethod.POST})
 	public String changePw(HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
@@ -319,8 +303,9 @@ public class RegisterController {
 		return "redirect:/My/MyAccount.action";
 
 	}
-
-	@RequestMapping(value = "/My/Out.action", method = {RequestMethod.GET,RequestMethod.POST})
+	
+	//회원 탈퇴
+	@RequestMapping(value = "/My/Out.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String out(HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
@@ -341,6 +326,7 @@ public class RegisterController {
 
 	}
 	
+	//회원 가입시 메일 발송
 	@RequestMapping(value = "/Register/EmailAuth.action", method = {RequestMethod.GET,RequestMethod.POST})
 	public String emailAuth(HttpServletRequest request) {
 		

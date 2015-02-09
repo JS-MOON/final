@@ -16,6 +16,8 @@ public class HistoryDTO {
 	private String hsOptions;
 	private String brSubject;
 	private String brmainphoto;
+	private String srId;
+	private int ptNum;
 
 	public int getHsNum() {
 		return hsNum;
@@ -88,4 +90,21 @@ public class HistoryDTO {
 	public void setHsOptions(String hsOptions) {
 		this.hsOptions = hsOptions;
 	}
+
+	public String getSrId() {
+		return srId;
+	}
+
+	public void setSrId(String srId) {
+		this.srId = srId;
+	}
+
+	public int getPtNum() {
+		return ptNum;
+	}
+
+	public void setPtNum(int ptNum) {
+		this.ptNum = ptNum;
+	}
+	
 }

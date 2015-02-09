@@ -33,6 +33,7 @@ public class HistoryController {
 	@Autowired
 	MyUtil myUtil;
 	
+	//구매페이지(결제)
 	@RequestMapping(value="/Goods/GOrder_ok.action",method={RequestMethod.GET,RequestMethod.POST})
 	public String gorder_ok(HttpServletRequest req, HttpServletResponse res, HistoryDTO dto){
 
@@ -72,9 +73,11 @@ public class HistoryController {
 		dao.hsInsert(dto);
 
 		return  "redirect:/My/MyOrderMng.action";
+		
 	}
 	
-	@RequestMapping(value="/My/MyOrderMng.action", method={RequestMethod.GET,RequestMethod.POST})
+	//구매내역
+	@RequestMapping(value="/My/MyOrderMng.action",method={RequestMethod.GET,RequestMethod.POST})
 	public String myOrderMng(HttpServletRequest req, HttpServletResponse res){
 		
 		HttpSession session = req.getSession();
@@ -88,12 +91,14 @@ public class HistoryController {
 		req.setAttribute("lists", lists);
 		
 		return "/My/MyOrderMng";
+		
 	}
-
-	@RequestMapping(value="/My/SellMng.action", method={RequestMethod.GET,RequestMethod.POST})
+	
+	//판매내역
+	@RequestMapping(value="/My/SellMng.action",method={RequestMethod.GET,RequestMethod.POST})
 	public String sellMng(HttpServletRequest req, HttpServletResponse res){
 		
-		//판매내역 
+
 		HttpSession session = req.getSession();
 		
 		MemberSession mbs = (MemberSession)session.getAttribute("session");
@@ -106,15 +111,12 @@ public class HistoryController {
 			searchSellValue="";
 		}
 		
-		System.out.println(mbId);
-		
 		List<HistoryDTO> lists = dao.selectSellHistory(mbId,searchSellValue);
 		
 		req.setAttribute("lists", lists);
 		
-		System.out.println(lists);
-		
 		return "My/SellMng";
+		
 	}
 
 }

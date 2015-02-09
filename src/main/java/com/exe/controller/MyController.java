@@ -31,9 +31,9 @@ public class MyController {
 	@Autowired
 	@Qualifier("wishListDAO")
 	WishListDAO widao;
-
-	@RequestMapping(value = "/My/MyAccount.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	
+	//
+	@RequestMapping(value = "/My/MyAccount.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String myAccount(HttpServletRequest req, HttpServletResponse res) {
 		/*
 		 * HttpSession session = req.getSession();
@@ -47,10 +47,11 @@ public class MyController {
 		 * System.out.println(mbPw + "asdfasdfasdfasdfasdfasdfasdfasdf");
 		 */
 		return "My/MyAccount";
+		
 	}
-
-	@RequestMapping(value = "/My/AddMyFavority.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	
+	//찜목록 추가
+	@RequestMapping(value = "/My/AddMyFavority.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String AddMyFavority(HttpServletRequest req, HttpServletResponse res) {
 
 		HttpSession session = req.getSession();
@@ -58,8 +59,8 @@ public class MyController {
 		String MbId = mbs.getMbId();
 		
 		int brNum = Integer.parseInt(req.getParameter("brNum"));
-
 		int maxNum = widao.wiMaxNum();
+		
 		WishListDTO dto = new WishListDTO();
 		dto.setMbId(MbId);
 		dto.setBrNum(brNum);
@@ -68,10 +69,11 @@ public class MyController {
 		widao.wiInsert(dto);
 
 		return "My/MyFavority";
+		
 	}
 	
-	@RequestMapping(value = "/My/DelMyFavority.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	//찜목록 삭제
+	@RequestMapping(value = "/My/DelMyFavority.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String DelMyFavority(HttpServletRequest req, HttpServletResponse res) {
 
 		HttpSession session = req.getSession();
@@ -85,8 +87,8 @@ public class MyController {
 		return "redirect:/My/MyFavority.action";
 	}
 	
-	@RequestMapping(value = "/My/MyFavority.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	//찜목록 리스트
+	@RequestMapping(value = "/My/MyFavority.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String myFavority(HttpServletRequest req, HttpServletResponse res) {
 		
 		HttpSession session = req.getSession();
@@ -99,35 +101,38 @@ public class MyController {
 		
 		req.setAttribute("lists", lists);
 
-
 		return "My/MyFavority";
+		
 	}
 	
 	
-
-	@RequestMapping(value = "/My/MyMessage.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	//메세지
+	@RequestMapping(value = "/My/MyMessage.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String myMessage(HttpServletRequest req, HttpServletResponse res) {
 
 		return "My/MyMessage";
 	}
 
-	@RequestMapping(value = "/My/MyMistus.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	//재능관리
+	@RequestMapping(value = "/My/MyMistus.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String myMistus(HttpServletRequest req, HttpServletResponse res) {
 
 		return "My/MyMistus";
 	}
 
-	@RequestMapping(value = "/My/MyPoint.action", method = { RequestMethod.GET,
-			RequestMethod.POST })
+	//포인트
+	@RequestMapping(value = "/My/MyPoint.action", method = { RequestMethod.GET, RequestMethod.POST})
 	public String myPoint(HttpServletRequest req, HttpServletResponse res) {
+		
 		HttpSession session = req.getSession();
 		MemberSession mbs = (MemberSession) session.getAttribute("session");
+		
 		List<PointDTO> pointDTOList = pdao.ptGetAll(mbs.getMbId());
+		
 		req.setAttribute("pointDTOList", pointDTOList);
 
 		return "My/MyPoint";
+		
 	}
 
 }

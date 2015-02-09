@@ -38,20 +38,18 @@ public class GoodsController {
 	WishListDAO widao;
 	
 	// 메인
-	@RequestMapping(value = "/", method = { RequestMethod.GET,
-			RequestMethod.POST })
+	@RequestMapping(value = "/",method={RequestMethod.GET,RequestMethod.POST})
 	public String main() {
 
 		return "index";
 	}
 
 	// 메인화면
-	@RequestMapping(value = "/Goods/Main.action", method = { RequestMethod.GET,
-			RequestMethod.POST })
+	@RequestMapping(value = "/Goods/Main.action",method={RequestMethod.GET,RequestMethod.POST})
 	public String mainaction(HttpServletRequest request,
 			HttpServletResponse response) {
 
-		//get Cookie
+		//get Cookie(찜리스트)
 		Cookie[] cookies = request.getCookies();
 		String[] brNumbs = new String[4];
 		String[] photos = new String[4];
@@ -108,8 +106,7 @@ public class GoodsController {
 	}
 	
 	// 최근 본 목록 쿠키 추가
-	@RequestMapping(value = "/Goods/GDetail.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/Goods/GDetail.action",method={RequestMethod.GET, RequestMethod.POST})
 	public String gDetail(String brNum, HttpServletRequest request,
 						  HttpServletResponse response) {
 
@@ -156,8 +153,7 @@ public class GoodsController {
 	}
 
 	// 상품상세설명창
-	@RequestMapping(value = "/Goods/RGDetail.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/Goods/RGDetail.action",method={RequestMethod.GET, RequestMethod.POST})
 	public String redirectGDetail(HttpServletRequest request,
 								  HttpServletResponse response) {
 
@@ -221,7 +217,6 @@ public class GoodsController {
 
 			for (int i = 0; i < lists.size(); i++) {
 				CommentsDTO cdto = lists.get(i);
-
 				if (cdto.getCmContent().contains("\r\n")) {
 					String[] a = cdto.getCmContent().split("\r\n");
 					subject[i] = a[0];
@@ -229,10 +224,8 @@ public class GoodsController {
 					String a = cdto.getCmContent();
 					subject[i] = a;
 				}
-
 				cdto.setCmContent(cdto.getCmContent().replaceAll("\n", "<br/>"));
 				newLists.add(cdto);
-
 			}
 
 			request.setAttribute("cookies", brNumbs);
@@ -255,9 +248,8 @@ public class GoodsController {
 
 	}
 
-	//
-	@RequestMapping(value = "/Goods/GList.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	//카테고리 1차
+	@RequestMapping(value = "/Goods/GList.action",method={RequestMethod.GET, RequestMethod.POST})
 	public String gList(HttpServletRequest request, HttpServletResponse response) {
 
 		Cookie[] ck = request.getCookies();
@@ -265,16 +257,13 @@ public class GoodsController {
 		String cookiesPhoto[] = new String[100];
 		try {
 			if (ck != null) {
-
 				int photoOnCookie = 0;
 				int brNumOnCookie = 0;
+				
 				for (int i = ck.length - 2; i >= 0; i--) {
-
 					if (ck[i].getName().indexOf("main") != -1) {
-						cookiesPhoto[photoOnCookie] = URLDecoder.decode(
-								ck[i].getName(), "UTF-8");
+						cookiesPhoto[photoOnCookie] = URLDecoder.decode(ck[i].getName(), "UTF-8");
 						photoOnCookie++;
-
 					} else {
 						cookies[brNumOnCookie] = URLDecoder.decode(ck[i].getName(),
 								"UTF-8");
@@ -291,9 +280,8 @@ public class GoodsController {
 		HttpSession session = request.getSession();
 		String sessionMbId = "";
 		List<BoardDTO> lists = null;
-		
 		String cp = request.getContextPath();
-
+		
 		int start = Integer.parseInt(request.getParameter("start"));
 		int end = Integer.parseInt(request.getParameter("end"));
 
@@ -302,11 +290,11 @@ public class GoodsController {
 		if (option.equals("1")) {// 가격 내림차순(최고가순)
 			String column = "brprice";
 			String order = "desc";
-			if(session.getAttribute("session")!=null){
+			if(session.getAttribute("session")!=null){//session이 비어있지 않을 경우
 				MemberSession mbs = (MemberSession) session.getAttribute("session");
 				sessionMbId = mbs.getMbId();
 				lists = dao.wishlist(start, end, column, order,sessionMbId);
-			}else if(session.getAttribute("session")==null){	
+			}else if(session.getAttribute("session")==null){//session이 비어있을경우	
 				lists = dao.list(start, end, column, order);
 			}
 			request.setAttribute("lists", lists);
@@ -403,22 +391,20 @@ public class GoodsController {
 
 		return "Goods/GList";
 	}
-
-	@RequestMapping(value = "/Goods/GList_ok.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
-	public String gList_ok(HttpServletRequest request,
-						   HttpServletResponse response) {
+	
+	//카테고리 2차
+	@RequestMapping(value = "/Goods/GList_ok.action",method={RequestMethod.GET, RequestMethod.POST})
+	public String gList_ok(HttpServletRequest request, HttpServletResponse response) {
 
 		int cgNum = Integer.parseInt(request.getParameter("cgNum"));
 
 		return "redirect:/Goods/GList.action?start=" + cgNum + "&end=" + cgNum
 				+ "&range=0";
 	}
-
-	@RequestMapping(value = "/Goods/GSearchList.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
-	public String gSearchList(HttpServletRequest request,
-			HttpServletResponse response) {
+	
+	//검색한 리스트
+	@RequestMapping(value = "/Goods/GSearchList.action",method={RequestMethod.GET, RequestMethod.POST})
+	public String gSearchList(HttpServletRequest request, HttpServletResponse response) {
 
 		Cookie[] ck = request.getCookies();
 		String cookies[] = new String[100];
@@ -431,13 +417,11 @@ public class GoodsController {
 				for (int i = ck.length - 2; i >= 0; i--) {
 
 					if (ck[i].getName().indexOf("main") != -1) {
-						cookiesPhoto[photoOnCookie] = URLDecoder.decode(
-								ck[i].getName(), "UTF-8");
+						cookiesPhoto[photoOnCookie] = URLDecoder.decode(ck[i].getName(), "UTF-8");
 						photoOnCookie++;
 
 					} else {
-						cookies[brNumOnCookie] = URLDecoder.decode(
-								ck[i].getName(), "UTF-8");
+						cookies[brNumOnCookie] = URLDecoder.decode(ck[i].getName(), "UTF-8");
 						brNumOnCookie++;
 					}
 				}
@@ -449,7 +433,6 @@ public class GoodsController {
 		
 		String searchValue = request.getParameter("searchValue");
 
-		//getSession
 		HttpSession session = request.getSession();
 		String sessionMbId = "";
 		List<BoardDTO> lists = null;
@@ -459,10 +442,10 @@ public class GoodsController {
 			MemberSession mbs = (MemberSession) session.getAttribute("session");
 			sessionMbId = mbs.getMbId();
 			lists = dao.selectWishSubject(searchValue,sessionMbId);
-			
 		}else if(session.getAttribute("session")==null){	
 			lists = dao.selectSubject(searchValue);
 		}
+	
 		request.setAttribute("lists", lists);
 		request.setAttribute("cookies", cookies);
 		request.setAttribute("cookiesPhoto", cookiesPhoto);
@@ -471,11 +454,10 @@ public class GoodsController {
 		return "/Goods/GSearchList";
 
 	}
-
-	@RequestMapping(value = "/Goods/GOrder.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
-	public String gOrder(HttpServletRequest request,
-						 HttpServletResponse response) {
+	
+	// 주문페이지
+	@RequestMapping(value = "/Goods/GOrder.action",method={RequestMethod.GET, RequestMethod.POST})
+	public String gOrder(HttpServletRequest request, HttpServletResponse response) {
 
 		String option = request.getParameter("completedOption");
 		String basicPrice = request.getParameter("basicPrice");
@@ -498,8 +480,7 @@ public class GoodsController {
 		request.setAttribute("srId", srId);
 
 		DivideOptions divideOptions = new DivideOptions();
-		List<String> op = divideOptions.parse(option);
-		request.setAttribute("op", op);
+		List<String> op = divideOptions.parse(option);	
 
 		int optionPrice = 0;
 		for (int i = 1; i < op.size(); i += 2) {
@@ -507,37 +488,36 @@ public class GoodsController {
 				optionPrice += Integer.parseInt(op.get(i));
 			}
 		}
-		request.setAttribute("optionPrice", optionPrice);
 
 		int vatAddedtotalPrice = (int) (Integer.parseInt(totalPrice) * 1.1);
 		request.setAttribute("vatAddedtotalPrice", vatAddedtotalPrice);
-
 		HttpSession session = request.getSession();
 		MemberSession mbs = (MemberSession) session.getAttribute("session");
 		int restPoint = pdao.ptGetSum(mbs.getMbId());
+		
+		request.setAttribute("op", op);
+		request.setAttribute("optionPrice", optionPrice);
 		request.setAttribute("restPoint", restPoint);
 
 		return "Goods/GOrder";
+		
 	}
-
-	@RequestMapping(value = "/Goods/logout.action", method = { RequestMethod.GET,
-			RequestMethod.POST })
+	
+	// 로그아웃
+	@RequestMapping(value="/Goods/logout.action", method={RequestMethod.GET, RequestMethod.POST})
 	public String logout(HttpServletRequest request,HttpServletResponse response) {
 
 		String str = "";
 		
 		str = "로그아웃 되셨습니다.";
-
+		
 		Cookie[] ck = request.getCookies();
 
 		if(ck != null && ck.length > 0){
 			for (int i = 0; i < ck.length; i++) {
-
-
 				Cookie cookie = new Cookie(ck[i].getName(), ck[i].getValue());
 				cookie.setMaxAge(0);
 				response.addCookie(cookie);
-
 			}
 		}
 
@@ -545,7 +525,6 @@ public class GoodsController {
 
 		HttpSession session = request.getSession();
 		session.invalidate();
-
 
 		return "Register/Register";
 

@@ -19,12 +19,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.exe.dao.GoodsDAO;
 import com.exe.dto.BoardDTO;
-import com.exe.dto.HistoryDTO;
-import com.exe.dto.MemberDTO;
 import com.exe.dto.MemberSession;
 import com.exe.util.ImageName;
-
-
 
 @Controller
 public class SellController {
@@ -33,6 +29,7 @@ public class SellController {
 	@Qualifier("goodsDAO")
 	GoodsDAO dao;
 	
+	//판매수익금
 	@RequestMapping(value="/My/SellIncome.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String sellIncome(HttpServletRequest req, HttpServletResponse res){
 		
@@ -40,6 +37,7 @@ public class SellController {
 		return "My/SellIncome";
 	}
 	
+	//내 재능 목록
 	@RequestMapping(value="/My/SellProdListMy.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String sellProdListMy(HttpServletRequest req, HttpServletResponse res){
 		
@@ -57,10 +55,10 @@ public class SellController {
 		
 	}
 	
+	//내 재능 삭제
 	@RequestMapping(value="/My/SellProdListMydelete.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String sellProdListMyDeleted(BoardDTO dto, HttpServletRequest req, HttpServletResponse res){
 		
-		System.out.println("eaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		int brNum = Integer.parseInt(req.getParameter("brNum"));
 		
 		dao.myBoardDelete(brNum);
@@ -69,6 +67,7 @@ public class SellController {
 		
 	}
 	
+	//재능 등록 창
 	@RequestMapping(value="/My/SellProdReg.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String sellProdReg(HttpServletRequest req, HttpServletResponse res){
 		
@@ -76,6 +75,7 @@ public class SellController {
 		return "My/SellProdReg";
 	}
 	
+	//재능 등록 실행
 	@RequestMapping(value="/My/SellProdReg_ok.action", method={RequestMethod.GET,RequestMethod.POST})
 	public String sellProdReg_ok(MultipartHttpServletRequest multipartRequest,HttpServletRequest req, HttpServletResponse res) {
 		
@@ -150,8 +150,6 @@ public class SellController {
 		dao.boardInsert(dto);
 
 		return "redirect:/Goods/Main.action";
+		
 	}
-	
-	
-
 }

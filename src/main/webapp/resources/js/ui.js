@@ -326,7 +326,7 @@ jQuery(function () {
 })
 
 // 2조 추가사항
-//[찜목록]
+//========== [찜목록] ==========//
 function changeWishList(id) {
 
 	var parent = $("#wishList_" + id).parent();
@@ -339,16 +339,13 @@ function changeWishList(id) {
 				brNum : $("#wishList_" + id).val()
 			},
 			success : function(args) {
-					parent.removeClass('on');
-					
+					parent.removeClass('on');	
 			},
 			error : function(request, status, error) {
 				/*alert("code : " + request.status + "\n" + "message : "
 						+ request.responseText + "\n" + "error : " + error);*/
 				alert("로그인 후 이용 가능합니다.");
-				
 			}
-
 		});
 	}else if(!parent.hasClass('on')){
 		$.ajax({
@@ -362,14 +359,13 @@ function changeWishList(id) {
 				window.location.reload();
 			},
 			error : function(request, status, error) {
-				alert("code : " + request.status + "\n" + "message : "
-						+ request.responseText + "\n" + "error : " + error);
+				alert("code : " + request.status + "\n" + "message : "+ request.responseText + "\n" + "error : " + error);
 			}
 		});
 	}
 }
 
-
+//========== [포인트] ==========//
 function selectUsePoint() {
     var usePoint = document.getElementsByName("usePoint");
 
@@ -400,7 +396,7 @@ function updatePointValue() {
         document.getElementById("pointInputBox").value = document.getElementById("temporaryTotalPrice").value;
         alert("합계금액 이상 포인트를 사용할 수 없습니다.")
     }
-
+    
     $("#pointValue").text(document.getElementById("pointInputBox").value);
     $("#totalPrice").text(document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value);
     $("#vatAddedTotalPrice")
