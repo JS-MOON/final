@@ -184,5 +184,5 @@
 	<delete id="brDeleteData" parameterType="int">
 		delete board where brnum=#{brNum}
 	</delete>
-
+	
 </mapper>
