@@ -53,7 +53,7 @@ public class MyController {
 	//찜목록 추가
 	@RequestMapping(value = "/My/AddMyFavority.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String AddMyFavority(HttpServletRequest req, HttpServletResponse res) {
-
+		
 		HttpSession session = req.getSession();
 		MemberSession mbs = (MemberSession) session.getAttribute("session");
 		String MbId = mbs.getMbId();

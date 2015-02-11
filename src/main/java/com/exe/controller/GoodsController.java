@@ -1,18 +1,15 @@
 package com.exe.controller;
 
-import java.net.URLDecoder;
+
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.exe.dao.PointDAO;
 import com.exe.dao.WishListDAO;
 import com.exe.dto.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -249,146 +246,161 @@ public class GoodsController {
 	}
 
 	//카테고리 1차
-	@RequestMapping(value = "/Goods/GList.action",method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/Goods/GList.action", method = {
+			RequestMethod.GET, RequestMethod.POST })
 	public String gList(HttpServletRequest request, HttpServletResponse response) {
 
-		Cookie[] ck = request.getCookies();
-		String cookies[] = new String[100];
-		String cookiesPhoto[] = new String[100];
 		try {
-			if (ck != null) {
-				int photoOnCookie = 0;
-				int brNumOnCookie = 0;
-				
-				for (int i = ck.length - 2; i >= 0; i--) {
-					if (ck[i].getName().indexOf("main") != -1) {
-						cookiesPhoto[photoOnCookie] = URLDecoder.decode(ck[i].getName(), "UTF-8");
-						photoOnCookie++;
-					} else {
-						cookies[brNumOnCookie] = URLDecoder.decode(ck[i].getName(),
-								"UTF-8");
-						brNumOnCookie++;
+			Cookie[] cookies = request.getCookies();
+			String[] brNumbs = new String[4];
+			String[] photos = new String[4];
+
+			try {
+				if (cookies != null && cookies.length > 0) {
+					for (Cookie cooky : cookies) {
+						if (cooky.getName().equals("myWishList")) {
+							String temp = cooky.getValue();
+
+							String[] wishListsArray = temp.split(",,");
+
+							for (int i = 0; i < wishListsArray.length; i++) {
+								if (i % 2 == 0)
+									brNumbs[i / 2] = wishListsArray[i];
+								else
+									photos[i / 2] = wishListsArray[i];
+							}
+						}
 					}
+				}
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+
+			// getSession
+			HttpSession session = request.getSession();
+			String sessionMbId = "";
+			List<BoardDTO> lists = null;
+			String cp = request.getContextPath();
+
+			int start = Integer.parseInt(request.getParameter("start"));
+			int end = Integer.parseInt(request.getParameter("end"));
+
+			String option = request.getParameter("range");
+
+			if (option.equals("1")) {// 가격 내림차순(최고가순)
+				String column = "brprice";
+				String order = "desc";
+				if (session.getAttribute("session") != null) {// session이 비어있지
+																// 않을 경우
+					MemberSession mbs = (MemberSession) session
+							.getAttribute("session");
+					sessionMbId = mbs.getMbId();
+					lists = dao
+							.wishlist(start, end, column, order, sessionMbId);
+				} else if (session.getAttribute("session") == null) {// session이
+																		// 비어있을경우
+					lists = dao.list(start, end, column, order);
+				}
+				request.setAttribute("lists", lists);
+			} else if (option.equals("2")) {// 가격 올림차순(최저가순)
+				String column = "brprice";
+				String order = "asc";
+				if (session.getAttribute("session") != null) {
+					MemberSession mbs = (MemberSession) session
+							.getAttribute("session");
+					sessionMbId = mbs.getMbId();
+					lists = dao
+							.wishlist(start, end, column, order, sessionMbId);
+				} else if (session.getAttribute("session") == null) {
+					lists = dao.list(start, end, column, order);
+				}
+				request.setAttribute("lists", lists);
+			} else if (option.equals("3")) {// 날짜순
+				String column = "brdate";
+				String order = "desc";
+				if (session.getAttribute("session") != null) {
+					MemberSession mbs = (MemberSession) session
+							.getAttribute("session");
+					sessionMbId = mbs.getMbId();
+					lists = dao
+							.wishlist(start, end, column, order, sessionMbId);
+				} else if (session.getAttribute("session") == null) {
+					lists = dao.list(start, end, column, order);
+				}
+				request.setAttribute("lists", lists);
+			} else {
+				if (session.getAttribute("session") != null) {
+					MemberSession mbs = (MemberSession) session
+							.getAttribute("session");
+					sessionMbId = mbs.getMbId();
+					lists = dao.wishlist(start, end, sessionMbId);
+				} else if (session.getAttribute("session") == null) {
+					lists = dao.list(start, end);
+				}
+				request.setAttribute("lists", lists);
+
+				if (1 <= start && start <= 14) {
+					start = 1;
+					end = 14;
+				}
+				if (15 <= start && start <= 22) {
+					start = 15;
+					end = 22;
+				}
+				if (23 <= start && start <= 30) {
+					start = 23;
+					end = 30;
+				}
+				if (31 <= start && start <= 41) {
+					start = 31;
+					end = 41;
+				}
+				if (42 <= start && start <= 50) {
+					start = 42;
+					end = 50;
+				}
+				if (51 <= start && start <= 58) {
+					start = 51;
+					end = 58;
+				}
+				if (59 <= start && start <= 68) {
+					start = 59;
+					end = 68;
+				}
+				if (69 <= start && start <= 79) {
+					start = 69;
+					end = 79;
+				}
+				if (80 <= start && start <= 90) {
+					start = 80;
+					end = 90;
+				}
+				if (91 <= start && start <= 96) {
+					start = 91;
+					end = 96;
+				}
+				if (97 <= start && start <= 109) {
+					start = 97;
+					end = 109;
 				}
 			}
 
+			// 카테고리 찍어주기
+			String imagePath = cp + "/Product";
+
+			List<CategoryDTO> cglists = dao.getReadCategory(start, end);
+
+			request.setAttribute("cglists", cglists);
+			request.setAttribute("imagePath", imagePath);
+			request.setAttribute("start", start);
+			request.setAttribute("end", end);
+			request.setAttribute("cookies", brNumbs);
+			request.setAttribute("cookiesPhoto", photos);
+			request.setAttribute("mbId", sessionMbId);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
 		
-		//getSession
-		HttpSession session = request.getSession();
-		String sessionMbId = "";
-		List<BoardDTO> lists = null;
-		String cp = request.getContextPath();
-		
-		int start = Integer.parseInt(request.getParameter("start"));
-		int end = Integer.parseInt(request.getParameter("end"));
-
-		String option = request.getParameter("range");
-
-		if (option.equals("1")) {// 가격 내림차순(최고가순)
-			String column = "brprice";
-			String order = "desc";
-			if(session.getAttribute("session")!=null){//session이 비어있지 않을 경우
-				MemberSession mbs = (MemberSession) session.getAttribute("session");
-				sessionMbId = mbs.getMbId();
-				lists = dao.wishlist(start, end, column, order,sessionMbId);
-			}else if(session.getAttribute("session")==null){//session이 비어있을경우	
-				lists = dao.list(start, end, column, order);
-			}
-			request.setAttribute("lists", lists);
-		} else if (option.equals("2")) {// 가격 올림차순(최저가순)
-			String column = "brprice";
-			String order = "asc";
-			if(session.getAttribute("session")!=null){
-				MemberSession mbs = (MemberSession) session.getAttribute("session");
-				sessionMbId = mbs.getMbId();
-				lists = dao.wishlist(start, end, column, order,sessionMbId);
-			}else if(session.getAttribute("session")==null){	
-				lists = dao.list(start, end, column, order);
-			}
-			request.setAttribute("lists", lists);
-		} else if (option.equals("3")) {// 날짜순
-			String column = "brdate";
-			String order = "desc";
-			if(session.getAttribute("session")!=null){
-				MemberSession mbs = (MemberSession) session.getAttribute("session");
-				sessionMbId = mbs.getMbId();
-				lists = dao.wishlist(start, end, column, order,sessionMbId);
-			}else if(session.getAttribute("session")==null){	
-				lists = dao.list(start, end, column, order);
-			}
-			request.setAttribute("lists", lists);
-		} else {
-			if(session.getAttribute("session")!=null){
-				MemberSession mbs = (MemberSession) session.getAttribute("session");
-				sessionMbId = mbs.getMbId();
-				lists = dao.wishlist(start, end,sessionMbId);
-			}else if(session.getAttribute("session")==null){	
-				lists = dao.list(start,end);
-			}
-			request.setAttribute("lists", lists);
-
-			if (1 <= start && start <= 14) {
-				start = 1;
-				end = 14;
-			}
-			if (15 <= start && start <= 22) {
-				start = 15;
-				end = 22;
-			}
-			if (23 <= start && start <= 30) {
-				start = 23;
-				end = 30;
-			}
-			if (31 <= start && start <= 41) {
-				start = 31;
-				end = 41;
-			}
-			if (42 <= start && start <= 50) {
-				start = 42;
-				end = 50;
-			}
-			if (51 <= start && start <= 58) {
-				start = 51;
-				end = 58;
-			}
-			if (59 <= start && start <= 68) {
-				start = 59;
-				end = 68;
-			}
-			if (69 <= start && start <= 79) {
-				start = 69;
-				end = 79;
-			}
-			if (80 <= start && start <= 90) {
-				start = 80;
-				end = 90;
-			}
-			if (91 <= start && start <= 96) {
-				start = 91;
-				end = 96;
-			}
-			if (97 <= start && start <= 109) {
-				start = 97;
-				end = 109;
-			}
-		}
-
-		// 카테고리 찍어주기
-		String imagePath = cp + "/Product";
-
-		List<CategoryDTO> cglists = dao.getReadCategory(start, end);
-
-		request.setAttribute("cglists", cglists);
-		request.setAttribute("imagePath", imagePath);
-		request.setAttribute("start", start);
-		request.setAttribute("end", end);
-		request.setAttribute("cookies", cookies);
-		request.setAttribute("cookiesPhoto", cookiesPhoto);
-		request.setAttribute("mbId", sessionMbId);
-
 		return "Goods/GList";
 	}
 	
@@ -406,50 +418,55 @@ public class GoodsController {
 	@RequestMapping(value = "/Goods/GSearchList.action",method={RequestMethod.GET, RequestMethod.POST})
 	public String gSearchList(HttpServletRequest request, HttpServletResponse response) {
 
-		Cookie[] ck = request.getCookies();
-		String cookies[] = new String[100];
-		String cookiesPhoto[] = new String[100];
 		try {
-			if (ck != null) {
+			Cookie[] cookies = request.getCookies();
+			String[] brNumbs = new String[4];
+			String[] photos = new String[4];
 
-				int photoOnCookie = 0;
-				int brNumOnCookie = 0;
-				for (int i = ck.length - 2; i >= 0; i--) {
+			try {
+				if (cookies != null && cookies.length > 0) {
+					for (Cookie cooky : cookies) {
+						if (cooky.getName().equals("myWishList")) {
+							String temp = cooky.getValue();
 
-					if (ck[i].getName().indexOf("main") != -1) {
-						cookiesPhoto[photoOnCookie] = URLDecoder.decode(ck[i].getName(), "UTF-8");
-						photoOnCookie++;
+							String[] wishListsArray = temp.split(",,");
 
-					} else {
-						cookies[brNumOnCookie] = URLDecoder.decode(ck[i].getName(), "UTF-8");
-						brNumOnCookie++;
+							for (int i = 0; i < wishListsArray.length; i++) {
+								if (i % 2 == 0)
+									brNumbs[i / 2] = wishListsArray[i];
+								else
+									photos[i / 2] = wishListsArray[i];
+							}
+						}
 					}
 				}
+			} catch (Exception e) {
+				System.out.println(e.toString());
 			}
 
+			String searchValue = request.getParameter("searchValue");
+
+			HttpSession session = request.getSession();
+			String sessionMbId = "";
+			List<BoardDTO> lists = null;
+
+			// session이 존재할 경우에만 id저장
+			if (session.getAttribute("session") != null) {
+				MemberSession mbs = (MemberSession) session
+						.getAttribute("session");
+				sessionMbId = mbs.getMbId();
+				lists = dao.selectWishSubject(searchValue, sessionMbId);
+			} else if (session.getAttribute("session") == null) {
+				lists = dao.selectSubject(searchValue);
+			}
+
+			request.setAttribute("lists", lists);
+			request.setAttribute("cookies", brNumbs);
+			request.setAttribute("cookiesPhoto", photos);
+			request.setAttribute("mbId", sessionMbId);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
-		
-		String searchValue = request.getParameter("searchValue");
-
-		HttpSession session = request.getSession();
-		String sessionMbId = "";
-		List<BoardDTO> lists = null;
-		
-		//session이 존재할 경우에만 id저장
-		if(session.getAttribute("session")!=null){
-			MemberSession mbs = (MemberSession) session.getAttribute("session");
-			sessionMbId = mbs.getMbId();
-			lists = dao.selectWishSubject(searchValue,sessionMbId);
-		}else if(session.getAttribute("session")==null){	
-			lists = dao.selectSubject(searchValue);
-		}
-	
-		request.setAttribute("lists", lists);
-		request.setAttribute("cookies", cookies);
-		request.setAttribute("cookiesPhoto", cookiesPhoto);
-		request.setAttribute("mbId", sessionMbId);
 
 		return "/Goods/GSearchList";
 
