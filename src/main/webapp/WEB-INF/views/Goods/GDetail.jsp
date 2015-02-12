@@ -170,13 +170,13 @@
 							</div>
 						</div>
 						<div class="amount">
-							총 금액&nbsp; <span class="price"> <input type="text" name="totalPrice" id="totalPrice" value="${dto.brPrice }" class="price" readonly="readonly" style="text-align: right;
-border: 0px;"/>
+							총 금액&nbsp; <span class="price"> 
+							<type="text" name="totalPrice" id="totalPrice" value="${dto.brPrice }" class="price" readonly="readonly" style="text-align: right;border: 0px;"/>
 							</span> 원
 						</div>
 						<div class="btnArea al_r">
 							<a class="btnType2"
-							   href=""><span>문의하기</span></a>
+							   href="../Chat/QAChat.action?brNum=${dto.brNum}"><span>문의하기</span></a>
 							<a class="btnType3" href="javascript:order()"><span>구매하기</span></a>
 						</div>
 					</div>

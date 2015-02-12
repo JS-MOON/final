@@ -43,7 +43,7 @@ public class GoodsDAO {
 
 	//gDetail start
 	public BoardDTO getReadData(int brNum) {
-
+		System.out.println(brNum + "디티오들어옴");
 		BoardDTO dto = sessionTemplate.selectOne("GoodsMapper.getReadData",brNum);
 
 		return dto;
