@@ -92,6 +92,7 @@
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" id="sessionId" value="${mbId }">
                     </c:forEach>
                 </div>
             </div>

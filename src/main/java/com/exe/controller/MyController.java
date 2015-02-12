@@ -1,4 +1,6 @@
-package com.exe.controller;
+﻿package com.exe.controller;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +20,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.exe.dao.GoodsDAO;
+import com.exe.dao.HistoryDAO;
+import com.exe.dao.MsgDAO;
+import com.exe.dto.BoardDTO;
+import com.exe.dto.HistoryDTO;
 import com.exe.dto.MemberSession;
+import com.exe.dto.MsgDTO;
 
 import java.util.List;
 
@@ -37,9 +45,18 @@ public class MyController {
 	@Qualifier("historyDAO")
 	HistoryDAO hdao;
 
-	@RequestMapping(value = "/My/MyAccount.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
-	public String myAccount(HttpServletRequest req, HttpServletResponse res) {
+	@Autowired
+	HistoryDAO dao;
+	
+	@Autowired
+	GoodsDAO GoodsDao;
+	
+	@Autowired
+	MsgDAO msgDAO;
+	
+	@RequestMapping(value="/My/MyAccount.action", method={RequestMethod.GET,RequestMethod.POST})
+	public String myAccount(HttpServletRequest req, HttpServletResponse res){
+
 		/*
 		 * HttpSession session = req.getSession();
 		 * 
@@ -52,19 +69,20 @@ public class MyController {
 		 * System.out.println(mbPw + "asdfasdfasdfasdfasdfasdfasdfasdf");
 		 */
 		return "My/MyAccount";
+		
 	}
-
-	@RequestMapping(value = "/My/AddMyFavority.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	
+	//찜목록 추가
+	@RequestMapping(value = "/My/AddMyFavority.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String AddMyFavority(HttpServletRequest req, HttpServletResponse res) {
-
+		
 		HttpSession session = req.getSession();
 		MemberSession mbs = (MemberSession) session.getAttribute("session");
 		String MbId = mbs.getMbId();
 		
 		int brNum = Integer.parseInt(req.getParameter("brNum"));
-
 		int maxNum = widao.wiMaxNum();
+		
 		WishListDTO dto = new WishListDTO();
 		dto.setMbId(MbId);
 		dto.setBrNum(brNum);
@@ -73,10 +91,11 @@ public class MyController {
 		widao.wiInsert(dto);
 
 		return "My/MyFavority";
+		
 	}
 	
-	@RequestMapping(value = "/My/DelMyFavority.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	//찜목록 삭제
+	@RequestMapping(value = "/My/DelMyFavority.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String DelMyFavority(HttpServletRequest req, HttpServletResponse res) {
 
 		HttpSession session = req.getSession();
@@ -90,8 +109,8 @@ public class MyController {
 		return "redirect:/My/MyFavority.action";
 	}
 	
-	@RequestMapping(value = "/My/MyFavority.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	//찜목록 리스트
+	@RequestMapping(value = "/My/MyFavority.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String myFavority(HttpServletRequest req, HttpServletResponse res) {
 		
 		HttpSession session = req.getSession();
@@ -104,21 +123,31 @@ public class MyController {
 		
 		req.setAttribute("lists", lists);
 
-
 		return "My/MyFavority";
+		
 	}
 	
 	
-
-	@RequestMapping(value = "/My/MyMessage.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	//메세지
+	@RequestMapping(value = "/My/MyMessage.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String myMessage(HttpServletRequest req, HttpServletResponse res) {
+		HttpSession session = req.getSession();
+		
+		MemberSession mbs = (MemberSession) session.getAttribute("session");
+		
+		String sender = mbs.getMbId();
+		
+		List<MsgDTO> lists = msgDAO.selectMsg(sender);
+		List<MsgDTO> listsRe = msgDAO.selectReceiver(sender);
+		
+		req.setAttribute("lists", lists);
+		req.setAttribute("listsRe", listsRe);
 
 		return "My/MyMessage";
 	}
 
-	@RequestMapping(value = "/My/MyMistus.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
+	//재능관리
+	@RequestMapping(value = "/My/MyMistus.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String myMistus(HttpServletRequest req, HttpServletResponse res) {
 
 		HttpSession session = req.getSession();
@@ -150,15 +179,19 @@ public class MyController {
 		return "My/MyMistus";
 	}
 
-	@RequestMapping(value = "/My/MyPoint.action", method = { RequestMethod.GET,
-			RequestMethod.POST })
+	//포인트
+	@RequestMapping(value = "/My/MyPoint.action", method = { RequestMethod.GET, RequestMethod.POST})
 	public String myPoint(HttpServletRequest req, HttpServletResponse res) {
+		
 		HttpSession session = req.getSession();
 		MemberSession mbs = (MemberSession) session.getAttribute("session");
+		
 		List<PointDTO> pointDTOList = pdao.ptGetAll(mbs.getMbId());
+		
 		req.setAttribute("pointDTOList", pointDTOList);
 
 		return "My/MyPoint";
+		
 	}
 
 }

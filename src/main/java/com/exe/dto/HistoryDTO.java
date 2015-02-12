@@ -114,6 +114,7 @@ public class HistoryDTO {
 
 	public void setProgress(int progress) {
 		this.progress = progress;
+
 	}
 	
 }

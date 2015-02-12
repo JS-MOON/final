@@ -261,8 +261,6 @@ function plusTalentRolling() {
     });
 };
 
-
-
 // 리스트롤링[공통]
 jQuery.fn.listRolling = function (_o) {
     return this.each(function () {
@@ -326,50 +324,50 @@ jQuery(function () {
 })
 
 // 2조 추가사항
-//[찜목록]
+//========== [찜목록] ==========//
 function changeWishList(id) {
 
 	var parent = $("#wishList_" + id).parent();
-
-	if (parent.hasClass('on')) {
-		$.ajax({
-			type : "POST",
-			url : "../My/AddMyFavority.action",
-			data : {
-				brNum : $("#wishList_" + id).val()
-			},
-			success : function(args) {
-					parent.removeClass('on');
-					
-			},
-			error : function(request, status, error) {
-				/*alert("code : " + request.status + "\n" + "message : "
-						+ request.responseText + "\n" + "error : " + error);*/
-				alert("로그인 후 이용 가능합니다.");
-				
-			}
-
-		});
-	}else if(!parent.hasClass('on')){
-		$.ajax({
-			type : "POST",
-			url : "../My/DelMyFavority.action",
-			data : {
-				brNum : $("#wishList_" + id).val()
-			},
-			success : function(args){
-				parent.addClass('on');
-				window.location.reload();
-			},
-			error : function(request, status, error) {
-				alert("code : " + request.status + "\n" + "message : "
-						+ request.responseText + "\n" + "error : " + error);
-			}
-		});
+	var sessionId = $("#sessionId").val();
+	
+	if(sessionId!=""){
+		if (parent.hasClass('on')) {
+			$.ajax({
+				type : "POST",
+				url : "../My/AddMyFavority.action",
+				data : {
+					brNum : $("#wishList_" + id).val()
+				},
+				success : function(args) {
+						parent.removeClass('on');	
+				},
+				error : function(request, status, error) {
+					alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
+				}
+			});
+		}else if(!parent.hasClass('on')){
+			$.ajax({
+				type : "POST",
+				url : "../My/DelMyFavority.action",
+				data : {
+					brNum : $("#wishList_" + id).val()
+				},
+				success : function(args){
+					parent.addClass('on');
+					window.location.reload();
+				},
+				error : function(request, status, error) {
+					alert("code : " + request.status + "\n" + "message : "+ request.responseText + "\n" + "error : " + error);
+				}
+			});
+		}
+	}else if(sessionId==""){
+		alert("로그인이 필요합니다.");
+		showLayer('loginPop', 'modalpop');
 	}
 }
 
-
+//========== [포인트] ==========//
 function selectUsePoint() {
     var usePoint = document.getElementsByName("usePoint");
 
@@ -400,7 +398,7 @@ function updatePointValue() {
         document.getElementById("pointInputBox").value = document.getElementById("temporaryTotalPrice").value;
         alert("합계금액 이상 포인트를 사용할 수 없습니다.")
     }
-
+    
     $("#pointValue").text(document.getElementById("pointInputBox").value);
     $("#totalPrice").text(document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value);
     $("#vatAddedTotalPrice")

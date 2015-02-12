@@ -71,7 +71,8 @@
                             </div>
                         </div>
                     </div>
-						</c:forEach>
+                    <input type="hidden" id="sessionId" value="${mbId }">
+					</c:forEach>
 						<!-- //for문 -->
 						
 					</div>

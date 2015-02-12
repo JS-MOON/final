@@ -72,7 +72,8 @@
                 <table cellpadding="0" cellspacing="0">
                     <colgroup>
                         <col width="70px" />
-                        <col width="300px" />
+                        <col width="160px" />
+                        <col width="280px" />
                         <col width="100px" />
                         <col width="80px" />
                     </colgroup>
@@ -89,16 +90,16 @@
                             <div class="th">재능명</div>
                         </th>
                         <th scope="col">
-                            <div class="th">수정</div>
+                            <div class="th">삭제</div>
                         </th>
                         <th scope="col">
-                            <div class="th">삭제</div>
+                            <div class="th">상태</div>
                         </th>
                     </tr>
                     </thead>
         <c:if test="${!empty lists }">
    				<c:forEach var="dto" items="${lists }">
-                <tbody>
+<%--                 <tbody>
                 <tr>
      	           <td class="num">
                    		<div class="td">
@@ -113,18 +114,44 @@
                                 ${dto.brSubject }
                             </div>
                         </td>
-                        <td class="update">
-                            <div class="td">
-                            <input type="button" value=" 수정 " class="btn2" 
-								onclick="javascript:location.href='<%=cp%>/deleted.action"/>
-                            </div>
-                            
-                        </td>
+                        
                         <td class="delete" >
                             <div class="td">
                             <input type="button" value=" 삭제 " onclick="deletedata();"/>
                             <input type="hidden" name="brNum" value="${dto.brNum}">
                             </div>
+                        </td>
+                        <!-- step1 ~ step4 -->
+
+                    </tr>
+                    </tbody> --%>
+                    
+                    <tbody>
+                    <tr>
+                        <td class="num">
+                            <div class="td">
+                                 ${dto.brNum}</div>
+                        </td>
+                        <td class="thumbnail">
+                            <div class="td"><a href="../Goods/GDetail.action?brNum=${dto.brNum }">
+                                <img src="../Product/${dto.brMainPhoto }" alt=""   Height=160px  Width=160px  /></div>
+                        </td>
+                        <td class="payResume">
+                            <div class="td">
+                                ${dto.brSubject }
+                            </div>
+                        </td>
+                        
+                        <td class="delete" >
+                            <div class="td">
+                            <input type="button" value=" 삭제 " onclick="deletedata();"/>
+                            <input type="hidden" name="brNum" value="${dto.brNum}">
+                            </div>
+                        </td>
+                        
+                        <td onclick="location.href='/Chat/SChat.aspx?ccd=Mf00T2RIlJ7OvWuOTPk7De1Awb5gx5Pr64FJrPfPN3aQKE98vs2V2QMUdzZ4dvpj&ocd=VsnoRy5RJiDdXemxeYZs8wKdT79qwsTe40eLfklN/e8zPf15kmRFore4MU^62M6^';" style="cursor: pointer;" align="center" class="process step9" >
+                            <img id="ContentPlaceHolder1_WUC_My_PurchaseList_rptList_Image2_0" src="../resources/images/mypage/BG_sellingProcess_ongoing.gif" /><div class="td">
+                            진행중</div>
                         </td>
                         <!-- step1 ~ step4 -->
 

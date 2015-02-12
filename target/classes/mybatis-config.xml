@@ -28,9 +28,7 @@
   		<mapper resource="com/exe/mybatis/RegisterMapper.xml"/>
   		<mapper resource="com/exe/mybatis/HistoryMapper.xml"/>
   		<mapper resource="com/exe/mybatis/CommentsMapper.xml"/>
-		<mapper resource="com/exe/mybatis/PointMapper.xml"/>
-		<mapper resource="com/exe/mybatis/WishListMapper.xml"/>
-		<mapper resource="com/exe/mybatis/EmailAuthMapper.xml"/>
+  		<mapper resource="com/exe/mybatis/MsgMapper.xml"/>
   	</mappers>
 
   </configuration>

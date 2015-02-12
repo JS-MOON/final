@@ -53,7 +53,7 @@ public class GoodsDAO {
 	//gDetail start
 	//�븳媛쒖쓽 �뜲�씠�꽣 媛��졇�삤湲�
 	public BoardDTO getReadData(int brNum) {
-
+		System.out.println(brNum + "디티오들어옴");
 		BoardDTO dto = sessionTemplate.selectOne("GoodsMapper.getReadData",brNum);
 
 		return dto;

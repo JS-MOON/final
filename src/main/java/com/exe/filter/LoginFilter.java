@@ -42,7 +42,7 @@ public class LoginFilter implements Filter{
 		}else{
 			String str = "로그인이 필요합니다.";
 			request.setAttribute("str", str);
-			RequestDispatcher rd = request.getRequestDispatcher("/Register/Register.action");
+			RequestDispatcher rd = request.getRequestDispatcher("/Register/Login.action");
 			rd.forward(request, response);
 		}
 		

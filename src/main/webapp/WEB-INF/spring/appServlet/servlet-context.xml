@@ -33,7 +33,7 @@
 	<beans:bean id="myUtil" class="com.exe.util.MyUtil" />
 	<beans:bean id="imageManager" class="com.exe.util.ImageManager" />
 	<beans:bean id="imageName" class="com.exe.util.ImageName" />
-	<beans:bean id="DivideOptions" class="com.exe.util.DivideOptions" />
+	<beans:bean id="divideOptions" class="com.exe.util.DivideOptions" />
 
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -74,6 +74,10 @@
 	<beans:bean id="registerDAO" class="com.exe.dao.RegisterDAO">
 		<beans:property name="sessionTemplate" ref="sessionTemplate" />
 	</beans:bean>
+	
+	<beans:bean id="msgDAO" class="com.exe.dao.MsgDAO">
+		<beans:property name="sessionTemplate" ref="sessionTemplate" />
+	</beans:bean>
 
 	<beans:bean id="pointDAO" class="com.exe.dao.PointDAO">
 		<beans:property name="sessionTemplate" ref="sessionTemplate" />
@@ -91,10 +95,12 @@
 	<beans:bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg ref="sessionFactory" />
 	</beans:bean>
+	
+	
 
 	<beans:bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />
-		<beans:property name="configLocation" value="classpath:/mybatis-config.xml" />
+		<beans:property name="configLocation" value="classpath:mybatis-config.xml" />
 	</beans:bean>
 
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
