@@ -1,11 +1,11 @@
 package com.exe.dao;
 
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.exe.dto.CommentsDTO;
+
+import java.util.List;
 
 public class CommentsDAO {
 	

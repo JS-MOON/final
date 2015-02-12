@@ -57,12 +57,46 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <c:forEach var="dto" items="${pointDTOList}" varStatus="seq">
+                        <tr>
+                            <td class="num">
+                                <div class="td">
+                                    ${dto.ptDate}
+                                </div>
+                            </td>
+                            <td class="subject important">
+                                <div class="td">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${dto.ptHistory}
+                                </div>
+                            </td>
+                            <td scope="col">
+                                <div class="td">
+                                    <c:if test="${dto.ptPoint>=0}">
+                                        ${dto.ptPoint}
+                                    </c:if>
+                                    <c:if test="${dto.ptPoint<0}">
+                                        -
+                                    </c:if>
+                                </div>
+                            </td>
+                            <td scope="col">
+                                <div class="td" style="font-size: 12px">
+                                    <c:if test="${dto.ptPoint>=0}">
+                                        -
+                                    </c:if>
+                                    <c:if test="${dto.ptPoint<0}">
+                                        ${dto.ptPoint}
+                                    </c:if>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
 
                     </tbody>
+
+
                 </table>
-                <div class="seeMore">
-                    <a href="">더보기</a>
-                </div>
+
             </div>
             <!-- //게시판영역 -->
         </div>

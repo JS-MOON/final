@@ -30,18 +30,28 @@ public class GoodsDAO {
 
 	}
 
-	public List<BoardDTO> mainCountList() {
+	public List<BoardDTO> mainWishList(String mbId) {
 
 		List<BoardDTO> lists = sessionTemplate
-				.selectList("GoodsMapper.mainCountList");
+				.selectList("GoodsMapper.mainWishList",mbId);
 
 		return lists;
 
 	}
 	
+	public List<BoardDTO> mainCountList(){
+		
+		List<BoardDTO> lists = sessionTemplate
+				.selectList("GoodsMapper.mainCountList");
+
+		return lists;
+		
+	}
+	
 	//mainaction end
 
 	//gDetail start
+	//�븳媛쒖쓽 �뜲�씠�꽣 媛��졇�삤湲�
 	public BoardDTO getReadData(int brNum) {
 		System.out.println(brNum + "디티오들어옴");
 		BoardDTO dto = sessionTemplate.selectOne("GoodsMapper.getReadData",brNum);
@@ -85,41 +95,72 @@ public class GoodsDAO {
 	 
 	 return lists;
 	}
+	
+	public String onePhoto(int brNum) {
+		
+		String mainPhoto = sessionTemplate.selectOne("GoodsMapper.onePhoto", brNum);
+		
+		return mainPhoto;
+		
+	}
 	//gDetail end
 	
 	//gList start
-	public List<BoardDTO> list(int start, int end) {//ī�װ� ���Ĺ�� ���� ���
+	public List<BoardDTO> list(int start, int end) {
 		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("start", start);
 		params.put("end", end);
 		
-		
 		List<BoardDTO> lists = sessionTemplate.selectList("GoodsMapper.firstGlist",params);
 	
 		return lists;
 	}
+	
+	public List<BoardDTO> wishlist(int start, int end,String mbId) {
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("start", start);
+		params.put("end", end);
+		params.put("mbId", mbId);
+		
+		List<BoardDTO> lists = sessionTemplate.selectList("GoodsMapper.firstGWishlist",params);
+	
+		return lists;
+	}
 
-	public List<BoardDTO> list(int start, int end,String column,String order) {//ī�װ� ���Ĺ�� �ִ� ���
+	public List<BoardDTO> list(int start, int end,String column,String order) {
 		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("start", start);
 		params.put("end", end);
 		params.put("column", column);
 		params.put("order", order);
-		
-		System.out.println(start);
-		System.out.println(end);
-		System.out.println(column);
-		System.out.println(order);
-		
-		
+
 		List<BoardDTO> lists = sessionTemplate.selectList("GoodsMapper.gList",params);
+		
+		System.out.println("lists : " + sessionTemplate.selectList("GoodsMapper.gList",params));
 		
 		return lists; 
 	}
 	
-	public List<CategoryDTO> getReadCategory(int start,int end){//ī�װ� �˻�
+	public List<BoardDTO> wishlist(int start, int end,String column,String order,String mbId) {
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("start", start);
+		params.put("end", end);
+		params.put("column", column);
+		params.put("order", order);
+		params.put("mbId", mbId);
+
+		List<BoardDTO> lists = sessionTemplate.selectList("GoodsMapper.gWishList",params);
+		
+		System.out.println("wishlists : " + sessionTemplate.selectList("GoodsMapper.gWishList",params));
+		
+		return lists; 
+	}
+	
+	public List<CategoryDTO> getReadCategory(int start,int end){
 		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("start", start);
@@ -143,6 +184,17 @@ public class GoodsDAO {
 		
 	}
 	
+	public List<BoardDTO> selectWishSubject(String searchValue,String mbId){
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("searchValue", searchValue);
+		params.put("mbId", mbId);
+		
+		List<BoardDTO> lists = sessionTemplate.selectList("GoodsMapper.selectWishSubject", params);
+		
+		return lists;
+		
+	}
 	public void boardInsert(BoardDTO dto){
 		
 		sessionTemplate.insert("GoodsMapper.boardInsert",dto);
@@ -152,9 +204,24 @@ public class GoodsDAO {
 		int result = 0;
 		result = sessionTemplate.selectOne("GoodsMapper.brMaxNum");
 		
-		System.out.println("1"+result);
 		return result;
 	}
-
+	
+	public List<BoardDTO> myBoardList(String mbId){
+		
+		List<BoardDTO> lists = sessionTemplate.selectList("GoodsMapper.myBoardList",mbId);
+		
+		return lists;
+		
+	}
+	//
+	public int myBoardDelete(int brNum){
+		
+		int result = sessionTemplate.delete("GoodsMapper.brDeleteData", brNum);
+		
+		return result;
+		
+	}
+	
 	
 }

@@ -30,6 +30,38 @@
             src="../resources/js/jquery.cycle2.carousel.js"></script>
     <script type="text/javascript" src="../resources/js/ui.js"></script>
 
+    <script src="../resources/js/url.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var str = jQuery.url.segment(2) // jQueryURL.htm 반환.
+            //$('#id1').append('<p>' + 'segment 2 : ' + str + '</p>');
+
+            if(str.indexOf("MyMistus")!==-1) {
+                $(".mypageSnb ul.personal li.m2 a").css("color","#db1515");
+            } else if(str.indexOf("MyProfile")!==-1) {
+                $(".mypageSnb ul.personal li.m3 a").css("color","#db1515");
+            } else if(str.indexOf("MyAccount")!==-1) {
+                $(".mypageSnb ul.personal li.m4 a").css("color","#db1515");
+            } else if(str.indexOf("MyMessage")!==-1) {
+                $(".mypageSnb ul.personal li.m5 a").css("color","#db1515");
+            } else if(str.indexOf("MyFavority")!==-1) {
+                $(".mypageSnb ul.personal li.m6 a").css("color","#db1515");
+            } else if(str.indexOf("MyPoint")!==-1) {
+                $(".mypageSnb ul.personal li.m7 a").css("color","#db1515");
+            } else if(str.indexOf("MyOrderMng")!==-1) {
+                $(".mypageSnb ul.personal li.m8 a").css("color","#db1515");
+            } else if(str.indexOf("SellProdReg")!==-1) {
+                $(".mypageSnb ul.sell li.m1 a").css("color","#db1515");
+            } else if(str.indexOf("SellProdListMy")!==-1) {
+                $(".mypageSnb ul.sell li.m2 a").css("color","#db1515");
+            } else if(str.indexOf("SellMng")!==-1) {
+                $(".mypageSnb ul.sell li.m3 a").css("color","#db1515");
+            } else if(str.indexOf("SellIncome")!==-1) {
+                $(".mypageSnb ul.sell li.m4 a").css("color","#db1515");
+            }
+        });
+    </script>
+
     <style type="text/css">
 
         .quick-mypage-re .on {
@@ -84,47 +116,6 @@
             }
 
         });
-    </script>
-
-    <script>
-        var noticePop;
-
-        $(document).ready(function() {
-            //            noticePop = window.open("/MainPage/Notice_PopUp_MainTop.jsp", "notice", "width=680 height=520 toolbar=no location=no titlebar=no status=no menubar=no scrollbars=no resizable=no left=50 top=20  ");
-
-            $(window).bind('scroll', function() {
-                var quick = $('#quick-best'); // 302px
-                var docT = $(document).scrollTop();
-
-                var quickH = $(quick).height();
-                var footH = $('#footer').height();
-                var docH = $(document).height();
-                var stopH = docH - (quickH + footH) - 100;
-                // alert(stopH);
-                if (docT < 1200) {
-                    $(quick).fadeOut(500); // 상단으로 올라 올때 다시 사라지도록 함
-                    $(quick).removeClass('on');
-                } else if (docT > 1200 && docT < stopH) {
-                    $(quick).fadeIn(1500);
-                    $(quick).addClass('on');
-                } else if (docT > stopH) {
-                    $(quick).css({
-                        position : 'fixed',
-                        bottom : 30
-                    });
-                }
-            });
-
-            $('ul , li').click(function() {
-                $('li .a').css("color", "hotpink");
-
-            });
-
-        });
-
-        function popClose() {
-            noticePop.Close();
-        }
     </script>
 
     <script type="text/javascript">
@@ -239,6 +230,7 @@
             showLayer('joinCertification', 'modalpop');
             return false;
         }
+        
     </script>
 </head>
 
@@ -261,7 +253,7 @@
                 <!-- 공지 -->
                 <div class="nowNotice">
                     <p class="article">
-                        <a href="../CS/Notice.jsp">[공지] 재능 등록하시기 전 필독!</a>
+                        <a href="/final/Etc/Notice.action">[공지] 재능 등록하시기 전 필독!</a>
                     </p>
                     <span class="va_m"></span>
                 </div>
@@ -304,7 +296,7 @@
                     <li id="myPageDrop" class="user"><a href="#"> <!--<img src="../../resources/images/common/ico_my_default_thumb.png" alt="" />-->
                         <img src="../resources/images/common/ico_my_default_thumb.png"
                              alt=""> <span></span>
-                    </a> <a onclick="return confirm('로그아웃하시겠습니까?');" href="../logout/logout.action">${sessionScope.session.mbId}</a>
+                    </a> <a onclick="return confirm('로그아웃하시겠습니까?');" href="../Goods/logout.action">${sessionScope.session.mbId}</a>
                         <div class="myPageDrop">
                             <span class="arr"></span>
                             <div class="innerWrap">
@@ -459,12 +451,12 @@
     <div id="footer">
         <div class="centered_cont">
             <ul class="footerUtil">
-                <li class="first"><a href="../Etc/LawService.jsp">서비스 이용약관</a></li>
-                <li><a href="../Etc/LawPersonal.jsp">개인정보 취급방침</a></li>
-                <li><a href="../CS/Suggest.jsp">제안하기</a></li>
-                <li><a href="../CS/Notice.jsp">고객센터</a></li>
-                <li><a href="../Etc/LawGoodsReg.jsp">재능등록심사규정</a></li>
-                <li><a href="../DisplayAD/ADPayment.jsp">재능광고신청</a></li>
+                <li class="first"><a href="/final/Etc/LawService.action">서비스 이용약관</a></li>
+                <li><a href="/final/Etc/LawPersonal.action">개인정보 취급방침</a></li>
+                <li><a href="/final/Etc/Suggest.action">제안하기</a></li>
+                <li><a href="/final/Etc/Notice.action">고객센터</a></li>
+                <li><a href="/final/Etc/LawGoodsReg.action">재능등록심사규정</a></li>
+                <li><a href="/final/Etc/ADPayment.action">재능광고신청</a></li>
             </ul>
             <div class="company_info">
                 <img src="../resources/images/common/footer.gif" style="margin-left: 36px" alt="" />
@@ -479,10 +471,10 @@
             <h4 class="popTitle">로그인</h4>
             <div class="layerPopBody">
                 <div class="loginSet">
-                    <label class="label">이메일 아이디</label> <input name="mbId"
+                    <label class="label">이메일 아이디</label> <input name="mbId" id="mbIdEmail"
                                                                 type="text" maxlength="50" class="input-text"
                                                                 onkeydown="javascript:Keydown_Login();" title="이메일 아이디"
-                                                                placeholder="이메일 아이디" />
+                                                                placeholder="이메일 아이디" onchange="emailCheck();"/>
                 </div>
                 <div class="loginSet">
                     <label class="label">비밀번호</label> <input name="mbPw"

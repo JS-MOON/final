@@ -30,6 +30,7 @@
 			src="../resources/js/jquery.cycle2.carousel.js"></script>
 	<script type="text/javascript" src="../resources/js/ui.js"></script>
 
+
 	<style type="text/css">
 		.quick-mypage-re .on {
 			position: fixed;
@@ -381,7 +382,7 @@
 					<li id="myPageDrop" class="user"><a href="#"> <!--<img src="../../resources/images/common/ico_my_default_thumb.png" alt="" />-->
 						<img src="../resources/images/common/ico_my_default_thumb.png"
 							 alt=""> <span></span>
-					</a> <a onclick="return confirm('로그아웃하시겠습니까?');" href="../logout/logout.action">${sessionScope.session.mbId}</a>
+					</a> <a onclick="return confirm('로그아웃하시겠습니까?');" href="../Goods/logout.action">${sessionScope.session.mbId}</a>
 						<div class="myPageDrop">
 							<span class="arr"></span>
 							<div class="innerWrap">

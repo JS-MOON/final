@@ -17,12 +17,30 @@
     .dealList table tbody tr td.process.step9 .td { no-repeat 50% 0;}
 </style>
 
+<script language="javascript">
+
+	function searchSellData(){
+	
+		var f = document.searchSellDataForm;
+	
+		if(f.searchSellValue.value==null){
+			alert("검색어를 입력해주세요");
+			f.searchSellValue.focus();
+			return;
+		}
+	
+		f.action = "../My/SellMng.action";
+		f.submit();
+	}
+
+</script>
+
 <script>
     $(document).ready(function () {
         $('#NoData').addClass('hidden');
         $('#hasData').addClass('hidden');
 
-        var cnt = '0'; //
+        var cnt = '3'; //
         if (cnt >= 1) {
             $('#NoData').addClass('hidden');
             $('#hasData').removeClass('hidden');
@@ -33,6 +51,7 @@
     });
 </script>
 <!-- 마이페이지컨텐츠 시작 -->
+<form action="" method="post" name="searchSellDataForm">
 <div class="primaryContents mySell">
     <!-- 마이페이지lnb -->
     <div class="mypage_lnb">
@@ -52,16 +71,22 @@
 
             <div class="sortArea">
                 <br />
-                <select name="ctl00$ContentPlaceHolder1$WUC_My_SellingList$ddl_searchField" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$WUC_My_SellingList$ddl_searchField\&#39;,\&#39;\&#39;)&#39;, 0)" id="ContentPlaceHolder1_WUC_My_SellingList_ddl_searchField" class="select" style="width: 115px;">
+<!--                 <select name="ctl00$ContentPlaceHolder1$WUC_My_SellingList$ddl_searchField" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$WUC_My_SellingList$ddl_searchField\&#39;,\&#39;\&#39;)&#39;, 0)" id="ContentPlaceHolder1_WUC_My_SellingList_ddl_searchField" class="select" style="width: 115px;">
                     <option selected="selected" value="1">주문일자</option>
                     <option value="2">주문상태</option>
                     <option value="3">완료일자</option>
 
-                </select>
 
-                <div class="listSearch">
+
+                </select> -->
+
+<!--                 <div class="listSearch">
                     <input name="ctl00$ContentPlaceHolder1$WUC_My_SellingList$txt_searchValue" type="text" id="ContentPlaceHolder1_WUC_My_SellingList_txt_searchValue" class="input-text" style="width: 210px;" />
                     <input type="image" name="ctl00$ContentPlaceHolder1$WUC_My_SellingList$ibtn_search" id="ContentPlaceHolder1_WUC_My_SellingList_ibtn_search" class="btnSearch" src="" />
+                </div> -->
+                <div class="listSearch">
+                    <input name="searchSellValue" type="text" id="" class="input-text" style="width: 210px;" />
+                    <input type="image" name="" id="" class="btnSearch" onclick="searchSellData();"/>
                 </div>
             </div>
             <!-- 게시판영역 -->
@@ -94,6 +119,47 @@
                         </th>
                     </tr>
                     </thead>
+                    <c:forEach var="dto" items="${lists}" varStatus="seq">
+                    <tbody>
+                    <tr>
+                        <td class="num">
+                            <div class="td">
+                                 ${seq.count}</div>
+                        </td>
+                        <td class="thumbnail">
+                            <div class="td"><a href="../Goods/GDetail.action?brNum=${dto.brNum}">
+                                <img src="../Product/${dto.brMainphoto}" alt="" Height=160px  Width=160px  /></a></div>
+                        </td>
+                        <td class="payResume">
+                            <div class="td">
+                                ${dto.brSubject }
+                                <dl class="option">
+                                    <dt>옵션내역 : ${dto.hsOptions}</dt>
+                                    <dd>
+                                    </dd>
+                                </dl>
+                                	<span class="price"><span class="count">${dto.hsPrice}</span> 원</span>
+                                <p class="dialogue mine">
+                                </p>
+                            </div>
+                        </td>
+                        <td class="date">
+                            <div class="td">
+                                            <span class="payDate">
+                                                ${dto.hsDate}/</span>
+                                            <span class="finishDate">
+                                                </span>[]
+                            </div>
+                        </td>
+                        <td onclick="location.href='/Chat/SChat.aspx?ccd=Mf00T2RIlJ7OvWuOTPk7De1Awb5gx5Pr64FJrPfPN3aQKE98vs2V2QMUdzZ4dvpj&ocd=VsnoRy5RJiDdXemxeYZs8wKdT79qwsTe40eLfklN/e8zPf15kmRFore4MU^62M6^';" style="cursor: pointer;" align="center" class="process step9" >
+                            <img id="ContentPlaceHolder1_WUC_My_PurchaseList_rptList_Image2_0" src="../resources/images/mypage/BG_sellingProcess_ongoing.gif" /><div class="td">
+                            진행중</div>
+                        </td>
+                        <!-- step1 ~ step4 -->
+
+                    </tr>
+                    </tbody>
+                    </c:forEach>
 
                 </table>
                 <div class="tblLine2"></div>
@@ -107,6 +173,6 @@
     </div>
     <!-- //내용 -->
 </div>
-
+</form>
 </body>
 </html>
