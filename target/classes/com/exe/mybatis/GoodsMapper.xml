@@ -109,7 +109,7 @@
 		order by A.${column} ${order}
 		]]>
 	</select>
-
+	
 	<select id="firstGlist" parameterType="hashMap" resultType="com.exe.dto.BoardDTO">
 		<![CDATA[
 			select C.cgcategory1,B.mbnickName,B.mbpic,A.brnum,A.mbid,A.cgnum,A.brsubject,
@@ -141,6 +141,7 @@
 	</select>
 	
 	<!-- GSearchList -->
+	
 	<select id="selectSubject" parameterType="String" resultType="com.exe.dto.BoardDTO">
 	<![CDATA[
 		select C.cgcategory1,B.mbnickName,B.mbpic,A.brnum,A.mbid,A.cgnum,A.brsubject,

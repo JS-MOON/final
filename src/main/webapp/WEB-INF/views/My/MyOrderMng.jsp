@@ -80,6 +80,7 @@
                 <table cellpadding="0" cellspacing="0">
                     <colgroup>
                         <col width="70px" />
+                        <col/>
                         <col width="300px" />
                         <col width="100px" />
                         <col width="80px" />
@@ -114,7 +115,7 @@
                         </td>
                         <td class="thumbnail">
                             <div class="td"><a href="../Goods/GDetail.action?brNum=${dto.brNum }">
-                                <img src="../Product/${dto.brmainphoto }" alt=""   Height=160px  Width=160px  /></div>
+                                <img src="../Product/${dto.brMainPhoto}" alt=""   Height=160px  Width=160px /></a></div>
                         </td>
                         <td class="payResume">
                             <div class="td">
@@ -143,10 +144,46 @@
 
                             </div>
                         </td>
-                        <td onclick="location.href='/Chat/SChat.aspx?ccd=Mf00T2RIlJ7OvWuOTPk7De1Awb5gx5Pr64FJrPfPN3aQKE98vs2V2QMUdzZ4dvpj&ocd=VsnoRy5RJiDdXemxeYZs8wKdT79qwsTe40eLfklN/e8zPf15kmRFore4MU^62M6^';" style="cursor: pointer;" align="center" class="process step9" >
-                            <img id="ContentPlaceHolder1_WUC_My_PurchaseList_rptList_Image2_0" src="../resources/images/mypage/BG_sellingProcess_ongoing.gif" /><div class="td">
-                            진행중</div>
+                        <c:if test="${dto.progress==0}">
+                        <td style="cursor: pointer;" align="center" class="process step9" >
+                            <img id="" src="../resources/images/mypage/ing.png"
+                            onclick="location.href='../My/BuyComplete.action?hsNum=${dto.hsNum}';" /><div class="td">
+                            진행중 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <img id="" src="../resources/images/mypage/cancel.png" 
+                            onclick="location.href='../My/BuyCancel.action?hsNum=${dto.hsNum}';" /><div class="td">
+                            취소
+                            </div>
                         </td>
+                        </c:if>
+                        
+                        <c:if test="${dto.progress==1}">
+                        <td style="cursor: pointer;" align="center" class="process step9" >
+                            <img id="" src="../resources/images/mypage/check.png" 
+                            onclick="location.href='../My/BuyComplete.action?hsNum=${dto.hsNum}';"/><div class="td">
+                            구매확정 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <img id="" src="../resources/images/mypage/cancel.png" 
+                            onclick="location.href='../My/BuyCancel.action?hsNum=${dto.hsNum}';"/><div class="td">
+                            반품
+                            </div>
+                        </td>
+                        </c:if>
+                        
+                        <c:if test="${dto.progress==2}">
+                        <td style="cursor: pointer;" align="center" class="process step9" >
+                        <img id="" src="../resources/images/mypage/ico_correct.png"/>
+                        <div class="td">완료</div>
+                        </td>
+                        </c:if>
+                        
+                        <c:if test="${dto.progress==3}">
+                        <td style="cursor: pointer;" align="center" class="process step9" >
+                        <img id="" src="../resources/images/mypage/cancel.png"/>
+                        <div class="td">취소</div>
+                        </td>
+                        </c:if>
+                      
                         <!-- step1 ~ step4 -->
 
                     </tr>

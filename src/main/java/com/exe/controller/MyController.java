@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.exe.dao.HistoryDAO;
 import com.exe.dao.PointDAO;
 import com.exe.dao.WishListDAO;
 import com.exe.dto.BoardDTO;
@@ -31,6 +32,10 @@ public class MyController {
 	@Autowired
 	@Qualifier("wishListDAO")
 	WishListDAO widao;
+	
+	@Autowired
+	@Qualifier("historyDAO")
+	HistoryDAO hdao;
 
 	@RequestMapping(value = "/My/MyAccount.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
@@ -116,6 +121,32 @@ public class MyController {
 			RequestMethod.GET, RequestMethod.POST })
 	public String myMistus(HttpServletRequest req, HttpServletResponse res) {
 
+		HttpSession session = req.getSession();
+		
+		MemberSession mbs = (MemberSession)session.getAttribute("session");
+		
+		String mbId = mbs.getMbId();
+		
+		int buyOnGoing = hdao.selectCountBuyOnGoing(mbId);
+		int buyChecked = hdao.selectCountBuyChecked(mbId);
+		int buyCompleted = hdao.selectCountBuyCompleted(mbId);
+		int buyCanceled = hdao.selectCountBuyCanceled(mbId);
+		
+		req.setAttribute("buyOnGoing", buyOnGoing);
+		req.setAttribute("buyChecked", buyChecked);
+		req.setAttribute("buyCompleted", buyCompleted);
+		req.setAttribute("buyCanceled", buyCanceled);
+		
+		int sellOnGoing = hdao.selectCountSellOnGoing(mbId);
+		int sellChecked = hdao.selectCountSellChecked(mbId);
+		int sellCompleted = hdao.selectCountSellCompleted(mbId);
+		int sellCanceled = hdao.selectCountSellCanceled(mbId);
+		
+		req.setAttribute("sellOnGoing", sellOnGoing);
+		req.setAttribute("sellChecked", sellChecked);
+		req.setAttribute("sellCompleted", sellCompleted);
+		req.setAttribute("sellCanceled", sellCanceled);
+		
 		return "My/MyMistus";
 	}
 

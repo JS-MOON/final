@@ -116,5 +116,36 @@ public class HistoryController {
 		
 		return "My/SellMng";
 	}
+	
+	@RequestMapping(value="/My/SellComplete.action", method={RequestMethod.GET,RequestMethod.POST})
+	public String sellComplete(HttpServletRequest req, HttpServletResponse res){
+		
+		int hsNum = Integer.parseInt(req.getParameter("hsNum"));
+		
+		dao.updateSellerProgress(hsNum);
+		
+		return "redirect:/My/SellMng.action";
+	}
+	
+	@RequestMapping(value="/My/BuyComplete.action", method={RequestMethod.GET,RequestMethod.POST})
+	public String buyComplete(HttpServletRequest req, HttpServletResponse res){
+		
+		int hsNum = Integer.parseInt(req.getParameter("hsNum"));
+		
+		dao.updateMemberProgress(hsNum);
+		
+		return "redirect:/My/MyOrderMng.action";
+	}
+	
+	@RequestMapping(value="/My/BuyCancel.action", method={RequestMethod.GET,RequestMethod.POST})
+	public String buyCancel(HttpServletRequest req, HttpServletResponse res){
+		
+		int hsNum = Integer.parseInt(req.getParameter("hsNum"));
+		
+		dao.updateCancelProgress(hsNum);
+		
+		return "redirect:/My/MyOrderMng.action";
+	}
+		
 
 }

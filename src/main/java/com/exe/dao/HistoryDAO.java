@@ -43,5 +43,60 @@ public class HistoryDAO {
 		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectSellHistory",hMap);
 		return lists;
 	}
+	
+	public void updateSellerProgress(int hsNum){
+		
+		sessionTemplate.update("history.updateSellerProgress",hsNum);
+	}
+	
+	public void updateMemberProgress(int hsNum){
+		
+		sessionTemplate.update("history.updateMemberProgress",hsNum);
+	}
+	
+	public void updateCancelProgress(int hsNum){
+		
+		sessionTemplate.update("history.updateCancelProgress",hsNum);
+	}
+	
+	public int selectCountBuyOnGoing(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountBuyOnGoing",mbId);
+		return result;
+	}
+	
+	public int selectCountBuyChecked(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountBuyChecked",mbId);
+		return result;
+	}
+	
+	public int selectCountBuyCompleted(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountBuyCompleted",mbId);
+		return result;
+	}
+	
+	public int selectCountBuyCanceled(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountBuyCanceled",mbId);
+		return result;
+	}
+	
+	public int selectCountSellOnGoing(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountSellOnGoing",mbId);
+		return result;
+	}
+	
+	public int selectCountSellChecked(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountSellChecked",mbId);
+		return result;
+	}
+	
+	public int selectCountSellCompleted(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountSellCompleted",mbId);
+		return result;
+	}
+	
+	public int selectCountSellCanceled(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountSellCanceled",mbId);
+		return result;
+	}
 
 }

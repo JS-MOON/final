@@ -15,7 +15,26 @@ public class HistoryDTO {
     private int hsTotalPrice;
 	private String hsOptions;
 	private String brSubject;
-	private String brmainphoto;
+	private String brMainPhoto;
+	private String srId;
+	private int ptNum;
+	private int progress;
+	
+	public int getPtNum() {
+		return ptNum;
+	}
+
+	public void setPtNum(int ptNum) {
+		this.ptNum = ptNum;
+	}
+
+	public String getSrId() {
+		return srId;
+	}
+
+	public void setSrId(String srId) {
+		this.srId = srId;
+	}
 
 	public int getHsNum() {
 		return hsNum;
@@ -29,12 +48,12 @@ public class HistoryDTO {
 		this.brSubject = brSubject;
 	}
 
-	public String getBrMainphoto() {
-		return brmainphoto;
+	public String getBrMainPhoto() {
+		return brMainPhoto;
 	}
 
-	public void setBrMainphoto(String brMainphoto) {
-		this.brmainphoto = brMainphoto;
+	public void setBrMainPhoto(String brMainPhoto) {
+		this.brMainPhoto = brMainPhoto;
 	}
 
 	public void setHsNum(int hsNum) {
@@ -88,4 +107,13 @@ public class HistoryDTO {
 	public void setHsOptions(String hsOptions) {
 		this.hsOptions = hsOptions;
 	}
+
+	public int getProgress() {
+		return progress;
+	}
+
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
+	
 }
