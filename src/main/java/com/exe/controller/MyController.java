@@ -128,24 +128,18 @@ public class MyController {
 	//메세지
 	@RequestMapping(value = "/My/MyMessage.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String myMessage(HttpServletRequest req, HttpServletResponse res) {
-		
-		int brNum =Integer.parseInt(req.getParameter("brNum"));
-		System.out.println("brnum 들어오나요"+brNum);*/
 		HttpSession session = req.getSession();
 		
 		MemberSession mbs = (MemberSession) session.getAttribute("session");
 		
 		String sender = mbs.getMbId();
 		
-		
 		List<MsgDTO> lists = msgDAO.selectMsg(sender);
-		
 		List<MsgDTO> listsRe = msgDAO.selectReceiver(sender);
-		
-		
 		
 		req.setAttribute("lists", lists);
 		req.setAttribute("listsRe", listsRe);
+
 		return "My/MyMessage";
 	}
 
