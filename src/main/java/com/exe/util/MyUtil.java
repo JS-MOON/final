@@ -1,11 +1,11 @@
 package com.exe.util;
 
-//ÆäÀÌÂ¡ Ã³¸®
+//ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½
 public class MyUtil {
 
-	//ÀüÃ¼ ÆäÀÌÁö¼ö ±¸ÇÏ±â
-	//ÇÊ¿äÇÑº¯¼ö numPerPage = ÇÑ È­¸é¿¡ Ç¥½ÃÇÒ µ¥ÀÌÅÍ°¹¼ö
-	//dataCount = ÀüÃ¼µ¥ÀÌÅÍ °¹¼ö
+	//ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
+	//ï¿½Ê¿ï¿½ï¿½Ñºï¿½ï¿½ï¿½ numPerPage = ï¿½ï¿½ È­ï¿½é¿¡ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ï¿½ï¿½
+	//dataCount = ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public int getPageCount(int numPerPage,int dataCount){
 		
 		int pageCount = 0;
@@ -19,46 +19,46 @@ public class MyUtil {
 		return pageCount;
 	}
 	
-	//ÆäÀÌÂ¡ Ã³¸® ¸Ş¼Òµå
-	//ÇÊ¿äÇÑ º¯¼ö
-	//currenPage : ÇöÀç Ç¥½ÃÇÒ ÆäÀÌÁö
-	//totalPage : ÀüÃ¼ ÆäÀÌÁö¼ö
-	//listUrl : ¸µÅ©¸¦ ¼³Á¤ÇÒ ÆäÀÌÁö
+	//ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½ ï¿½Ş¼Òµï¿½
+	//ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//currenPage : ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//totalPage : ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//listUrl : ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	public String pageIndexList(int currenPage,int totalPage,String listUrl){
 		
-		int numPerBlack = 5; //¢¸6 7 8 9 10¢º ÀÇ °¹¼ö
-		int currentPageSetup;//Ç¥½ÃÇÒ ºí·°ÀÇ Ã¹ÆäÀÌÁö -1 ÇÑ°ª
+		int numPerBlack = 5; //ï¿½ï¿½6 7 8 9 10ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		int currentPageSetup;//Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -1 ï¿½Ñ°ï¿½
 		int page;
 		
-		StringBuffer sb = new StringBuffer();//¹®ÀÚ¸¦ ´©ÀûÇÒ·Á°í ÀÔ·ÂÇÔ
+		StringBuffer sb = new StringBuffer();//ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½
 		
 		if(currenPage==0 || totalPage==0)
 			return "";
 		
-		//list.jsp °¡ ³Ñ¾î¿Â´Ù
+		//list.jsp ï¿½ï¿½ ï¿½Ñ¾ï¿½Â´ï¿½
 		if(listUrl.indexOf("?")!=-1)
 			listUrl = listUrl +"&";
 		else
 			listUrl = listUrl +"?";
 		
-		//Ç¥½ÃÇÒ Ã¹ÆäÀÌÁö¿¡¼­ -1ÇÑ °ª
-		//5¢¸6 7 8 9 10¢º
-		//10¢¸11 12 13 14 15¢º
+		//Ç¥ï¿½ï¿½ï¿½ï¿½ Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -1ï¿½ï¿½ ï¿½ï¿½
+		//5ï¿½ï¿½6 7 8 9 10ï¿½ï¿½
+		//10ï¿½ï¿½11 12 13 14 15ï¿½ï¿½
 		//                     15          5         5
 		currentPageSetup = (currenPage/numPerBlack)*numPerBlack;
 		
 		if(currenPage%numPerBlack==0)
 			currentPageSetup = currentPageSetup-numPerBlack;
 		
-		//¢¸ÀÌÀü
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if(totalPage>numPerBlack && currentPageSetup>0){
 			sb.append("<a href=\""+listUrl+"pageNum="
-					+ currentPageSetup + "\">¢¸ÀÌÀü</a>&nbsp;");
-			//<a href="list.jsp?/pageNum=5">¢¸ÀÌÀü</a>
+					+ currentPageSetup + "\">ì´ì „</a>&nbsp;");
+			//<a href="list.jsp?/pageNum=5">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</a>
 			
 		}
-		//¹Ù·Î°¡±âÆäÀÌÁö(6 7 8 9 10)
+		//ï¿½Ù·Î°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(6 7 8 9 10)
 		page = currentPageSetup +1 ;
 		
 		while (page<=totalPage && page <= (currentPageSetup + numPerBlack)) {
@@ -78,10 +78,10 @@ public class MyUtil {
 			
 		}//end while
 		
-		//´ÙÀ½¢º
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if(totalPage - currentPageSetup > numPerBlack){
 			sb.append("<a href=\""+ listUrl + "pageNum=" +page+ 
-					"\">´ÙÀ½¢º</a>&nbsp;");
+					"\">ë‹¤ìŒ</a>&nbsp;");
 			//<a href = "list.jsp?/pageNum=11">11</a>
 		}
 		

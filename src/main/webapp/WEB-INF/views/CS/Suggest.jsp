@@ -43,9 +43,9 @@
             </div>
         </div>
         <ul class="csMenu">
-            <li class="on"><a href="/final/Etc/Notice.action">공지사항</a></li>
+            <li class=""><a href="/final/Etc/Notice.action">공지사항</a></li>
             <li class=""><a href="/final/Etc/FAQ.action">자주 묻는 질문</a></li>
-            <li class=""><a href="/final/Etc/Suggest.action">제안하기</a></li>
+            <li class="on"><a href="/final/Etc/Suggest.action">제안하기</a></li>
             <li class=""><a href="/final/Etc/Inquiry.action">1:1 문의</a></li>
         </ul>
     </div>

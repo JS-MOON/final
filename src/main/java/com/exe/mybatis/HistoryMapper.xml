@@ -19,16 +19,27 @@
 	values (#{hsNum},#{mbId},#{srId},#{brNum},sysdate,#{hsPrice},#{hsTotalPrice},#{hsOptions},#{ptNum},0)
 </insert>
 
-<select id="selectHistory" parameterType="String" resultType="com.exe.dto.HistoryDTO">
+<select id="selectHistory" parameterType="hashMap" resultType="com.exe.dto.HistoryDTO">
+	select * from (select rownum rnum,data.* from(
 	select hs.hsnum,hs.progress,hs.hsdate, hs.hsprice, hs.hstotalprice, hs.hsoptions,br.brnum, br.brsubject, br.brmainphoto
 	from history hs inner join board br on hs.brnum = br.brnum 
-	where hs.mbid = #{mbId} order by hs.hsnum desc
+	where hs.mbid = #{mbId} and (br.brsubject like '%'||#{searchValue}||'%') order by hs.hsnum desc) data)
+	<![CDATA[
+    where rnum >= #{start} and rnum <= #{end}
+    ]]>
 </select>
 
 <select id="selectSellHistory" parameterType="hashMap" resultType="com.exe.dto.HistoryDTO">
 	select hs.hsnum, hs.hsdate, hs.hsprice, hs.hstotalprice, hs.hsoptions,hs.progress,br.brnum, br.brsubject, br.brmainphoto
 	from history hs inner join board br on hs.brnum = br.brnum 
-	where hs.srid = #{mbId} and (br.brsubject like '%'||#{searchSellValue}||'%')
+	where hs.srid = #{mbId} and (br.brsubject like '%'||#{searchSellValue}||'%') order by hs.hsnum desc
+</select>
+
+<!-- and (br.brsubject like '%'||#{searchValue}||'%') -->
+
+<select id="myOrderMngDataCount" parameterType="hashMap" resultType="int">
+	select count(*) from history hs inner join board br on hs.brnum = br.brnum
+	where hs.mbid=#{mbId} and br.brsubject like '%'||#{searchValue}||'%'
 </select>
 
 <update id="updateSellerProgress" parameterType="int">
