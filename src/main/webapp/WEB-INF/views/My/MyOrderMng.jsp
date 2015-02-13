@@ -169,7 +169,7 @@
                             진행중 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                             <img id="" src="../resources/images/mypage/cancel.png" 
-                            onclick="location.href='../My/BuyCancel.action?hsNum=${dto.hsNum}';" /><div class="td">
+                            onclick="if(confirm('구매취소하시겠습니까?')===true){location.href='../My/BuyCancel.action?hsNum=${dto.hsNum}'};" /><div class="td">
                             취소
                             </div>
                         </td>
@@ -178,11 +178,11 @@
                         <c:if test="${dto.progress==1}">
                         <td style="cursor: pointer;" align="center" class="process step9" >
                             <img id="" src="../resources/images/mypage/check.png" 
-                            onclick="location.href='../My/BuyComplete.action?hsNum=${dto.hsNum}';"/><div class="td">
+                            onclick="if(confirm('구매확정하시겠습니까?(구매확정시 반품불가)')===true){location.href='../My/BuyComplete.action?hsNum=${dto.hsNum}';}"/><div class="td">
                             구매확정 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                             <img id="" src="../resources/images/mypage/cancel.png" 
-                            onclick="location.href='../My/BuyCancel.action?hsNum=${dto.hsNum}';"/><div class="td">
+                            onclick="if(confirm('반품하시겠습니까?')===true){location.href='../My/BuyCancel.action?hsNum=${dto.hsNum}'};"/><div class="td">
                             반품
                             </div>
                         </td>
