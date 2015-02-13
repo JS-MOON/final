@@ -50,6 +50,34 @@
         }
     });
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#show_more').click(function(e){
+            e.preventDefault();
+            $('#results_ajax').fadeIn("slow");
+            var direction = parseInt( $('#direction').val()) + 1;
+            setTimeout(function() {
+                $.ajax({
+                    url: "../Ajax/SellMng.action?pageNum=" + direction,
+                    type: "POST",
+                    dataType:"html",
+                    success: function(msg){
+                        $('#direction').val(direction);
+                        $('#results_ajax').append(msg);
+                        if(document.getElementById('totalPage').value===document.getElementById('direction').value){document.getElementById('show_more').remove()};
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            }, 1000);
+        });
+
+    });
+</script>
+
 <!-- 마이페이지컨텐츠 시작 -->
 <form action="" method="post" name="searchSellDataForm">
 <div class="primaryContents mySell">
@@ -71,22 +99,9 @@
 
             <div class="sortArea">
                 <br />
-<!--                 <select name="ctl00$ContentPlaceHolder1$WUC_My_SellingList$ddl_searchField" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$WUC_My_SellingList$ddl_searchField\&#39;,\&#39;\&#39;)&#39;, 0)" id="ContentPlaceHolder1_WUC_My_SellingList_ddl_searchField" class="select" style="width: 115px;">
-                    <option selected="selected" value="1">주문일자</option>
-                    <option value="2">주문상태</option>
-                    <option value="3">완료일자</option>
-
-
-
-                </select> -->
-
-<!--                 <div class="listSearch">
-                    <input name="ctl00$ContentPlaceHolder1$WUC_My_SellingList$txt_searchValue" type="text" id="ContentPlaceHolder1_WUC_My_SellingList_txt_searchValue" class="input-text" style="width: 210px;" />
-                    <input type="image" name="ctl00$ContentPlaceHolder1$WUC_My_SellingList$ibtn_search" id="ContentPlaceHolder1_WUC_My_SellingList_ibtn_search" class="btnSearch" src="" />
-                </div> -->
                 <div class="listSearch">
-                    <input name="searchSellValue" type="text" id="" class="input-text" style="width: 210px;" />
-                    <input type="image" name="" id="" class="btnSearch" onclick="searchSellData();"/>
+                    <input name="searchSellValue" type="text" class="input-text" style="width: 210px;" />
+                    <input type="image" name="" class="btnSearch" onclick="searchSellData();"/>
                 </div>
             </div>
             <!-- 게시판영역 -->
@@ -119,12 +134,13 @@
                         </th>
                     </tr>
                     </thead>
+
+                    <tbody id="results_ajax">
                     <c:forEach var="dto" items="${lists}" varStatus="seq">
-                    <tbody>
                     <tr>
                         <td class="num">
                             <div class="td">
-                                 ${seq.count}</div>
+                                 ${dto.listNum}</div>
                         </td>
                         <td class="thumbnail">
                             <div class="td"><a href="../Goods/GDetail.action?brNum=${dto.brNum}">
@@ -153,19 +169,19 @@
                         </td>
                         <c:if test="${dto.progress==0}">
                         <td onclick="if(confirm('반품하시겠습니까?')===true){location.href='../My/SellComplete.action?hsNum=${dto.hsNum}'};" style="cursor: pointer;" align="center" class="process step9" >
-                            <img id="" src="../resources/images/mypage/ing.png" /><div class="td">
+                            <img src="../resources/images/mypage/ing.png" /><div class="td">
                             진행중</div>
                         </td>
                         </c:if>
                         <c:if test="${dto.progress==1}">
                         <td style="cursor: pointer;" align="center" class="process step9" >
-                            <img id="" src="../resources/images/mypage/check.png" /><div class="td">
+                            <img src="../resources/images/mypage/check.png" /><div class="td">
                             배송완료</div>
                         </td>
                         </c:if>
                         <c:if test="${dto.progress==2}">
                         <td style="cursor: pointer;" align="center" class="process step9" >
-                            <img id="" src="../resources/images/mypage/ico_correct.png" /><div class="td">
+                            <img src="../resources/images/mypage/ico_correct.png" /><div class="td">
                             판매완료</div>
                         </td>
                         </c:if>
@@ -178,15 +194,18 @@
                         <!-- step1 ~ step4 -->
 
                     </tr>
-                    </tbody>
                     </c:forEach>
-
+                    </tbody>
                 </table>
                 <div class="tblLine2"></div>
 
-                <div class="paging">
+                <div class="seeMore">
 
+                    <button id="show_more">더 보기</button>
+                    <input type="hidden" id="direction" value="1" />
+                    <input type="hidden" id="totalPage" value="${totalPage}" />
                 </div>
+                
             </div>
             <!-- //게시판영역 -->
         </div>

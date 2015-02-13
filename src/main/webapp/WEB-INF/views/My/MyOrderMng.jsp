@@ -59,8 +59,35 @@
     });
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#show_more').click(function(e){
+            e.preventDefault();
+            $('#results_ajax').fadeIn("slow");
+            var direction = parseInt( $('#direction').val()) + 1;
+            setTimeout(function() {
+                $.ajax({
+                    url: "../Ajax/MyOrderMng.action?pageNum=" + direction,
+                    type: "POST",
+                    dataType:"html",
+                    success: function(msg){
+                        $('#direction').val(direction);
+                        $('#results_ajax').append(msg);
+                        if(document.getElementById('totalPage').value===document.getElementById('direction').value){document.getElementById('show_more').remove()};
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            }, 1000);
+        });
+
+    });
+</script>
+
 <!-- 마이페이지컨텐츠 시작 -->
-<form action="" method="post" name="searchBuyDataForm">
+<form action="../My/MyOrderMng.action" method="post" name="searchBuyDataForm">
 <div class="primaryContents myPayment">
     <!-- 마이페이지lnb -->
     <div class="mypage_lnb">
@@ -78,18 +105,12 @@
             <p class="nodata_msg">구매한 재능이 없습니다.</p>
         </div>
 
-
-
         <div id="hasData">
-
-
             <div class="sortArea">
                 <br />
-                
-
                 <div class="listSearch">
-                    <input name="searchBuyValue" type="text" id="" class="input-text" style="width: 210px;" />
-                    <input type="image" name="" id="" class="btnSearch" src="searchBuyData();" />
+                    <input name="searchBuyValue" type="text" class="input-text" style="width: 210px;" />
+                    <input type="image" name="" class="btnSearch" onclick="searchBuyData();" />
                 </div>
             </div>
 
@@ -125,8 +146,8 @@
                     </tr>
                     </thead>
 
-					<c:forEach var="dto" items="${lists }" varStatus="seq">
-                    <tbody>
+                    <tbody id="results_ajax">
+                    <c:forEach var="dto" items="${lists }" varStatus="seq">
                     <tr>
                         <td class="num">
                             <div class="td">
@@ -165,10 +186,10 @@
                         </td>
                         <c:if test="${dto.progress==0}">
                         <td style="cursor: pointer;" align="center" class="process step9" >
-                            <img id="" src="../resources/images/mypage/ing.png"/><div class="td">
+                            <img src="../resources/images/mypage/ing.png"/><div class="td">
                             진행중 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
-                            <img id="" src="../resources/images/mypage/cancel.png" 
+                            <img src="../resources/images/mypage/cancel.png" 
                             onclick="if(confirm('구매취소하시겠습니까?')===true){location.href='../My/BuyCancel.action?hsNum=${dto.hsNum}'};" /><div class="td">
                             취소
                             </div>
@@ -177,11 +198,11 @@
                         
                         <c:if test="${dto.progress==1}">
                         <td style="cursor: pointer;" align="center" class="process step9" >
-                            <img id="" src="../resources/images/mypage/check.png" 
+                            <img src="../resources/images/mypage/check.png" 
                             onclick="if(confirm('구매확정하시겠습니까?(구매확정시 반품불가)')===true){location.href='../My/BuyComplete.action?hsNum=${dto.hsNum}';}"/><div class="td">
                             구매확정 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
-                            <img id="" src="../resources/images/mypage/cancel.png" 
+                            <img src="../resources/images/mypage/cancel.png" 
                             onclick="if(confirm('반품하시겠습니까?')===true){location.href='../My/BuyCancel.action?hsNum=${dto.hsNum}'};"/><div class="td">
                             반품
                             </div>
@@ -190,14 +211,14 @@
                         
                         <c:if test="${dto.progress==2}">
                         <td style="cursor: pointer;" align="center" class="process step9" >
-                        <img id="" src="../resources/images/mypage/ico_correct.png"/>
+                        <img src="../resources/images/mypage/ico_correct.png"/>
                         <div class="td">완료</div>
                         </td>
                         </c:if>
                         
                         <c:if test="${dto.progress==3}">
                         <td style="cursor: pointer;" align="center" class="process step9" >
-                        <img id="" src="../resources/images/mypage/cancel.png"/>
+                        <img src="../resources/images/mypage/cancel.png"/>
                         <div class="td">취소</div>
                         </td>
                         </c:if>
@@ -205,16 +226,18 @@
                         <!-- step1 ~ step4 -->
 
                     </tr>
-                    </tbody>
                     </c:forEach>
+                    </tbody>
+
 
                 </table>
                 <div class="tblLine2"></div>
 
-                <div class="paging">
+                <div class="seeMore">
 
-                    <b>${pageIndexList}</b>
-
+                    <button id="show_more">더 보기</button>
+                    <input type="hidden" id="direction" value="1" />
+                    <input type="hidden" id="totalPage" value="${totalPage}" />
                 </div>
             </div>
             <!-- //게시판영역 -->

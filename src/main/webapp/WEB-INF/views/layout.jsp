@@ -347,7 +347,7 @@
 							<a href="#" class="seeMore">더보기</a> <span class="arr"></span>
 						</div>
 					</li>
-					<li class="myPoint"><span class="point">0</span> P</li>
+					<li class="myPoint"><span class="point">${sessionScope.session.ptPoint}</span> P</li>
 					<li id="myPageDrop" class="user"><a href="#"> <!--<img src="../../resources/images/common/ico_my_default_thumb.png" alt="" />-->
 						<img src="../resources/images/common/ico_my_default_thumb.png"
 							 alt=""> <span></span>

@@ -87,9 +87,6 @@ public class HistoryController {
 	@RequestMapping(value = "/My/MyOrderMng.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
 	public String myOrderMng(HttpServletRequest req, HttpServletResponse res) {
-
-		String cp = req.getContextPath();
-
 		HttpSession session = req.getSession();
 
 		MemberSession mbs = (MemberSession) session.getAttribute("session");
@@ -104,9 +101,9 @@ public class HistoryController {
 			currentPage = Integer.parseInt(pageNum);
 
 		String searchBuyValue = req.getParameter("searchBuyValue");
-		
+
 		try {
-			
+
 			if (searchBuyValue == null) {
 				searchBuyValue = "";
 			} else {
@@ -118,7 +115,7 @@ public class HistoryController {
 
 			// 전체데이터갯수
 			int dataCount = dao.myOrderMngDataCount(mbId, searchBuyValue);
-			
+
 			// 전체페이지수
 			int numPerPage = 5;
 			int totalPage = myUtil.getPageCount(numPerPage, dataCount);
@@ -129,69 +126,210 @@ public class HistoryController {
 			int start = (currentPage - 1) * numPerPage + 1;
 			int end = currentPage * numPerPage;
 
-			List<HistoryDTO> lists = dao.selectHistory(mbId, start, end,
+            List<HistoryDTO> lists = dao.selectHistory(mbId, start, end,
 					searchBuyValue);
-			
+
 			int listNum,n=0;
 			ListIterator<HistoryDTO> it = lists.listIterator();
 			while(it.hasNext()){
-				HistoryDTO dto = (HistoryDTO)it.next();
+				HistoryDTO dto = it.next();
 				listNum = dataCount-(start+n-1);
 				dto.setListNum(listNum);
 				n++;
 			}
 
-			// 페이징 처리
-			String param = "";
-			if (!searchBuyValue.equals("")) {
-				param = "searchBuyValue="
-						+ URLEncoder.encode(searchBuyValue, "UTF-8");
-			}
-
-			String listUrl = cp + "/My/MyOrderMng.action";
-			if (!param.equals("")) {
-				listUrl = listUrl + "?" + param;
-			}
-
-			String pageIndexList = myUtil.pageIndexList(currentPage, totalPage,
-					listUrl);
-
 			req.setAttribute("lists", lists);
 			req.setAttribute("dataCount", dataCount);
-			req.setAttribute("pageIndexList", pageIndexList);
+            req.setAttribute("totalPage", totalPage);
 
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
 
 		return "/My/MyOrderMng";
-
 	}
+
+    @RequestMapping(value = "/Ajax/MyOrderMng.action", method = {
+            RequestMethod.GET, RequestMethod.POST })
+    public String myOrderMngAjax(HttpServletRequest req, HttpServletResponse res) {
+        HttpSession session = req.getSession();
+
+        MemberSession mbs = (MemberSession) session.getAttribute("session");
+
+        String mbId = mbs.getMbId();
+        String pageNum = req.getParameter("pageNum");
+
+        int currentPage = 1;
+
+        if (pageNum != null)
+            currentPage = Integer.parseInt(pageNum);
+
+        String searchBuyValue = req.getParameter("searchBuyValue");
+
+        try {
+            if (searchBuyValue == null) {
+                searchBuyValue = "";
+            } else {
+                if (req.getMethod().equalsIgnoreCase("GET"))
+                    searchBuyValue = URLDecoder.decode(searchBuyValue, "UTF-8");
+            }
+
+            // 전체데이터갯수
+            int dataCount = dao.myOrderMngDataCount(mbId, searchBuyValue);
+
+            // 전체페이지수
+            int numPerPage = 5;
+            int totalPage = myUtil.getPageCount(numPerPage, dataCount);
+
+            if (currentPage > totalPage)
+                currentPage = totalPage;
+
+            int start = (currentPage - 1) * numPerPage + 1;
+            int end = currentPage * numPerPage;
+
+            List<HistoryDTO> lists = dao.selectHistory(mbId, start, end,
+                    searchBuyValue);
+
+            int listNum,n=0;
+            ListIterator<HistoryDTO> it = lists.listIterator();
+            while(it.hasNext()){
+                HistoryDTO dto = it.next();
+                listNum = dataCount-(start+n-1);
+                dto.setListNum(listNum);
+                n++;
+            }
+
+            req.setAttribute("lists", lists);
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+        return "/Ajax/MyOrderMng";
+    }
 
 	// 판매내역
 	@RequestMapping(value = "/My/SellMng.action", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public String sellMng(HttpServletRequest req, HttpServletResponse res) {
-
 		HttpSession session = req.getSession();
 
 		MemberSession mbs = (MemberSession) session.getAttribute("session");
 
 		String mbId = mbs.getMbId();
 
-		String searchSellValue = req.getParameter("searchSellValue");
+        String pageNum = req.getParameter("pageNum");
 
-		if (searchSellValue == null) {
-			searchSellValue = "";
-		}
+        int currentPage = 1;
 
-		List<HistoryDTO> lists = dao.selectSellHistory(mbId, searchSellValue);
+        if (pageNum != null)
+            currentPage = Integer.parseInt(pageNum);
 
-		req.setAttribute("lists", lists);
+        String searchSellValue = req.getParameter("searchSellValue");
+
+        try {
+            if (searchSellValue == null) {
+                searchSellValue = "";
+            } else {
+                if (req.getMethod().equalsIgnoreCase("GET"))
+                    searchSellValue = URLDecoder.decode(searchSellValue, "UTF-8");
+            }
+
+            // 전체데이터갯수
+            int dataCount = dao.sellMngDataCount(mbId, searchSellValue);
+
+            // 전체페이지수
+            int numPerPage = 5;
+            int totalPage = myUtil.getPageCount(numPerPage, dataCount);
+
+            if (currentPage > totalPage)
+                currentPage = totalPage;
+
+            int start = (currentPage - 1) * numPerPage + 1;
+            int end = currentPage * numPerPage;
+
+            List<HistoryDTO> lists = dao.selectSellHistory(mbId, start, end,
+                    searchSellValue);
+
+            int listNum,n=0;
+            ListIterator<HistoryDTO> it = lists.listIterator();
+            while(it.hasNext()){
+                HistoryDTO dto = it.next();
+                listNum = dataCount-(start+n-1);
+                dto.setListNum(listNum);
+                n++;
+            }
+
+            req.setAttribute("lists", lists);
+            req.setAttribute("dataCount", dataCount);
+            req.setAttribute("totalPage", totalPage);
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
 
 		return "My/SellMng";
-
 	}
+
+    @RequestMapping(value = "/Ajax/SellMng.action", method = { RequestMethod.GET,
+            RequestMethod.POST })
+    public String sellMngAjax(HttpServletRequest req, HttpServletResponse res) {
+        HttpSession session = req.getSession();
+
+        MemberSession mbs = (MemberSession) session.getAttribute("session");
+
+        String mbId = mbs.getMbId();
+
+
+        String pageNum = req.getParameter("pageNum");
+
+        int currentPage = 1;
+
+        if (pageNum != null)
+            currentPage = Integer.parseInt(pageNum);
+
+        String searchSellValue = req.getParameter("searchSellValue");
+
+        try {
+            if (searchSellValue == null) {
+                searchSellValue = "";
+            } else {
+                if (req.getMethod().equalsIgnoreCase("GET"))
+                    searchSellValue = URLDecoder.decode(searchSellValue, "UTF-8");
+            }
+
+            // 전체데이터갯수
+            int dataCount = dao.myOrderMngDataCount(mbId, searchSellValue);
+
+            // 전체페이지수
+            int numPerPage = 5;
+            int totalPage = myUtil.getPageCount(numPerPage, dataCount);
+
+            if (currentPage > totalPage)
+                currentPage = totalPage;
+
+            int start = (currentPage - 1) * numPerPage + 1;
+            int end = currentPage * numPerPage;
+
+            List<HistoryDTO> lists = dao.selectSellHistory(mbId, start, end,
+                    searchSellValue);
+
+            int listNum,n=0;
+            ListIterator<HistoryDTO> it = lists.listIterator();
+            while(it.hasNext()){
+                HistoryDTO dto = it.next();
+                listNum = dataCount-(start+n-1);
+                dto.setListNum(listNum);
+                n++;
+            }
+
+            req.setAttribute("lists", lists);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+        return "Ajax/SellMng";
+    }
 
 	@RequestMapping(value = "/My/SellComplete.action", method = {
 			RequestMethod.GET, RequestMethod.POST })

@@ -1,8 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	String cp = request.getContextPath();
-%>
 
 <!DOCTYPE html>
 <html>
@@ -18,7 +15,6 @@
     }
     .dealList table tbody tr td.process .td {padding:10px 10px 0 10px; text-align:center; font-weight:bold; font-size:11px;}
     .dealList table tbody tr td.process.step9 .td { no-repeat 50% 0;}
-
 </style>
 
 <script>
@@ -48,13 +44,6 @@
 	}
     
 </script>
-<script type="text/javascript">
-    //<![CDATA[
-    Sys.WebForms.PageRequestManager._initialize('ctl00$ContentPlaceHolder1$WUC_My_AbilityList$ToolkitScriptManager1', 'form1', ['tctl00$ContentPlaceHolder1$WUC_My_AbilityList$UpdatePanel1','ContentPlaceHolder1_WUC_My_AbilityList_UpdatePanel1'], [], [], 90, 'ctl00');
-    //]]>
-</script>
-
-<div id="ContentPlaceHolder1_WUC_My_AbilityList_UpdatePanel1">
 
 <form action="" method="post" name="sellListForm" >
     <div class="primaryContents myTalent">

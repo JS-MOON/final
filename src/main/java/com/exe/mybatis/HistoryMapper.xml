@@ -30,17 +30,24 @@
 </select>
 
 <select id="selectSellHistory" parameterType="hashMap" resultType="com.exe.dto.HistoryDTO">
-	select hs.hsnum, hs.hsdate, hs.hsprice, hs.hstotalprice, hs.hsoptions,hs.progress,br.brnum, br.brsubject, br.brmainphoto
-	from history hs inner join board br on hs.brnum = br.brnum 
-	where hs.srid = #{mbId} and (br.brsubject like '%'||#{searchSellValue}||'%') order by hs.hsnum desc
+    select * from (select rownum rnum,data.* from(
+	select hs.hsnum,hs.progress,hs.hsdate, hs.hsprice, hs.hstotalprice, hs.hsoptions,br.brnum, br.brsubject, br.brmainphoto
+	from history hs inner join board br on hs.brnum = br.brnum
+	where hs.srid = #{mbId} and (br.brsubject like '%'||#{searchSellValue}||'%') order by hs.hsnum desc) data)
+	<![CDATA[
+    where rnum >= #{start} and rnum <= #{end}
+    ]]>
 </select>
-
-<!-- and (br.brsubject like '%'||#{searchValue}||'%') -->
 
 <select id="myOrderMngDataCount" parameterType="hashMap" resultType="int">
 	select count(*) from history hs inner join board br on hs.brnum = br.brnum
 	where hs.mbid=#{mbId} and br.brsubject like '%'||#{searchValue}||'%'
 </select>
+
+    <select id="sellMngDataCount" parameterType="hashMap" resultType="int">
+        select count(*) from history hs inner join board br on hs.brnum = br.brnum
+        where hs.srid=#{mbId} and br.brsubject like '%'||#{searchValue}||'%'
+    </select>
 
 <update id="updateSellerProgress" parameterType="int">
 	update history set progress = 1 where hsNum = #{hsNum}

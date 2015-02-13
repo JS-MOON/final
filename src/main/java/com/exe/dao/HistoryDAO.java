@@ -36,6 +36,17 @@ public class HistoryDAO {
 		return result;
 		
 	}
+
+    public int sellMngDataCount(String mbId,String searchSellValue){
+
+        int result = 0;
+        HashMap<String, Object> hMap = new HashMap<String, Object>();
+        hMap.put("mbId", mbId);
+        hMap.put("searchValue", searchSellValue);
+        result = sessionTemplate.selectOne("history.sellMngDataCount",hMap);
+        return result;
+
+    }
 	
 	public List<HistoryDTO> selectHistory(String mbId,int start,int end,String searchBuyValue){
 		
@@ -44,15 +55,17 @@ public class HistoryDAO {
 		hMap.put("start", start);
 		hMap.put("end", end);
 		hMap.put("searchValue", searchBuyValue);
+
 		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectHistory",hMap);
 		return lists;
 	}
 	
-	public List<HistoryDTO> selectSellHistory(String mbId,String searchSellValue){
+	public List<HistoryDTO> selectSellHistory(String mbId,int start,int end,String searchSellValue){
 		
 		HashMap<String, Object> hMap = new HashMap<String, Object>();
-		
 		hMap.put("mbId", mbId);
+        hMap.put("start", start);
+        hMap.put("end", end);
 		hMap.put("searchSellValue", searchSellValue);
 		
 		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectSellHistory",hMap);
