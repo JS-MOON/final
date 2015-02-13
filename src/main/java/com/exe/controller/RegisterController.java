@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.exe.dao.PointDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -37,7 +38,11 @@ public class RegisterController {
 	@Autowired
 	@Qualifier("emailAuthDAO")
 	EmailAuthDAO eadao;
-	
+
+    @Autowired
+    @Qualifier("pointDAO")
+    PointDAO pdao;
+
 	@Autowired 
 	private JavaMailSender mailSender;
 	
@@ -113,6 +118,8 @@ public class RegisterController {
 
 		ModelAndView mav = new ModelAndView();
 
+        String previousURL = request.getParameter("currentURL");
+
 		String mbId = request.getParameter("mbId");
 		String mbPw = request.getParameter("mbPw");
 		String str = "";
@@ -129,6 +136,7 @@ public class RegisterController {
 			MemberSession mbs = new MemberSession();
 			mbs.setMbId(mbId);
 			mbs.setMbPw(mbPw);
+            mbs.setPtPoint(pdao.ptGetSum(mbId));
 
 			session.setAttribute("session", mbs);
 			/*
@@ -137,7 +145,10 @@ public class RegisterController {
 			 * 
 			 * response.sendRedirect(url);
 			 */
-			mav.setViewName("redirect:/Goods/Main.action");
+            if(previousURL==null)
+			    mav.setViewName("redirect:/Goods/Main.action");
+            else
+                mav.setViewName("redirect:" + previousURL);
 			return mav;
 			// return "redirect:/Goods/Main.action";
 		}

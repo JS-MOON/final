@@ -5,9 +5,17 @@ public class MemberSession {
 	private String mbId;
 	private String mbPw;
 	private String mbNickName;
-	
+    private int ptPoint;
 
-	public String getMbId() {
+    public int getPtPoint() {
+        return ptPoint;
+    }
+
+    public void setPtPoint(int ptPoint) {
+        this.ptPoint = ptPoint;
+    }
+
+    public String getMbId() {
 		return mbId;
 	}
 	public void setMbId(String mbId) {

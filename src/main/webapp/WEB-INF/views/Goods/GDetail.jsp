@@ -201,7 +201,7 @@
 								</span> 원
 							</div>
 							<div class="btnArea al_r">
-								<a class="btnType2" href="">
+								<a class="btnType2" href="../Chat/QAChat.action?brNum=${dto.brNum}">
 									<span>문의하기</span>
 								</a> 
 								<a class="btnType3" href="javascript:order()">
@@ -209,35 +209,11 @@
 								</a>
 							</div>
 						</div>
-						<div class="amount">
-							총 금액&nbsp; <span class="price"> 
-							<type="text" name="totalPrice" id="totalPrice" value="${dto.brPrice }" class="price" readonly="readonly" style="text-align: right;border: 0px;"/>
-							</span> 원
-						</div>
-						<div class="btnArea al_r">
-							<a class="btnType2"
-							   href="../Chat/QAChat.action?brNum=${dto.brNum}"><span>문의하기</span></a>
-							<a class="btnType3" href="javascript:order()"><span>구매하기</span></a>
-						</div>
 					</div>
 					<!-- 제품상세 -->
 				</div>
 				<!-- //제품정보 -->
 			</form>
-			<!-- 제품상세정보 -->
-			<div class="pdt-block">
-				<div class="pdtDetailWrap">
-					<div class="pdtDetail" style="text-align: center"></div>
-					<div class="pdtDetail" style="text-align: center">
-						<img class="pdtDetail"
-							 src="../Product/${dto.brMorePhoto}" /> <img
-							src="../resources/images/product/txt_msg_product.png" /><br />
-						<img src="../resources/images/product/btn_msg_product.png" />
-
-					</div>	
-					<!-- //제품정보 -->
-				</form>
-				
 				<!-- 제품상세정보 -->
 				<div class="pdt-block">
 					<div class="pdtDetailWrap">
@@ -373,7 +349,7 @@
 								<li>
 									<a href="GDetail.action?brNum=${dto.brNum }">
 										<span class="thumb"> 
-											<img src="../Product/${dto.brMainPhoto }" alt="7일간 유지되는 당신만의 타투디자인을 만들어 드립니다. " Height=160px Width=160px />
+											<img src="../Product/${dto.brMainPhoto }" alt="탤런트" Height=160px Width=160px />
 										</span> 
 										<span class="name"> ${dto.brSubject }</span> 
 										<span class="price">${dto.brPrice }</span>

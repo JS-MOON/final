@@ -32,7 +32,6 @@
 		<mapper resource="com/exe/mybatis/PointMapper.xml"/>
 		<mapper resource="com/exe/mybatis/WishListMapper.xml"/>
 		<mapper resource="com/exe/mybatis/EmailAuthMapper.xml"/>
-
   	</mappers>
 
   </configuration>

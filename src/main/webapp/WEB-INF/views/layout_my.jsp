@@ -36,7 +36,7 @@
             var str = jQuery.url.segment(2) // jQueryURL.htm 반환.
             //$('#id1').append('<p>' + 'segment 2 : ' + str + '</p>');
 
-            if(str.indexOf("MyMistus")!==-1) {
+            if(str.indexOf("MyTalent")!==-1) {
                 $(".mypageSnb ul.personal li.m2 a").css("color","#db1515");
             } else if(str.indexOf("MyProfile")!==-1) {
                 $(".mypageSnb ul.personal li.m3 a").css("color","#db1515");
@@ -176,14 +176,6 @@
             //return false;
         }
 
-        function goLogin() {
-            // var button = document.getElementById('lbtnLogin');
-            var f = document.loginForm;
-            // button.click();
-
-            f.submit();
-        }
-
         function goReSendAuthEmail() {
             var button = document.getElementById('lbtnReSendEmailAuth');
             button.click();
@@ -292,7 +284,7 @@
                             <a href="#" class="seeMore">더보기</a> <span class="arr"></span>
                         </div>
                     </li>
-                    <li class="myPoint"><span class="point">0</span> P</li>
+                    <li class="myPoint"><span class="point">${sessionScope.session.ptPoint}</span> P</li>
                     <li id="myPageDrop" class="user"><a href="#"> <!--<img src="../../resources/images/common/ico_my_default_thumb.png" alt="" />-->
                         <img src="../resources/images/common/ico_my_default_thumb.png"
                              alt=""> <span></span>
@@ -333,57 +325,59 @@
             </div>
         </div>
         <!-- //로그인 -->
+        <form action="" method="post" name="searchForm">
+            <!-- 검색 -->
+            <div id="search">
+                <div class="centered_cont">
+                    <h1>
+                        <a href="../"> <img
+                                src="../resources/images/common/h1_logo.png"
+                                alt="세상 모든 재능의 시작 TALENT" />
+                        </a>
+                    </h1>
+                    <div class="searchWindow">
 
-        <!-- 검색 -->
-        <div id="search">
-            <div class="centered_cont">
-                <h1>
-                    <a href="../"> <img
-                            src="../resources/images/common/h1_logo.png"
-                            alt="세상 모든 재능의 시작 TALENT" />
-                    </a>
-                </h1>
-                <div class="searchWindow">
-                    <input name="" type="text" maxlength="10" title="TopSearch"
-                           class="mainSearch" onkeydown="javascript:SrcKeydown();" />
-                    <a id="lbtnTopSearch" class="btnSearch" href="" alt="검색" /> <img
-                        src="../resources/images/common/btn_main_search.png" alt="검색">
-                    </a>
-                    <ul class="searchKeyword">
-                        <li><a
-                                href='../Goods/GList.action?start=2&end=2'>디자인</a></li>
-                        <li><a
-                                href='../Goods/GList.action?start=61&end=61'>마술공연</a></li>
-                        <li><a href='../Goods/GList.action?start=26&end=26'>편지</a></li>
-                        <li><a href='../Goods/GList.action?start=2&end=2'>로고</a></li>
-                        <li><a
-                                href='../Goods/GList.action?start=30&end=30'>자소서</a></li>
-                    </ul>
-                </div>
-                <div class="adBannerWrap">
-                    <div class="nav"></div>
-                    <ul class="adBanner">
-                        <li><a
-                                href='#'>
-                            <img src='../Upload/TopBanner/ADTB20141123023114219.png'
-                                 width="230px" height="75px" alt="" />
-                        </a></li>
-                        <li><a
-                                href='#'>
-                            <img src='../Upload/TopBanner/ADTB20141119044627641.png'
-                                 width="230px" height="75px" alt="" />
-                        </a></li>
-                        <li><a
-                                href='#'>
-                            <img src='../Upload/TopBanner/ADTB20141123023114219.png'
-                                 width="230px" height="75px" alt="" />
-                        </a></li>
-                    </ul>
+                        <input name="searchValue" type="text" maxlength="10" title="TopSearch"
+
+                               class="mainSearch" onkeydown="javascript:SrcKeydown();" />
+                        <a id="lbtnTopSearch" class="btnSearch" alt="검색" onclick="searchSubject();" href="#"/> <img
+                            src="../resources/images/common/btn_main_search.png" alt="검색">
+                        </a>
+                        <ul class="searchKeyword">
+                            <li><a
+                                    href='../Goods/GList.action?start=2&end=2'>디자인</a></li>
+                            <li><a
+                                    href='../Goods/GList.action?start=61&end=61'>마술공연</a></li>
+                            <li><a href='../Goods/GList.action?start=26&end=26'>편지</a></li>
+                            <li><a href='../Goods/GList.action?start=2&end=2'>로고</a></li>
+                            <li><a
+                                    href='../Goods/GList.action?start=30&end=30'>자소서</a></li>
+                        </ul>
+                    </div>
+                    <div class="adBannerWrap">
+                        <div class="nav"></div>
+                        <ul class="adBanner">
+                            <li><a
+                                    href='#'>
+                                <img src='../Upload/TopBanner/ADTB20141123023114219.png'
+                                     width="230px" height="75px" alt="" />
+                            </a></li>
+                            <li><a
+                                    href='#'>
+                                <img src='../Upload/TopBanner/ADTB20141119044627641.png'
+                                     width="230px" height="75px" alt="" />
+                            </a></li>
+                            <li><a
+                                    href='#'>
+                                <img src='../Upload/TopBanner/ADTB20141123023114219.png'
+                                     width="230px" height="75px" alt="" />
+                            </a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- //검색 -->
-
+            <!-- //검색 -->
+        </form>
         <!-- gnb -->
         <div id="gnb">
             <ul class="centered_cont">
@@ -417,7 +411,7 @@
                 <div id="mypageSnb" class="mypageSnb">
                     <h2>개인 <span>Personal</span></h2>
                     <ul class="personal">
-                        <li class="m2"><a href="../My/MyMistus.action"><span>나의 탤런트</span></a></li>
+                        <li class="m2"><a href="../My/MyTalent.action"><span>나의 탤런트</span></a></li>
                         <li class="m3"><a href="../My/MyProfile.action"><span>프로필 관리</span></a></li>
                         <li class="m4"><a href="../My/MyAccount.action"><span>계정 관리</span></a></li>
                         <li class="m5"><a href="../My/MyMessage.action"><span>메세지 관리</span></a></li>
@@ -474,7 +468,7 @@
                     <label class="label">이메일 아이디</label> <input name="mbId" id="mbIdEmail"
                                                                 type="text" maxlength="50" class="input-text"
                                                                 onkeydown="javascript:Keydown_Login();" title="이메일 아이디"
-                                                                placeholder="이메일 아이디" onchange="emailCheck();"/>
+                                                                placeholder="이메일 아이디" />
                 </div>
                 <div class="loginSet">
                     <label class="label">비밀번호</label> <input name="mbPw"
@@ -506,6 +500,7 @@
                 </a>
             </div>
         </div>
+        <input name="currentURL" id="currentURL" type="hidden" value="" />
     </form>
     <!-- //로그인팝업 -->
 

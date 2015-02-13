@@ -56,7 +56,7 @@
     <!-- contents -->
     <div id="contents" class="cs_proposal">
         <div class="toMistus">
-            <img src="../resources/images/customer/img_toMistus.gif" alt="To MISTUS team 미스터스는 여러분의 신선한 아이디어로 성장하고있습니다. 미스터스팀에게 제한사항이나 바라는 점을 보내주세요. 더욱 새로운 서비스로 보답하겠습니다." />
+            <img src="../resources/images/customer/img_toMistus.gif" alt="To Talent team 미스터스는 여러분의 신선한 아이디어로 성장하고있습니다. 미스터스팀에게 제한사항이나 바라는 점을 보내주세요. 더욱 새로운 서비스로 보답하겠습니다." />
         </div>
 
         <h3 class="cs_h_title">제안하기</h3>

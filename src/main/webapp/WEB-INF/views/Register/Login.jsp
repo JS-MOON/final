@@ -73,7 +73,7 @@
 
 
                 <td style="width: 100px;" rowspan="2">
-                  <input type="image" src="../resources/images/common/login1229.jpg" onclick="javascript:goLogin2()">
+                    <a href="javascript:goLogin2()"><img src="../resources/images/common/login1229.jpg" /></a>
                 </td>
               </tr>
               <tr style="height: 60px">
