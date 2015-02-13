@@ -112,6 +112,8 @@ public class RegisterController {
 
 		ModelAndView mav = new ModelAndView();
 
+        String previousURL = request.getParameter("currentURL");
+
 		String mbId = request.getParameter("mbId");
 		String mbPw = request.getParameter("mbPw");
 		String str = "";
@@ -136,7 +138,10 @@ public class RegisterController {
 			 * 
 			 * response.sendRedirect(url);
 			 */
-			mav.setViewName("redirect:/Goods/Main.action");
+            if(previousURL==null)
+			    mav.setViewName("redirect:/Goods/Main.action");
+            else
+                mav.setViewName("redirect:" + previousURL);
 			return mav;
 			// return "redirect:/Goods/Main.action";
 		}

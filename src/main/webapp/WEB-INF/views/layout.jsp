@@ -156,19 +156,7 @@
 			}
 		}
 		
-		function searchSubject(){
-			
-			var f = document.searchForm;
-			
-			if(f.searchValue.value==null){
-				alert("검색어를 입력해주세요");
-				f.searchValue.focus();
-				return;
-			}
-			
-			f.action = "GSearchList.action";
-			f.submit();
-		}
+
 		
 		
 	</script>
@@ -201,25 +189,6 @@
 			//return false;
 		}
 
-		function goLogin() {
-			// var button = document.getElementById('lbtnLogin');
-			var f = document.loginForm;
-			
-			if(!f.mbId.value.trim()){
-				alert("아이디를 입력하세요.");
-				f.mbId.focus();
-				return;
-			}
-			if(!f.mbPw.value.trim()){
-				 alert("비밀번호를 입력하세요.");
-				 f.mbPw1.focus();
-				 return;
-			 }
-			
-			// button.click();
-
-			f.submit();
-		}
 
 		function goReSendAuthEmail() {
 			var button = document.getElementById('lbtnReSendEmailAuth');
@@ -558,6 +527,7 @@
 				</a>
 			</div>
 		</div>
+        <input name="currentURL" id="currentURL" type="hidden" value="" />
 	</form>
 	<!-- //로그인팝업 -->
 
