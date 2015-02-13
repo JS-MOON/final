@@ -190,6 +190,7 @@
 									<input type="hidden" name="category2" value="${category2 }" /> 
 									<input type="hidden" name="subject" value="${dto.brSubject }" /> 
 									<input type="hidden" name="brNum" value="${dto.brNum}" />
+									<input type="hidden" name="srId" value="${dto.mbId}"/>
 								</div>
 							</div>
 							<div class="amount">
@@ -233,8 +234,7 @@
 							src="../resources/images/product/txt_msg_product.png" /><br />
 						<img src="../resources/images/product/btn_msg_product.png" />
 
-					</div>
-					<input type="hidden" name="srId" value="${dto.mbId}">	
+					</div>	
 					<!-- //제품정보 -->
 				</form>
 				

@@ -21,6 +21,24 @@
 
 </style>
 
+<script language="javascript">
+
+	function searchBuyData(){
+	
+		var f = document.searchBuyDataForm;
+	
+		if(f.searchBuyValue.value==null){
+			alert("검색어를 입력해주세요");
+			f.searchBuyValue.focus();
+			return;
+		}
+	
+		f.action = "../My/MyOrderMng.action";
+		f.submit();
+	}
+
+</script>
+
 <script>
 
     $(document).ready(function () {
@@ -42,6 +60,7 @@
 </script>
 
 <!-- 마이페이지컨텐츠 시작 -->
+<form action="" method="post" name="searchBuyDataForm">
 <div class="primaryContents myPayment">
     <!-- 마이페이지lnb -->
     <div class="mypage_lnb">
@@ -69,8 +88,8 @@
                 
 
                 <div class="listSearch">
-                    <input name="ctl00$ContentPlaceHolder1$WUC_My_PurchaseList$txt_searchValue" type="text" id="ContentPlaceHolder1_WUC_My_PurchaseList_txt_searchValue" class="input-text" style="width: 210px;" />
-                    <input type="image" name="ctl00$ContentPlaceHolder1$WUC_My_PurchaseList$ibtn_search" id="ContentPlaceHolder1_WUC_My_PurchaseList_ibtn_search" class="btnSearch" src="" />
+                    <input name="searchBuyValue" type="text" id="" class="input-text" style="width: 210px;" />
+                    <input type="image" name="" id="" class="btnSearch" src="searchBuyData();" />
                 </div>
             </div>
 
@@ -111,7 +130,7 @@
                     <tr>
                         <td class="num">
                             <div class="td">
-                                 ${seq.count }</div>
+                                 ${dto.listNum}</div>
                         </td>
                         <td class="thumbnail">
                             <div class="td"><a href="../Goods/GDetail.action?brNum=${dto.brNum }">
@@ -146,8 +165,7 @@
                         </td>
                         <c:if test="${dto.progress==0}">
                         <td style="cursor: pointer;" align="center" class="process step9" >
-                            <img id="" src="../resources/images/mypage/ing.png"
-                            onclick="location.href='../My/BuyComplete.action?hsNum=${dto.hsNum}';" /><div class="td">
+                            <img id="" src="../resources/images/mypage/ing.png"/><div class="td">
                             진행중 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                             <img id="" src="../resources/images/mypage/cancel.png" 
@@ -195,7 +213,7 @@
 
                 <div class="paging">
 
-                    <b>2 </b>
+                    <b>${pageIndexList}</b>
 
                 </div>
             </div>
@@ -205,6 +223,7 @@
     </div>
     <!-- //내용 -->
 </div>
+</form>
 <!-- //마이페이지컨텐츠 시작 -->
 
 

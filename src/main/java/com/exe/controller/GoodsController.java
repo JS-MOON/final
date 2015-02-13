@@ -486,6 +486,9 @@ public class GoodsController {
 		String brNum = request.getParameter("brNum");
 		String srId = request.getParameter("srId");
 
+		System.out.println(brNum);
+		System.out.println(srId);
+		
 		request.setAttribute("option", option);
 		request.setAttribute("basicPrice", basicPrice);
 		request.setAttribute("totalPrice", totalPrice);

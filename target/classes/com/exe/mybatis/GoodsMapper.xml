@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="GoodsMapper">
+
+	<!-- 데이터 입력 -->
+
+	<!-- mainaction -->
+	<select id="newTalentList" resultType="com.exe.dto.BoardDTO">
+		select
+		B.cgcategory1,A.brnum,A.brsubject,A.brmainphoto,A.brprice
+		from board
+		A,category B where A.cgnum=B.cgnum order by A.brnum desc
+	</select>
+
+	<select id="mainCountList" resultType="com.exe.dto.BoardDTO">
+		select
+		C.mbnickName,C.mbpic,B.cgcategory1,A.brnum,A.brsubject,A.brmainphoto,A.brprice,A.brcount
+		from board A,category B,member C
+		where A.cgnum=B.cgnum and
+		A.mbid=C.mbid order by A.brcount desc
+	</select>
+
+	<select id="mainWishList" resultType="com.exe.dto.BoardDTO" parameterType="String">
+		SELECT board.brnum,nvl(wishlist.MBID,'no') mbId, CATEGORY.CGNUM,
+		member.MBID,member.MBNICKNAME,CATEGORY.CGNUM,board.BRSUBJECT,
+		board.BRMAINPHOTO,board.BRPRICE,board.brcount,CATEGORY.cgCategory1
+		FROM BOARD, WISHLIST,CATEGORY,MEMBER
+		WHERE board.BRNUM = wishList.BRNUM(+)
+		AND board.CGNUM=CATEGORY.CGNUM(+)
+		AND board.MBID = member.MBID(+)
+		AND wishList.MBID(+) = #{mbId}
+		ORDER BY board.BRCOUNT DESC
+	</select>
+
+	<!-- gDetail -->
+	<select id="getReadData" parameterType="int" resultType="com.exe.dto.BoardDTO">
+		select
+		brnum,mbid,cgnum,brsubject,
+		brmainphoto,brmorephoto,brcontent,broptions,brprice,brdate
+		from board
+		where brnum=#{brnum}
+	</select>
+
+	<update id="updateBrCount" parameterType="int">
+		update board set
+		brcount = brcount + 1 where brnum=#{brnum}
+	</update>
+
+	<select id="getReadCategory" parameterType="int"
+		resultType="com.exe.dto.CategoryDTO">
+		<![CDATA[
+		select cgcategory1,cgcategory2 from category where cgnum=#{cgnum}
+		]]>
+	</select>
+
+	<select id="list" parameterType="int" resultType="com.exe.dto.BoardDTO">
+		select
+		brnum,brsubject,brmainphoto,brprice from board
+		where cgnum=#{cgnum}
+		order by brdate desc
+	</select>
+
+	<select id="getReadMember" parameterType="String" resultType="com.exe.dto.MemberDTO">
+		select mbid,mbpw,mbnickName,mbtel,mbpic,mbabout from member
+		where
+		mbid=#{mbid}
+	</select>
+
+	<select id="cmList" parameterType="int" resultType="com.exe.dto.CommentsDTO">
+		select
+		cmnum,brnum,cmcontent,cmnickName,cmdate,cmrating
+		from comments where
+		brnum=#{brnum}
+	</select>
+	
+	<select id="onePhoto" parameterType="int" resultType="string">
+		select brMainPhoto from board where brnum = #{brNum}
+	</select>
+	<!-- GList -->
+	<select id="gList" parameterType="hashMap" resultType="com.exe.dto.BoardDTO">
+		<![CDATA[
+		select C.cgcategory1,B.mbnickName,B.mbpic,A.brnum,A.mbid,A.cgnum,A.brsubject,
+		A.brmainphoto,A.brmorephoto,A.brcontent,A.broptions,A.brprice,A.brdate
+		from board A, member B, category C 
+		where A.mbid=B.mbid 
+		and A.cgnum>=#{start} 
+		and A.cgnum<=#{end} 
+		and A.cgnum=C.cgnum
+		order by A.${column} ${order}
+		]]>
+	</select>
+	
+	<select id="gWishList" parameterType="hashMap" resultType="com.exe.dto.BoardDTO">
+		<![CDATA[
+		select nvl(D.MBID,'no') mbId, C.cgcategory1,B.mbnickName,B.mbpic,A.brnum,A.mbid,A.cgnum,A.brsubject,
+		A.brmainphoto,A.brmorephoto,A.brcontent,A.broptions,A.brprice,A.brdate
+		from board A, member B, category C, wishList D 
+		where A.mbid=B.mbid(+) 
+		and A.cgnum>=#{start} 
+		and A.cgnum<=#{end} 
+		and A.cgnum=C.cgnum(+)
+		and A.brNum = d.brNum(+)
+		AND d.MbId(+) = #{mbId}
+		order by A.${column} ${order}
+		]]>
+	</select>
+	
+	<select id="firstGlist" parameterType="hashMap" resultType="com.exe.dto.BoardDTO">
+		<![CDATA[
+			select C.cgcategory1,B.mbnickName,B.mbpic,A.brnum,A.mbid,A.cgnum,A.brsubject,
+			A.brmainphoto,A.brmorephoto,A.brcontent,A.broptions,A.brprice,A.brdate,A.brcount
+			from board A, member B, category C 
+			where A.mbid=B.mbid and A.cgnum>=#{start} and A.cgnum<=#{end} and A.cgnum=C.cgnum order by A.brnum desc
+		]]>
+	</select>
+
+	<select id="firstGWishlist" parameterType="hashMap" resultType="com.exe.dto.BoardDTO">
+		<![CDATA[
+		select nvl(D.MBID,'no') mbId, C.cgcategory1,B.mbnickName,B.mbpic,A.brnum,A.mbid,A.cgnum,A.brsubject,
+		A.brmainphoto,A.brmorephoto,A.brcontent,A.broptions,A.brprice,A.brdate,A.brcount
+		from board A, member B, category C, wishList D 
+		where A.mbid=B.mbid(+) 
+		and A.cgnum>=#{start} 
+		and A.cgnum<=#{end} 
+		and A.cgnum=C.cgnum(+)
+		and A.brNum = d.brNum(+)
+		AND d.MbId(+) = #{mbId}
+		order by A.brnum desc
+		]]>
+	</select>
+	
+	<select id="gListgetReadCategory" parameterType="hashMap" resultType="com.exe.dto.CategoryDTO">
+		<![CDATA[
+		select cgnum,cgcategory1,cgcategory2 from category where cgnum>=#{start} and cgnum<=#{end}
+		]]>
+	</select>
+	
+	<!-- GSearchList -->
+	
+	<select id="selectSubject" parameterType="String" resultType="com.exe.dto.BoardDTO">
+	<![CDATA[
+		select C.cgcategory1,B.mbnickName,B.mbpic,A.brnum,A.mbid,A.cgnum,A.brsubject,
+		A.brmainphoto,A.brmorephoto,A.brcontent,A.broptions,A.brprice,A.brdate
+		from board A, member B, category C where A.mbid=B.mbid and
+		A.cgnum>=1 and A.cgnum<=109 and A.cgnum=C.cgnum and (A.brsubject like '%'||#{searchValue}||'%'
+		or B.mbnickName like '%'||#{searchValue}||'%') order by A.brnum desc
+		]]>
+	</select>
+	
+	<select id="selectWishSubject" parameterType="hashMap" resultType="com.exe.dto.BoardDTO">
+	<![CDATA[  
+		SELECT nvl(D.MBID,'no') mbId, C.cgcategory1,B.mbnickName,B.mbpic,A.brnum,A.mbid,A.cgnum,A.brsubject,
+		A.brmainphoto,A.brmorephoto,A.brcontent,A.broptions,A.brprice,A.brdate
+		from board A, member B, category C,WISHLIST D 
+		where A.mbid(+)=B.mbid
+		and A.cgnum>=1 
+		and A.cgnum<=109 
+		and A.cgnum=C.cgnum(+) 
+		and (A.brsubject like '%'||#{searchValue}||'%'or B.mbnickName like '%'||#{searchValue}||'%')
+		AND A.BRNUM=d.BRNUM(+)
+		AND D.MBID(+) = #{mbId}
+		order by A.brnum desc
+		]]>
+	</select>
+	
+	<insert id="boardInsert" parameterType="com.exe.dto.BoardDTO">
+		insert into board(brnum,mbid,cgnum,brsubject,brmainphoto,brmorephoto,brcontent,broptions,brprice,brdate,brcount)
+		values (#{brNum},#{mbId},#{cgNum},#{brSubject},#{brMainPhoto},#{brMorePhoto},#{brContent},#{brOptions},#{brPrice},sysdate,0)
+	</insert>
+
+	<select id="brMaxNum" resultType="int">
+		select nvl(max(brnum),0) from board
+	</select>
+	
+	<select id="myBoardList" parameterType="String" resultType="com.exe.dto.BoardDTO">
+		select brnum,brsubject,brmainphoto,brmorephoto,brcontent,broptions,brprice,brdate,brmainphoto from board where mbid = #{mbId}
+	</select>
+	
+	<delete id="brDeleteData" parameterType="int">
+		delete board where brnum=#{brNum}
+	</delete>
+	
+</mapper>

@@ -19,7 +19,16 @@ public class HistoryDTO {
 	private String srId;
 	private int ptNum;
 	private int progress;
+	private int listNum;
 	
+	public int getListNum() {
+		return listNum;
+	}
+
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
+
 	public int getPtNum() {
 		return ptNum;
 	}

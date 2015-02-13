@@ -18,9 +18,7 @@ public class HistoryDAO {
 	
 	public int hsMaxNum(){
 		int result=0;
-		
 		result = sessionTemplate.selectOne("history.hsMaxNum");
-		
 		return result;
 	}
 	
@@ -28,8 +26,25 @@ public class HistoryDAO {
 		sessionTemplate.insert("history.hsInsert", dto);
 	}
 	
-	public List<HistoryDTO> selectHistory(String mbId){
-		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectHistory",mbId);
+	public int myOrderMngDataCount(String mbId,String searchBuyValue){
+		
+		int result = 0;
+		HashMap<String, Object> hMap = new HashMap<String, Object>();
+		hMap.put("mbId", mbId);
+		hMap.put("searchValue", searchBuyValue);
+		result = sessionTemplate.selectOne("history.myOrderMngDataCount",hMap);
+		return result;
+		
+	}
+	
+	public List<HistoryDTO> selectHistory(String mbId,int start,int end,String searchBuyValue){
+		
+		HashMap<String, Object> hMap = new HashMap<String, Object>();
+		hMap.put("mbId", mbId);
+		hMap.put("start", start);
+		hMap.put("end", end);
+		hMap.put("searchValue", searchBuyValue);
+		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectHistory",hMap);
 		return lists;
 	}
 	

@@ -158,20 +158,20 @@
                         </td>
                         </c:if>
                         <c:if test="${dto.progress==1}">
-                        <td onclick="location.href='../My/SellComplete.action?hsNum=${dto.hsNum}';" style="cursor: pointer;" align="center" class="process step9" >
+                        <td style="cursor: pointer;" align="center" class="process step9" >
                             <img id="" src="../resources/images/mypage/check.png" /><div class="td">
                             배송완료</div>
                         </td>
                         </c:if>
                         <c:if test="${dto.progress==2}">
-                        <td onclick="location.href='../My/SellComplete.action?hsNum=${dto.hsNum}';" style="cursor: pointer;" align="center" class="process step9" >
+                        <td style="cursor: pointer;" align="center" class="process step9" >
                             <img id="" src="../resources/images/mypage/ico_correct.png" /><div class="td">
                             판매완료</div>
                         </td>
                         </c:if>
                         <c:if test="${dto.progress==3}">
                         <td style="cursor: pointer;" align="center" class="process step9" >
-                        <div class="td">취소</div>
+                        	<div class="td">취소</div>
                         </td>
                         </c:if>
                       
