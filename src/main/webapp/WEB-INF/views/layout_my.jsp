@@ -262,7 +262,7 @@
                 <!-- 유틸메뉴 !!로그인 했을시 display!! -->
 
                 <ul class="utilMenu" style="display:;">
-                    <li class="newMsg"><a href="#"> <img
+                    <li class="newMsg"><a href="../My/MyMessage.action"> <img
                             src="../resources/images/common/ico_newMessage.png" alt="새로운메세지" />
 								<span class="new"> <img
                                         src="../resources/images/common/ico_new.png" alt="NEW" />

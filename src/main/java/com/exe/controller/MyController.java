@@ -131,17 +131,19 @@ public class MyController {
 	//메세지
 	@RequestMapping(value = "/My/MyMessage.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String myMessage(HttpServletRequest req, HttpServletResponse res) {
+		
 		HttpSession session = req.getSession();
-		
 		MemberSession mbs = (MemberSession) session.getAttribute("session");
+		String mbId = mbs.getMbId();
 		
-		String sender = mbs.getMbId();
+		List<MsgDTO> lists = msgDAO.selectMsgAll(mbId);
 		
-		List<MsgDTO> lists = msgDAO.selectMsg(sender);
-		List<MsgDTO> listsRe = msgDAO.selectReceiver(sender);
+		/*List<MsgDTO> lists = msgDAO.selectMsg(sender);
+		List<MsgDTO> listsRe = msgDAO.selectReceiver(sender);*/
 		
 		req.setAttribute("lists", lists);
-		req.setAttribute("listsRe", listsRe);
+		/*req.setAttribute("listsRe", listsRe);*/
+		req.setAttribute("mbId", mbId);
 
 		return "My/MyMessage";
 	}

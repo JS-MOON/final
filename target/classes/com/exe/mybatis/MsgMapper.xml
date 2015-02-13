@@ -10,14 +10,11 @@
 </select>
 
 <insert id="insertMsg" parameterType="com.exe.dto.MsgDTO">
-insert into msg (msgNum,sender,receiver,msgdate,msgContent,brNum) values (#{msgNum},#{sender},#{receiver},sysdate,#{msgContent},#{brNum}) 
-
+	insert into msg (msgNum,sender,receiver,msgdate,msgContent,brNum) values (#{msgNum},#{sender},#{receiver},sysdate,#{msgContent},#{brNum}) 
 </insert>
-
 
 <select id="selectSender" parameterType="String" resultType="com.exe.dto.MsgDTO">
 	select sender,receiver,msgdate,msgContent,brNum from msg where sender = #{sender}
-
 </select>
 
 <select id="selectReceiver" parameterType="String" resultType="com.exe.dto.MsgDTO">
@@ -25,10 +22,25 @@ insert into msg (msgNum,sender,receiver,msgdate,msgContent,brNum) values (#{msgN
 </select>
 
 <select id="selectAll" parameterType="hashmap" resultType="com.exe.dto.MsgDTO">
-	select sender,receiver,msgdate,msgContent,brNum from msg where receiver = #{receiver} and sender = #{sender} and brNum=#{brNum} order by msgdate desc
+	select sender,receiver,msgcontent,msgdate,brnum  from msg 
+	where (receiver = #{receiver} and sender = #{sender} and brNum=#{brNum}) 
+	or (receiver = #{sender} and sender = #{receiver} and brNum=#{brNum})
+	order by msgdate
 </select>
 
+<select id="selectMsgAll" parameterType="String" resultType="com.exe.dto.MsgDTO">
+	select rownum rnum,msgnum,sender,receiver,msgcontent,msgdate,brnum from msg 
+	where msgnum in (select max(msgnum) from msg 
+	where sender=#{mbId} or receiver=#{mbId} group by brnum) 
+	order by msgnum desc
+</select>
 
+<select id="selectMsgOne" parameterType="hashmap" resultType="com.exe.dto.MsgDTO">
+	select rownum rnum,msgnum,sender,receiver,msgcontent,msgdate,brnum from msg 
+	where msgnum in (select max(msgnum) from msg 
+	where sender=#{mbId} or receiver=#{mbId} and brNum=#{brNum}) 
+	order by msgnum desc
+</select>
 
 
 </mapper>

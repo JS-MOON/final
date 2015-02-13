@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
+<meta charset="UTF-8">
+<title></title>
 </head>
 <body>
 
@@ -72,32 +72,38 @@
                         
                         <td class="payResume">
                             <div class="td">
-                             
                                 <dl class="option">
-                                    <dt ><a href="../Chat/QAChat_ok2.action?brNum=${dto.brNum}" style="color: #00a651">보낸 메세지 :  ${dto.msgContent }</a> 
-                                    
+                                    <dt >
+                                    <c:if test="${dto.receiver==mbId}">
+                                    <a href="../Chat/QAChat.action?brNum=${dto.brNum}&id=${dto.sender}" style="color: #00a651">
+                                    받은 메세지 :  ${dto.msgContent }
+                                    </a>
+                                    </c:if>
+                                    <c:if test="${dto.sender==mbId}">
+                                    <a href="../Chat/QAChat.action?brNum=${dto.brNum}&id=${dto.receiver}" style="color: #00a651">
+                                    보낸 메세지 :  ${dto.msgContent }
+                                    </a>
+                                    </c:if>
+                                   
                                     </dt>
                                 </dl>
                                
                             </div>
                         </td>
-                        <td class="date">
-                             
+                        <td class="date"> 
                                 ${dto.receiver }
-                               
                         </td>
                          <td class="date">
                               ${dto.msgDate }
                         </td>
                        
                         <!-- step1 ~ step4 -->
-
                     </tr>
                     </tbody>
                     </c:forEach>
                     
                     <!-- 받는 메세지 -->
-                    <c:forEach var="dto" items="${listsRe }" varStatus="seq">
+                   <%--  <c:forEach var="dto" items="${listsRe }" varStatus="seq">
                     <tbody>
                     <tr>
                         <td class="num" align="center">
@@ -129,7 +135,7 @@
 
                     </tr>
                     </tbody>
-                    </c:forEach>
+                    </c:forEach> --%>
 
                 </table>
                 <div class="tblLine2"></div>
@@ -141,11 +147,8 @@
                 </div>
             </div>
     <!-- //내용 -->
-    
-    
+
    <h2>${msgDTO.sender }</h2> 
-    
-    
 </div>
 
 </body>

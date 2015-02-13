@@ -1,12 +1,10 @@
 package com.exe.dao;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-import com.exe.dto.BoardDTO;
 import com.exe.dto.MsgDTO;
 
 public class MsgDAO {
@@ -49,14 +47,28 @@ public class MsgDAO {
 		params.put("sender", sender);
 		params.put("receiver", receiver);
 		params.put("brNum", brNum);
-	
+		
 		List<MsgDTO> lists = sessionTemplate.selectList("msg.selectAll",params);
 		
 		return lists;
 	}
 	
+	public List<MsgDTO> selectMsgAll(String mbId){
 
+		List<MsgDTO> lists = sessionTemplate.selectList("msg.selectMsgAll",mbId);
+		
+		return lists;
+	}
 	
+	public MsgDTO selectOne(String mbId, int brNum) {
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("mbId", mbId);
+		params.put("brNum", brNum);
+		
+		MsgDTO dto = sessionTemplate.selectOne("msg.selectMsgOne", params);
+		
+		return dto;
+	}
 	
-
 }

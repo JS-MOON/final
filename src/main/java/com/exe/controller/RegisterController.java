@@ -102,6 +102,7 @@ public class RegisterController {
 	//회원가입 후
 	@RequestMapping(value = "/Register/Register_ok.action", method = {RequestMethod.GET, RequestMethod.POST})
 	public String register_ok() {
+		
 		return "redirect:/Goods/Main.action";
 	}
 	
