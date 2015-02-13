@@ -64,6 +64,7 @@ public class RegisterController {
 			dto.setMbId(mbId);
 			dto.setMbPw(mbPw1);
 			dto.setMbPic(mbPic);
+			dto.setMbNickName("닉네임미지정");
 			dao.insertMember(dto);
 			
 			EmailAuthDTO eadto = new EmailAuthDTO();

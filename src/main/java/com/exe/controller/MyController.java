@@ -190,6 +190,5 @@ public class MyController {
         return "My/MyPoint";
 
     }
->>>>>>> origin/master
 
 }

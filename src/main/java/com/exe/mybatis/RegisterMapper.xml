@@ -8,7 +8,7 @@
 <mapper namespace="memberMapper">
 
 	<insert id="insertMember" parameterType="com.exe.dto.MemberDTO">
-		insert into member(mbId,mbPw,mbPic) values(#{mbId},#{mbPw},#{mbPic})
+		insert into member(mbId,mbPw,mbPic,mbnickName) values(#{mbId},#{mbPw},#{mbPic},#{mbNickName})
 	</insert>
 
 	<select id="selectRegisterMember" parameterType="string" resultType="com.exe.dto.MemberDTO">
