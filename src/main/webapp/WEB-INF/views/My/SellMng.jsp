@@ -152,7 +152,7 @@
                             </div>
                         </td>
                         <c:if test="${dto.progress==0}">
-                        <td onclick="location.href='../My/SellComplete.action?hsNum=${dto.hsNum}';" style="cursor: pointer;" align="center" class="process step9" >
+                        <td onclick="if(confirm('반품하시겠습니까?')===true){location.href='../My/SellComplete.action?hsNum=${dto.hsNum}'};" style="cursor: pointer;" align="center" class="process step9" >
                             <img id="" src="../resources/images/mypage/ing.png" /><div class="td">
                             진행중</div>
                         </td>

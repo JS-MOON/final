@@ -120,7 +120,7 @@ public class HistoryController {
 			int dataCount = dao.myOrderMngDataCount(mbId, searchBuyValue);
 			
 			// 전체페이지수
-			int numPerPage = 3;
+			int numPerPage = 5;
 			int totalPage = myUtil.getPageCount(numPerPage, dataCount);
 
 			if (currentPage > totalPage)
