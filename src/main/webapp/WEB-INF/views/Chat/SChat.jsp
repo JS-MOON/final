@@ -115,25 +115,25 @@
                                 <tbody>
                                 <tr>
                                     <th><div class="th">상호명</div></th>
-                                    <td><div class="td">미스터스</div></td>
+                                    <td><div class="td">TALENT</div></td>
                                     <th><div class="th">한글 이름</div></th>
-                                    <td><div class="td">미스터스</div></td>
+                                    <td><div class="td">TALENT</div></td>
                                     <th><div class="th">영문 이름</div></th>
-                                    <td><div class="td">미스터스</div></td>
+                                    <td><div class="td">TALENT</div></td>
                                 </tr>
                                 <tr>
                                     <th><div class="th">주소</div></th>
-                                    <td colspan="3"><div class="td">미스터스</div></td>
+                                    <td colspan="3"><div class="td">TALENT</div></td>
                                     <th><div class="th">이메일</div></th>
-                                    <td><div class="td">미스터스</div></td>
+                                    <td><div class="td">TALENT</div></td>
                                 </tr>
                                 <tr>
                                     <th><div class="th">전화번호</div></th>
-                                    <td><div class="td">미스터스</div></td>
+                                    <td><div class="td">TALENT</div></td>
                                     <th><div class="th">휴대폰번호</div></th>
-                                    <td><div class="td">미스터스</div></td>
+                                    <td><div class="td">TALENT</div></td>
                                     <th><div class="th">팩스번호</div></th>
-                                    <td><div class="td">미스터스</div></td>
+                                    <td><div class="td">TALENT</div></td>
                                 </tr>
                                 </tbody>
                             </table>

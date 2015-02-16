@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="point">
+
+<!-- history -->
+<select id="ptMaxNum" resultType="int">
+	select nvl(max(ptNum),0) from point
+</select>
+
+<insert id="ptInsert" parameterType="com.exe.dto.PointDTO">
+	insert into point (ptNum,mbId,ptPoint,ptDate,ptHistory)
+	values (#{ptNum},#{mbId},#{ptPoint},sysdate,#{ptHistory})
+</insert>
+
+<select id="ptGetAll" parameterType="String" resultType="com.exe.dto.PointDTO">
+	select ptNum,mbId,ptPoint,ptDate,ptHistory
+	from point
+	where mbid = #{mbId}
+</select>
+
+<select id="ptGetSum" parameterType="String" resultType="int">
+	select nvl(sum(ptPoint), 0) from point where mbId = #{mbId}
+</select>
+
+
+</mapper>

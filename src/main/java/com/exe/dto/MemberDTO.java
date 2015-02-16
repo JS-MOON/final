@@ -11,6 +11,32 @@ public class MemberDTO {
     private String mbNickName;
     private String mbPic;
     private String mbAbout;
+    
+    
+    //계좌관리
+    private int bkNum;
+    private String name;
+    private String bank;
+    
+    
+	public int getBkNum() {
+		return bkNum;
+	}
+	public void setBkNum(int bkNum) {
+		this.bkNum = bkNum;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getBank() {
+		return bank;
+	}
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
 	public String getMbId() {
 		return mbId;
 	}

@@ -37,7 +37,7 @@
     <div class="mypage_lnb">
         <h3>찜목록</h3>
         <div class="location">
-            <span>홈</span> &gt; <span>마이페이지</span> &gt; <span>찜목록</span>
+            <span>홈</span> &gt; <span>개인 Personal</span> &gt; <span>찜목록</span>
         </div>
     </div>
     <!-- //마이페이지lnb -->

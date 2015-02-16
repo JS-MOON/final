@@ -39,6 +39,34 @@
 			f.submit();
 
 		}
+		
+		function changeBk() {
+			var f = document.bankMemberForm;
+
+			if (f.bank.value == null) {
+				
+				alert("은행을 선택해주세요.");
+				f.bank.focus();
+				return;
+
+			} else if (f.bkNum.value == null) {
+				alert("계좌 번호를 입력하세요");
+				f.bkNum.focus();
+				return;
+			
+			} else if (f.name.value == null){
+				alert("예금주를 입력하세요");
+				f.name.focus();
+				return;
+				
+			} 
+			
+			 
+			alert("계좌인증이 되었습니다..");
+			f.action = "../My/ChangeBankMember.action";
+			f.submit();
+
+		}
 
 		function outMember() {
 
@@ -72,14 +100,14 @@
 	<div class="primaryContents accountManage">
 		<!-- 마이페이지lnb -->
 		<div class="mypage_lnb">
-			<h3>계정 관리</h3>
+			<h3>계정 관리 </h3>
 			<div class="location">
-				<span>홈</span> &gt; <span>마이페이지</span> &gt; <span>프로필 관리</span>
+				<span>홈</span> &gt; <span>개인 Personal</span> &gt; <span>계정 관리</span>
 			</div>
 		</div>
 		<!-- //마이페이지lnb -->
 
-		<!-- 내용 -->
+		<!-- 비밀번호변경 라인 -->
 		<form action="/My/changePw.action" method="post" name="changePwForm">
 
 			<div class="contBlock">
@@ -131,11 +159,115 @@
 				<div class="btnType">
 					<a class="btnType12" onclick="changePw();"><span>수정하기</span></a>
 				</div>
+				</div>
 		</form>
-
-		<form action="" method="post" name="outMemberForm">
-			<h4>회원 탈퇴하기</h4>
+		
+	<!-- 계좌관리 라인 -->
+		<div class="mypage_lnb">
+			<h3>계좌 관리 </h3>
+			<div class="location">
+				<span>홈</span> &gt; <span>개인 Personal</span> &gt; <span>계좌 관리</span>
+			</div>
+		</div>
+	
+		<!-- 계좌 마이페이지 -->
+		<form action="/My/ChangeBankData.action" method="post" name="bankMemberForm">
+			
+			<div class="contBlock">
+			<h4>계좌 인증</h4>
 			<div class="tblType">
+				<table cellpadding="0" cellspacing="0">
+						<colgroup>
+							<col width="120px" />
+						<col />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row">
+								<div class="th">은행</div>
+							</th>
+							<td>
+								<div class="td" style="background: url(/resources/images/mypage/ico_correct.png) no-repeat 470px 0;">
+
+										
+											<select name="bank"
+											id="" class="select"
+											style="width: 120px;" >
+												<option selected="selected" value="국민은행">국민은행</option>
+												<option value="우리은행">우리은행</option>
+												<option value="신한은행">신한은행</option>
+												<option value="하나은행">하나은행</option>
+												<option value="SC은행">SC은행</option>
+												<option value="새마을금고">새마을금고</option>
+												<option value="우체국">우체국</option>
+												<option value="씨티은행">씨티은행</option>
+												<option value="외환은행">외환은행</option>
+												<option value="농협">농협</option>
+												<option value="수협">수협</option>
+												<option value="산업은행">산업은행</option>
+												<option value="기업은행">기업은행</option>
+												<option value="수출입은행">수출입은행</option>
+												<option value="직접입력">직접입력</option>
+										</select> 										
+									<%-- 		<input name="bank" type="text" maxlength="7"
+											class="input-text" style="width: 100%;" value="${dto.bank}" /> --%>
+										
+											<!-- 예금주 -->
+									<%-- 		<input name="name" type="text" maxlength="20"
+											class="input-text" style="width: 228px;" value="${dto.name}"/> --%>
+							
+									
+									</div>
+							</td>
+						</tr>
+
+
+							<tr>
+								<th scope="row">
+									<div class="th">계좌 번호</div>
+								</th>
+								<td>
+									<div class="td">
+										<input name="bkNum" type="text" maxlength="14"
+											class="input-text" style="width: 100;" value="${dto.bkNum}" size="65" />
+									</div>
+								</td>
+							</tr>
+							
+							
+
+							<tr>
+								<th scope="row">
+									<div class="th">예금주</div>
+								</th>
+								<td>
+									<div class="td">
+										<input name="name" type="text" maxlength="7"
+											class="input-text" style="width: 100%;" value="${dto.name}"/>
+									</div>
+								</td>
+
+							</tr>
+						
+					</tbody>
+					
+					</table>
+				</div>
+			
+				<div class="btnType">
+					<a class="btnType12" onclick="changeBk();"><span>계좌인증</span></a>
+				</div>	
+				</div>
+					
+		</form>
+					
+					
+
+
+	<!-- 회원탈퇴라인 -->
+		<form action="" method="post" name="outMemberForm">		
+			<div class="contBlock">
+			<h4>회원 탈퇴하기</h4>
 				<table cellpadding="0" cellspacing="0">
 					<colgroup>
 						<col width="120px" />

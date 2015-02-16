@@ -266,6 +266,7 @@ public class RegisterController {
 		return "redirect:/My/MyProfile.action";
 	}
 
+	//비밀번호 변경
 	@RequestMapping(value = "/My/ChangePw.action", method = {
 			RequestMethod.GET, RequestMethod.POST })
 	public String changePw(HttpServletRequest request) {
@@ -281,9 +282,31 @@ public class RegisterController {
 		dao.updatePwMember(mbId, changeMbPw1);
 
 		return "redirect:/My/MyAccount.action";
-
+		
 	}
 
+	//계좌번호 변경
+	@RequestMapping(value = "/My/ChangeBankMember.action", method = {
+			RequestMethod.GET, RequestMethod.POST })
+	public String changeBk(HttpServletRequest request,MemberDTO dto) {
+
+		HttpSession session = request.getSession();
+		MemberSession mb = (MemberSession)session.getAttribute("session");
+		
+		System.out.println("나와라");
+		System.out.println(dto.getBank());
+		System.out.println(dto.getBkNum());
+		System.out.println(dto.getName());
+		System.out.println(mb.getMbId());
+		
+		dto.setMbId(mb.getMbId());
+		
+		dao.updateBankMember(dto);
+		
+		return "redirect:/My/MyAccount.action";
+
+	}
+	
 	@RequestMapping(value = "/My/Out.action", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public String out(HttpServletRequest request) {

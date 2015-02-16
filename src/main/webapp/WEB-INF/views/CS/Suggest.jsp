@@ -35,8 +35,8 @@
 <div id="customer_header">
     <div class="customer_header">
         <div class="topArea">
-            <h2>미스터스 고객센터</h2>
-            <p class="note">궁금하신 점이나 미스터스에게 바라는 점을 자유롭게 작성해 주세요.</p>
+            <h2>TALENT 고객센터</h2>
+            <p class="note">궁금하신 점이나 TALENT에게 바라는 점을 자유롭게 작성해 주세요.</p>
             <div class="csNumber">
                 <span class="phone">1600-3667</span>
                 <span class="time">월~금 09:00 ~ 18:00</span>
@@ -56,7 +56,7 @@
     <!-- contents -->
     <div id="contents" class="cs_proposal">
         <div class="toMistus">
-            <img src="../resources/images/customer/img_toMistus.gif" alt="To MISTUS team 미스터스는 여러분의 신선한 아이디어로 성장하고있습니다. 미스터스팀에게 제한사항이나 바라는 점을 보내주세요. 더욱 새로운 서비스로 보답하겠습니다." />
+            <img src="../resources/images/customer/img_toMistus.gif" alt="To MISTUS team TALENT는 여러분의 신선한 아이디어로 성장하고있습니다. TALENT팀에게 제한사항이나 바라는 점을 보내주세요. 더욱 새로운 서비스로 보답하겠습니다." />
         </div>
 
         <h3 class="cs_h_title">제안하기</h3>

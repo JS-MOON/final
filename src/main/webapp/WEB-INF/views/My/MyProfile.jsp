@@ -25,7 +25,7 @@
     <div class="mypage_lnb">
         <h3>프로필 관리</h3>
         <div class="location">
-            <span>홈</span> &gt; <span>마이페이지</span> &gt; <span>포인트 관리</span>
+            <span>홈</span> &gt; <span>개인 Personal</span> &gt; <span>포인트 관리</span>
         </div>
     </div>
     <!-- //마이페이지lnb -->
