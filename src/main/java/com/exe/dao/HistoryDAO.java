@@ -1,4 +1,4 @@
-package com.exe.dao;
+﻿package com.exe.dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,9 +19,7 @@ public class HistoryDAO {
 	
 	public int hsMaxNum(){
 		int result=0;
-		
 		result = sessionTemplate.selectOne("history.hsMaxNum");
-		
 		return result;
 	}
 	
@@ -30,16 +28,53 @@ public class HistoryDAO {
 		
 	}
 	
-	public List<HistoryDTO> selectHistory(String mbId){
-		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectHistory",mbId);
+	public int myOrderMngDataCount(String mbId,String searchBuyValue){
+		
+		int result = 0;
+		HashMap<String, Object> hMap = new HashMap<String, Object>();
+		hMap.put("mbId", mbId);
+		hMap.put("searchValue", searchBuyValue);
+		result = sessionTemplate.selectOne("history.myOrderMngDataCount",hMap);
+		return result;
+		
+	}
+
+    public int sellMngDataCount(String mbId,String searchSellValue){
+
+        int result = 0;
+        HashMap<String, Object> hMap = new HashMap<String, Object>();
+        hMap.put("mbId", mbId);
+        hMap.put("searchValue", searchSellValue);
+        result = sessionTemplate.selectOne("history.sellMngDataCount",hMap);
+        return result;
+
+    }
+	
+	public List<HistoryDTO> selectHistory(String mbId,int start,int end,String searchBuyValue){
+		
+		HashMap<String, Object> hMap = new HashMap<String, Object>();
+		hMap.put("mbId", mbId);
+		hMap.put("start", start);
+		hMap.put("end", end);
+		hMap.put("searchValue", searchBuyValue);
+
+		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectHistory",hMap);
 		return lists;
 	}
 	
-	public List<HistoryDTO> selectSellHistory(String mbId){
-		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectSellHistory",mbId);
+	public List<HistoryDTO> selectSellHistory(String mbId,int start,int end,String searchSellValue){
+		
+		HashMap<String, Object> hMap = new HashMap<String, Object>();
+		hMap.put("mbId", mbId);
+        hMap.put("start", start);
+        hMap.put("end", end);
+		hMap.put("searchSellValue", searchSellValue);
+		
+		List<HistoryDTO> lists = sessionTemplate.selectList("history.selectSellHistory",hMap);
 		return lists;
 	}
 	
+
 	public int hsPriceSum(String mbId){
 		
 		int result = 0;
@@ -132,5 +167,61 @@ public class HistoryDAO {
 	}*/
 	
 	
+
+	public void updateSellerProgress(int hsNum){
+		
+		sessionTemplate.update("history.updateSellerProgress",hsNum);
+	}
+	
+	public void updateMemberProgress(int hsNum){
+		
+		sessionTemplate.update("history.updateMemberProgress",hsNum);
+	}
+	
+	public void updateCancelProgress(int hsNum){
+		
+		sessionTemplate.update("history.updateCancelProgress",hsNum);
+	}
+	
+	public int selectCountBuyOnGoing(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountBuyOnGoing",mbId);
+		return result;
+	}
+	
+	public int selectCountBuyChecked(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountBuyChecked",mbId);
+		return result;
+	}
+	
+	public int selectCountBuyCompleted(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountBuyCompleted",mbId);
+		return result;
+	}
+	
+	public int selectCountBuyCanceled(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountBuyCanceled",mbId);
+		return result;
+	}
+	
+	public int selectCountSellOnGoing(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountSellOnGoing",mbId);
+		return result;
+	}
+	
+	public int selectCountSellChecked(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountSellChecked",mbId);
+		return result;
+	}
+	
+	public int selectCountSellCompleted(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountSellCompleted",mbId);
+		return result;
+	}
+	
+	public int selectCountSellCanceled(String mbId){
+		int result = sessionTemplate.selectOne("history.selectCountSellCanceled",mbId);
+		return result;
+	}
+
 
 }

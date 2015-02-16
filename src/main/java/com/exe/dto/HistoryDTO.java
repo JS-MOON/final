@@ -9,15 +9,25 @@ public class HistoryDTO {
 
     private int hsNum;
     private String mbId;
-    private String srId;
     private int brNum;
     private Date hsDate;
     private int hsPrice;
     private int hsTotalPrice;
 	private String hsOptions;
 	private String brSubject;
-	private String brMainphoto;
+	private String brMainPhoto;
+	private String srId;
 	private int ptNum;
+	private int progress;
+	private int listNum;
+	
+	public int getListNum() {
+		return listNum;
+	}
+
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
 
 	public int getPtNum() {
 		return ptNum;
@@ -25,6 +35,14 @@ public class HistoryDTO {
 
 	public void setPtNum(int ptNum) {
 		this.ptNum = ptNum;
+	}
+
+	public String getSrId() {
+		return srId;
+	}
+
+	public void setSrId(String srId) {
+		this.srId = srId;
 	}
 
 	public int getHsNum() {
@@ -39,12 +57,12 @@ public class HistoryDTO {
 		this.brSubject = brSubject;
 	}
 
-	public String getBrMainphoto() {
-		return brMainphoto;
+	public String getBrMainPhoto() {
+		return brMainPhoto;
 	}
 
-	public void setBrMainphoto(String brMainphoto) {
-		this.brMainphoto = brMainphoto;
+	public void setBrMainPhoto(String brMainPhoto) {
+		this.brMainPhoto = brMainPhoto;
 	}
 
 	public void setHsNum(int hsNum) {
@@ -57,13 +75,6 @@ public class HistoryDTO {
 
 	public void setMbId(String mbId) {
 		this.mbId = mbId;
-	}
-	public String getSrId() {
-		return srId;
-	}
-
-	public void setSrId(String srId) {
-		this.srId = srId;
 	}
 
 	public int getBrNum() {
@@ -105,4 +116,14 @@ public class HistoryDTO {
 	public void setHsOptions(String hsOptions) {
 		this.hsOptions = hsOptions;
 	}
+
+	public int getProgress() {
+		return progress;
+	}
+
+	public void setProgress(int progress) {
+		this.progress = progress;
+
+	}
+	
 }

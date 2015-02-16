@@ -261,8 +261,6 @@ function plusTalentRolling() {
     });
 };
 
-
-
 // 리스트롤링[공통]
 jQuery.fn.listRolling = function (_o) {
     return this.each(function () {
@@ -326,14 +324,50 @@ jQuery(function () {
 })
 
 // 2조 추가사항
+//========== [찜목록] ==========//
 function changeWishList(id) {
-    var parent = $("#wishList_" + id).parent();
-    if(parent.hasClass('on'))
-        parent.removeClass('on');
-    else
-        parent.addClass('on');
+
+	var parent = $("#wishList_" + id).parent();
+	var sessionId = $("#sessionId").val();
+	
+	if(sessionId!=""){
+		if (parent.hasClass('on')) {
+			$.ajax({
+				type : "POST",
+				url : "../My/AddMyFavority.action",
+				data : {
+					brNum : $("#wishList_" + id).val()
+				},
+				success : function(args) {
+						parent.removeClass('on');	
+				},
+				error : function(request, status, error) {
+					alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
+				}
+			});
+		}else if(!parent.hasClass('on')){
+			$.ajax({
+				type : "POST",
+				url : "../My/DelMyFavority.action",
+				data : {
+					brNum : $("#wishList_" + id).val()
+				},
+				success : function(args){
+					parent.addClass('on');
+					window.location.reload();
+				},
+				error : function(request, status, error) {
+					alert("code : " + request.status + "\n" + "message : "+ request.responseText + "\n" + "error : " + error);
+				}
+			});
+		}
+	}else if(sessionId==""){
+		alert("로그인이 필요합니다.");
+		showLayer('loginPop', 'modalpop');
+	}
 }
 
+//========== [포인트] ==========//
 function selectUsePoint() {
     var usePoint = document.getElementsByName("usePoint");
 
@@ -353,8 +387,6 @@ function gOrderSubmit() {
         } else {
             document.getElementById("usedPoint").value = document.getElementById("pointInputBox").value;
         }
-        alert("hiddenTotalPrice=" + document.getElementById("hiddenTotalPrice").value);
-        alert("hiddenVatAddedTotalPrice=" + document.getElementById("hiddenVatAddedTotalPrice").value);
         document.orderForm.submit();
     } else {
         alert("포인트가 모자랍니다.");
@@ -362,10 +394,71 @@ function gOrderSubmit() {
 }
 
 function updatePointValue() {
+    if(Number(document.getElementById("pointInputBox").value)>Number(document.getElementById("temporaryTotalPrice").value)) {
+        document.getElementById("pointInputBox").value = document.getElementById("temporaryTotalPrice").value;
+        alert("합계금액 이상 포인트를 사용할 수 없습니다.")
+    }
+    
     $("#pointValue").text(document.getElementById("pointInputBox").value);
     $("#totalPrice").text(document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value);
     $("#vatAddedTotalPrice")
-        .text(parseInt((document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value)*1.1));
-    document.getElementById("hiddenVatAddedTotalPrice").value = (document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value)*1.1;
+        .text(parseInt((document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value) * 1.1));
+    document.getElementById("hiddenVatAddedTotalPrice").value = (document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value) * 1.1;
     document.getElementById("hiddenTotalPrice").value = (document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value);
+}
+
+function goLogin2() {
+    // var button = document.getElementById('lbtnLogin');
+    var f = document.loginForm2;
+
+    if(!f.mbId.value.trim()){
+        alert("아이디를 입력하세요.");
+        f.mbId.focus();
+        return;
+    }
+    if(!f.mbPw.value.trim()){
+        alert("비밀번호를 입력하세요.");
+        f.mbPw1.focus();
+        return;
+    }
+
+    // button.click();
+
+    f.submit();
+}
+
+function goLogin() {
+    // var button = document.getElementById('lbtnLogin');
+    var f = document.loginForm;
+
+    if(!f.mbId.value.trim()){
+        alert("아이디를 입력하세요.");
+        f.mbId.focus();
+        return;
+    }
+    if(!f.mbPw.value.trim()){
+        alert("비밀번호를 입력하세요.");
+        f.mbPw1.focus();
+        return;
+    }
+
+    var path = location.href.substr(location.href.indexOf("/final/") + 6);
+
+    document.getElementById("currentURL").value = path;
+
+    f.submit();
+}
+
+function searchSubject(){
+
+    var f = document.searchForm;
+
+    if(f.searchValue.value==null){
+        alert("검색어를 입력해주세요");
+        f.searchValue.focus();
+        return;
+    }
+
+    f.action = "../Goods/GSearchList.action";
+    f.submit();
 }

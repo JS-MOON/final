@@ -10,14 +10,12 @@
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 %>
-
 <html>
 <head>
 	<title></title>
-
-
 </head>
 <body>
+
 <script type="text/javascript">
 
 	function sortIt() {
@@ -33,39 +31,34 @@
 
 	}
 
-
 </script>
-
 
 <div id="container">
 	<!-- contents -->
 	<div id="contents" class="productMain">
-
+	
 		<!-- 본문 -->
 		<div>
 			<div class="subCategory">
 				<ul>
-
-					<li><a href="GList.jsp?pg%3d1%26sr%3d1%26cy%3d140&ct=140">
-						<input type="submit" name=""
-							   value="전체"
-							   style="background-color: #EDEDED; border-style: None; height: 26px;" />
-					</a></li>
-
-
+					<li>
+						<a href="GList.action?start=${start }&end=${end }&range=0">
+							<input type="submit" name="" value="전체" style="background-color: #EDEDED; border-style: None; height: 26px;" />
+						</a>
+					</li>
+					
 					<!-- 반복문으로 카테고리2 표현하기 -->
 					<c:forEach var="dto" items="${cglists }">
-						<li><a href="GList_ok.action?cgNum=${dto.cgNum}"> <input
-								type="submit" name="cgCategory2" value="${dto.cgCategory2}"
-								style="background-color: #EDEDED; border-style: None; height: 26px;" />
-						</a></li>
+						<li>
+							<a href="GList_ok.action?cgNum=${dto.cgNum}"> 
+								<input type="submit" name="cgCategory2" value="${dto.cgCategory2}" style="background-color: #EDEDED; border-style: None; height: 26px;" />
+							</a>
+						</li>
 					</c:forEach>
-					<!-- 반복문으로 카테고리2 표현하기 -->
-
+					<!-- //반복문으로 카테고리2 표현하기 -->
 				</ul>
 			</div>
 		</div>
-
 		<div>
 			<form action="" method="post" name="rangeForm">
 				<div class="pdtSort">
@@ -74,12 +67,12 @@
 						<option value="1">최고가순</option>
 						<option value="2">최저가순</option>
 						<option value="3">최신상품순</option>
-
 					</select>
 				</div>
 				<input type="hidden" value="${start }" name="start" id="start" />
 				<input type="hidden" value="${end }" name="end" id="end" />
 			</form>
+			
 			<!-- 제품리스트 -->
 			<div class="pdtListWrap">
 				<div class="pdtList">
@@ -90,47 +83,57 @@
 							<div class="sellerResume">
 								<span class="sellingUser"> 
 								<!-- a링크 삭제 이미지만 남겨둬 -->
-								
-									<img
-											src="../pds/imageFile/${dto.mbPic }"
-											alt="" Height=36px Width=36px /> <span class="user_id">${dto.mbNickName} </span>
-		
+									<img src="../pds/imageFile/${dto.mbPic }" alt="" Height=36px Width=36px /> 
+									<span class="user_id">${dto.mbNickName}</span>
 								</span>
 								<div class="sellerCondition">
-									<span class="onOff on">ONLINE</span> <span class="response">평균
-										응답시간 <span class="num">10</span>분
-									</span>
+									<span class="onOff on">ONLINE</span>
+									<span class="response">평균 응답시간 
+									<span class="num">10</span>분</span>
 								</div>
 							</div>
 
 							<a href="GDetail.action?brNum=${dto.brNum }">
 								<div>
-								
-									<span class="pdtThumb">
-										<img src="${imagePath }/${dto.brMainPhoto}" alt="기업용 홈페이지 제작해드립니다." Height=308px Width=308px />
-										<span class="btnWistList on">
-											<input type="button" id="wishList_${status.index}" style="border-style:None;" onclick="changeWishList(${status.index});return false;"/>
+									<span class="pdtThumb"> 
+									<img src="${imagePath }/${dto.brMainPhoto}" alt="기업용 홈페이지 제작해드립니다." Height=308px Width=308px /> 
+									<c:if test="${dto.mbId.equals(mbId)}">
+										<span class="btnWistList"> 
+											<input type="button" id="wishList_${status.index}" value="${dto.brNum }" 
+											style="border-style: None;" onclick="changeWishList(${status.index});return false;"/>
 										</span>
+									</c:if> 
+									<c:if test="${!dto.mbId.equals(mbId)}">
+										<span class="btnWistList on"> 
+											<input type="button" id="wishList_${status.index}" value="${dto.brNum }"
+											style="border-style: None;" onclick="changeWishList(${status.index});return false;"/>
+										</span>
+									</c:if>
 									</span>
 								</div>
 								<div class="pdt_info">
-								<span class="category">[${dto.cgCategory1}]
-								</span> <span class="pdtTitle">${dto.brSubject }</span>
+									<span class="category">[${dto.cgCategory1}]</span> 
+									<span class="pdtTitle">${dto.brSubject }</span>
 									<div class="counting">
-									<span class="buying"> <span class="num">${dto.brCount}</span> <span>View</span>
-									</span> <span class="price"> <span class="num">${dto.brPrice }</span> 원
-									</span>
+										<span class="buying"> 
+											<span class="num">${dto.brCount}</span> 
+											<span>View</span>
+										</span> 
+										<span class="price"> 
+											<span class="num">${dto.brPrice }</span> 원
+										</span>
 									</div>
 								</div>
 							</a>
 						</div>
+						<input type="hidden" id="sessionId" value="${mbId }">
 					</c:forEach>
 					<!-- //for문 -->
-
+					
 				</div>
 			</div>
 
-			<!-- 제품리스트 -->
+			<!-- //제품리스트 -->
 
 		</div>
 		<!-- //본문 -->
@@ -141,9 +144,13 @@
 			<!-- 사이드 퀵마이페이지 -->
 			<div class="quick-mypage quick-mypage-re">
 				<ul class="menuList">
-					<li class="wishPdt"><a class="wishPdt" href=""><span>찜한재능</span></a>
+					<li class="wishPdt">
+						<a class="wishPdt" href="../My/MyFavority.action">
+							<span>찜한재능</span>
+						</a>
 					</li>
-					<li class="recentPdt"><span class="t"><span>최근본재능</span></span>
+					<li class="recentPdt">
+						<span class="t"><span>최근본재능</span></span>
 						<ul>
 							<c:if test="${cookies[0] != null}">
 								<c:forEach var="i" begin="0" end="3" step="1">
@@ -159,7 +166,8 @@
 							<c:if test="${cookies[0] == null}">
 								내역이 없습니다.
 							</c:if>
-						</ul></li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 			<!-- //사이드 퀵마이페이지 -->

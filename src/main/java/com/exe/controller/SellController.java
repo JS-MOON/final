@@ -1,10 +1,12 @@
-package com.exe.controller;
+﻿package com.exe.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+
 import java.util.Calendar;
 import java.util.Date;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -134,25 +136,49 @@ public class SellController {
 		return "My/SellIncome";
 	}
 
-	@RequestMapping(value = "/My/SellProdListMy.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
-	public String sellProdListMy(HttpServletRequest req, HttpServletResponse res) {
-
+	
+	//내 재능 목록
+	@RequestMapping(value="/My/SellProdListMy.action", method={RequestMethod.GET,RequestMethod.POST})
+	public String sellProdListMy(HttpServletRequest req, HttpServletResponse res){
+		
+		HttpSession session = req.getSession();
+		
+		MemberSession mbs = (MemberSession)session.getAttribute("session");
+		
+		String mbId = mbs.getMbId();
+		
+		List<BoardDTO> lists = dao.myBoardList(mbId);
+		
+		req.setAttribute("lists", lists);
+		
 		return "My/SellProdListMy";
+		
 	}
 
-	@RequestMapping(value = "/My/SellProdReg.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
-	public String sellProdReg(HttpServletRequest req, HttpServletResponse res) {
-
+	//내 재능 삭제
+	@RequestMapping(value="/My/SellProdListMydelete.action", method={RequestMethod.GET,RequestMethod.POST})
+	public String sellProdListMyDeleted(BoardDTO dto, HttpServletRequest req, HttpServletResponse res){
+		
+		int brNum = Integer.parseInt(req.getParameter("brNum"));
+		
+		dao.myBoardDelete(brNum);
+		
+		return "redirect:/My/SellProdListMy.action";
+		
+	}
+	
+	//재능 등록 창
+	@RequestMapping(value="/My/SellProdReg.action", method={RequestMethod.GET,RequestMethod.POST})
+	public String sellProdReg(HttpServletRequest req, HttpServletResponse res){
+		
+		
 		return "My/SellProdReg";
 	}
-
-	@RequestMapping(value = "/My/SellProdReg_ok.action", method = {
-			RequestMethod.GET, RequestMethod.POST })
-	public String sellProdReg_ok(MultipartHttpServletRequest multipartRequest,
-			HttpServletRequest req, HttpServletResponse res) {
-
+	
+	//재능 등록 실행
+	@RequestMapping(value="/My/SellProdReg_ok.action", method={RequestMethod.GET,RequestMethod.POST})
+	public String sellProdReg_ok(MultipartHttpServletRequest multipartRequest,HttpServletRequest req, HttpServletResponse res) {
+		
 		BoardDTO dto = new BoardDTO();
 		ImageName im = new ImageName();
 
@@ -228,6 +254,6 @@ public class SellController {
 		dao.boardInsert(dto);
 
 		return "redirect:/Goods/Main.action";
+		
 	}
-
 }

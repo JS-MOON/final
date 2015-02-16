@@ -992,7 +992,6 @@ caption {display:none;}
 .mypageSnb ul.personal li.m6 span {background:url(../images/mypage/BG_lnb_6.png) no-repeat 0 5px;}
 .mypageSnb ul.personal li.m7 span {background:url(../images/mypage/BG_lnb_7.png) no-repeat 0 0;}
 .mypageSnb ul.personal li.m8 span {background:url(../images/mypage/BG_lnb_8.png) no-repeat 0 2px;}
-.mypageSnb ul.personal li.m8 a {color:#db1515;}
 .mypageSnb ul.sell li.m1 span {background:url(../images/mypage/BG_lnb_9.png) no-repeat 0 2px;}
 .mypageSnb ul.sell li.m2 span {background:url(../images/mypage/BG_lnb_10.png) no-repeat 0 2px;}
 .mypageSnb ul.sell li.m3 span {background:url(../images/mypage/BG_lnb_11.png) no-repeat 0 4px;}
@@ -1183,6 +1182,7 @@ caption {display:none;}
 .dealList table tbody tr td.process.step3 .td {background:url(../images/mypage/BG_sellingProcess_complete.gif) no-repeat 50% 0;}
 .dealList table tbody tr td.process.step4 .td {background:url(../images/mypage/BG_sellingProcess_cancel.gif) no-repeat 50% 0;}
 .dealList .seeMore a {display:block; width:100%; margin-top:-1px; padding:8px 0; border-top:1px solid #959595; border-bottom:1px solid #db1515; font-size:14px; text-align:center; color:#222;}
+
 .dealList .nodata {background:url(../images/mypage/ico_box.png) no-repeat 50% 78px;}
 
 /* [판매관리] */
@@ -1288,3 +1288,5 @@ caption {display:none;}
 .toastType1 .description {font-size:14px; color:#444;}
 
 
+
+#show_more {display:block; width:100%; margin-top:-1px; padding:8px 0; border-top:1px solid #959595; border-bottom:1px solid #db1515; font-size:14px; text-align:center; color:#222;}

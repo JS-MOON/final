@@ -10,21 +10,38 @@
 	select nvl(max(hsnum),0) from history
 </select>
 
-<insert id="hsInsert" parameterType="com.exe.dto.HistoryDTO">
+<!-- <insert id="hsInsert" parameterType="com.exe.dto.HistoryDTO">
 	insert into history (hsnum,mbid,srid,brnum,hsdate,hsprice,hstotalPrice,hsoptions,ptNum)
-	values (#{hsNum},#{mbId},#{srId},#{brNum},sysdate,#{hsPrice},#{hsTotalPrice},#{hsOptions},#{hsOptions})
+	values (#{hsNum},#{mbId},#{srId},#{brNum},sysdate,#{hsPrice},#{hsTotalPrice},#{hsOptions},#{ptNum})
+</insert> -->
+<insert id="hsInsert" parameterType="com.exe.dto.HistoryDTO">
+	insert into history (hsnum,mbid,srid,brnum,hsdate,hsprice,hstotalPrice,hsoptions,ptNum,progress)
+	values (#{hsNum},#{mbId},#{srId},#{brNum},sysdate,#{hsPrice},#{hsTotalPrice},#{hsOptions},#{ptNum},0)
 </insert>
 
-<select id="selectHistory" parameterType="String" resultType="com.exe.dto.HistoryDTO">
-	select hs.hsdate, hs.hsprice, hs.hstotalprice, hs.hsoptions,br.brnum, br.brsubject, br.brmainphoto
+<select id="selectHistory" parameterType="hashMap" resultType="com.exe.dto.HistoryDTO">
+	select * from (select rownum rnum,data.* from(
+	select hs.hsnum,hs.progress,hs.hsdate, hs.hsprice, hs.hstotalprice, hs.hsoptions,br.brnum, br.brsubject, br.brmainphoto
 	from history hs inner join board br on hs.brnum = br.brnum 
-	where hs.mbid = #{mbId}
+	where hs.mbid = #{mbId} and (br.brsubject like '%'||#{searchValue}||'%') order by hs.hsnum desc) data)
+	<![CDATA[
+    where rnum >= #{start} and rnum <= #{end}
+    ]]>
 </select>
 
-<select id="selectSellHistory" parameterType="String" resultType="com.exe.dto.HistoryDTO">
-	select hs.hsdate, hs.hsprice, hs.hstotalprice, hs.hsoptions,br.brnum, br.brsubject, br.brmainphoto
-	from history hs inner join board br on hs.brnum = br.brnum 
-	where hs.srid = #{mbId}
+<select id="selectSellHistory" parameterType="hashMap" resultType="com.exe.dto.HistoryDTO">
+    select * from (select rownum rnum,data.* from(
+	select hs.hsnum,hs.progress,hs.hsdate, hs.hsprice, hs.hstotalprice, hs.hsoptions,br.brnum, br.brsubject, br.brmainphoto
+	from history hs inner join board br on hs.brnum = br.brnum
+	where hs.srid = #{mbId} and (br.brsubject like '%'||#{searchSellValue}||'%') order by hs.hsnum desc) data)
+	<![CDATA[
+    where rnum >= #{start} and rnum <= #{end}
+    ]]>
+</select>
+
+<select id="myOrderMngDataCount" parameterType="hashMap" resultType="int">
+	select count(*) from history hs inner join board br on hs.brnum = br.brnum
+	where hs.mbid=#{mbId} and br.brsubject like '%'||#{searchValue}||'%'
 </select>
 
 <select id="hsPriceSum" resultType="int" parameterType="String">
@@ -66,5 +83,48 @@
 <select id="selectBankPayUp" parameterType="String" resultType="com.exe.dto.PayMentDTO">
 	select payment,bkday,mbid from bankdata where mbId = #{mbId} order by payment desc
 </select>
+
+    <select id="sellMngDataCount" parameterType="hashMap" resultType="int">
+        select count(*) from history hs inner join board br on hs.brnum = br.brnum
+        where hs.srid=#{mbId} and br.brsubject like '%'||#{searchValue}||'%'
+    </select>
+
+<update id="updateSellerProgress" parameterType="int">
+	update history set progress = 1 where hsNum = #{hsNum}
+</update>
+
+<update id="updateMemberProgress" parameterType="int">
+	update history set progress = 2 where hsNum = #{hsNum}
+</update>
+
+<update id="updateCancelProgress" parameterType="int">
+	update history set progress = 3 where hsNum = #{hsNum}
+</update>
+
+<select id="selectCountBuyOnGoing" parameterType="String" resultType="int">
+	select nvl(count(progress),0) from history where mbid=#{mbId} and progress=0
+</select>
+<select id="selectCountBuyChecked" parameterType="String" resultType="int">
+	select nvl(count(progress),0) from history where mbid=#{mbId} and progress=1
+</select>
+<select id="selectCountBuyCompleted" parameterType="String" resultType="int">
+	select nvl(count(progress),0) from history where mbid=#{mbId} and progress=2
+</select>
+<select id="selectCountBuyCanceled" parameterType="String" resultType="int">
+	select nvl(count(progress),0) from history where mbid=#{mbId} and progress=3
+</select>
+<select id="selectCountSellOnGoing" parameterType="String" resultType="int">
+	select nvl(count(progress),0) from history where srid=#{mbId} and progress=0
+</select>
+<select id="selectCountSellChecked" parameterType="String" resultType="int">
+	select nvl(count(progress),0) from history where srid=#{mbId} and progress=1
+</select>
+<select id="selectCountSellCompleted" parameterType="String" resultType="int">
+	select nvl(count(progress),0) from history where srid=#{mbId} and progress=2
+</select>
+<select id="selectCountSellCanceled" parameterType="String" resultType="int">
+	select nvl(count(progress),0) from history where srid=#{mbId} and progress=3
+</select>
+
 
 </mapper>

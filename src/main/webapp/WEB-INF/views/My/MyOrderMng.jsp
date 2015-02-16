@@ -21,6 +21,24 @@
 
 </style>
 
+<script language="javascript">
+
+	function searchBuyData(){
+	
+		var f = document.searchBuyDataForm;
+	
+		if(f.searchBuyValue.value==null){
+			alert("검색어를 입력해주세요");
+			f.searchBuyValue.focus();
+			return;
+		}
+	
+		f.action = "../My/MyOrderMng.action";
+		f.submit();
+	}
+
+</script>
+
 <script>
 
     $(document).ready(function () {
@@ -41,7 +59,35 @@
     });
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#show_more').click(function(e){
+            e.preventDefault();
+            $('#results_ajax').fadeIn("slow");
+            var direction = parseInt( $('#direction').val()) + 1;
+            setTimeout(function() {
+                $.ajax({
+                    url: "../Ajax/MyOrderMng.action?pageNum=" + direction,
+                    type: "POST",
+                    dataType:"html",
+                    success: function(msg){
+                        $('#direction').val(direction);
+                        $('#results_ajax').append(msg);
+                        if(document.getElementById('totalPage').value===document.getElementById('direction').value){document.getElementById('show_more').remove()};
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            }, 1000);
+        });
+
+    });
+</script>
+
 <!-- 마이페이지컨텐츠 시작 -->
+<form action="../My/MyOrderMng.action" method="post" name="searchBuyDataForm">
 <div class="primaryContents myPayment">
     <!-- 마이페이지lnb -->
     <div class="mypage_lnb">
@@ -59,18 +105,12 @@
             <p class="nodata_msg">구매한 재능이 없습니다.</p>
         </div>
 
-
-
         <div id="hasData">
-
-
             <div class="sortArea">
                 <br />
-                
-
                 <div class="listSearch">
-                    <input name="ctl00$ContentPlaceHolder1$WUC_My_PurchaseList$txt_searchValue" type="text" id="ContentPlaceHolder1_WUC_My_PurchaseList_txt_searchValue" class="input-text" style="width: 210px;" />
-                    <input type="image" name="ctl00$ContentPlaceHolder1$WUC_My_PurchaseList$ibtn_search" id="ContentPlaceHolder1_WUC_My_PurchaseList_ibtn_search" class="btnSearch" src="" />
+                    <input name="searchBuyValue" type="text" class="input-text" style="width: 210px;" />
+                    <input type="image" name="" class="btnSearch" onclick="searchBuyData();" />
                 </div>
             </div>
 
@@ -80,7 +120,7 @@
                 <table cellpadding="0" cellspacing="0">
                     <colgroup>
                         <col width="70px" />
-                        <col />
+                        <col/>
                         <col width="300px" />
                         <col width="100px" />
                         <col width="80px" />
@@ -89,13 +129,13 @@
                     <thead>
                     <tr>
                         <th scope="col">
-                            <div class="th">주문번호</div>
+                            <div class="th">재능번호</div>
                         </th>
                         <th scope="col">
                             <div class="th">재능상품</div>
                         </th>
                         <th scope="col">
-                            <div class="th">구매정보</div>
+                            <div class="th">재능수정</div>
                         </th>
                         <th scope="col">
                             <div class="th">구매/마감일</div>
@@ -106,16 +146,16 @@
                     </tr>
                     </thead>
 
-					<c:forEach var="dto" items="${lists }" varStatus="seq">
-                    <tbody>
+                    <tbody id="results_ajax">
+                    <c:forEach var="dto" items="${lists }" varStatus="seq">
                     <tr>
                         <td class="num">
                             <div class="td">
-                                 ${seq.count }</div>
+                                 ${dto.listNum}</div>
                         </td>
                         <td class="thumbnail">
                             <div class="td"><a href="../Goods/GDetail.action?brNum=${dto.brNum }">
-                                <img src="../Product/${dto.brMainphoto }" alt=""   Height=160px  Width=160px  /></div>
+                                <img src="../Product/${dto.brMainPhoto}" alt=""   Height=160px  Width=160px /></a></div>
                         </td>
                         <td class="payResume">
                             <div class="td">
@@ -144,23 +184,60 @@
 
                             </div>
                         </td>
-                        <td onclick="location.href='/Chat/SChat.aspx?ccd=Mf00T2RIlJ7OvWuOTPk7De1Awb5gx5Pr64FJrPfPN3aQKE98vs2V2QMUdzZ4dvpj&ocd=VsnoRy5RJiDdXemxeYZs8wKdT79qwsTe40eLfklN/e8zPf15kmRFore4MU^62M6^';" style="cursor: pointer;" align="center" class="process step9" >
-                            <img id="ContentPlaceHolder1_WUC_My_PurchaseList_rptList_Image2_0" src="../resources/images/mypage/BG_sellingProcess_ongoing.gif" /><div class="td">
-                            진행중</div>
+                        <c:if test="${dto.progress==0}">
+                        <td style="cursor: pointer;" align="center" class="process step9" >
+                            <img src="../resources/images/mypage/ing.png"/><div class="td">
+                            진행중 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <img src="../resources/images/mypage/cancel.png" 
+                            onclick="if(confirm('구매취소하시겠습니까?')===true){location.href='../My/BuyCancel.action?hsNum=${dto.hsNum}'};" /><div class="td">
+                            취소
+                            </div>
                         </td>
+                        </c:if>
+                        
+                        <c:if test="${dto.progress==1}">
+                        <td style="cursor: pointer;" align="center" class="process step9" >
+                            <img src="../resources/images/mypage/check.png" 
+                            onclick="if(confirm('구매확정하시겠습니까?(구매확정시 반품불가)')===true){location.href='../My/BuyComplete.action?hsNum=${dto.hsNum}';}"/><div class="td">
+                            구매확정 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <img src="../resources/images/mypage/cancel.png" 
+                            onclick="if(confirm('반품하시겠습니까?')===true){location.href='../My/BuyCancel.action?hsNum=${dto.hsNum}'};"/><div class="td">
+                            반품
+                            </div>
+                        </td>
+                        </c:if>
+                        
+                        <c:if test="${dto.progress==2}">
+                        <td style="cursor: pointer;" align="center" class="process step9" >
+                        <img src="../resources/images/mypage/ico_correct.png"/>
+                        <div class="td">완료</div>
+                        </td>
+                        </c:if>
+                        
+                        <c:if test="${dto.progress==3}">
+                        <td style="cursor: pointer;" align="center" class="process step9" >
+                        <img src="../resources/images/mypage/cancel.png"/>
+                        <div class="td">취소</div>
+                        </td>
+                        </c:if>
+                      
                         <!-- step1 ~ step4 -->
 
                     </tr>
-                    </tbody>
                     </c:forEach>
+                    </tbody>
+
 
                 </table>
                 <div class="tblLine2"></div>
 
-                <div class="paging">
+                <div class="seeMore">
 
-                    <b>1 </b>
-
+                    <button id="show_more">더 보기</button>
+                    <input type="hidden" id="direction" value="1" />
+                    <input type="hidden" id="totalPage" value="${totalPage}" />
                 </div>
             </div>
             <!-- //게시판영역 -->
@@ -169,6 +246,7 @@
     </div>
     <!-- //내용 -->
 </div>
+</form>
 <!-- //마이페이지컨텐츠 시작 -->
 
 

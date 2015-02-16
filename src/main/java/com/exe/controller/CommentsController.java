@@ -23,10 +23,10 @@ public class CommentsController {
 	@Autowired
 	MyUtil myUtil;
 	
+	//댓글
 	@RequestMapping(value="/Goods/comments_ok.action",method={RequestMethod.GET,RequestMethod.POST})
 	public String comments_ok(int brNum, HttpServletRequest request, HttpServletResponse response){
 
-		
 		CommentsDTO dto = new CommentsDTO();
 
 		int cmMaxNum = dao.cmMaxNum();

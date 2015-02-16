@@ -79,13 +79,13 @@
                     <tbody>
                     <tr>
                         <td class="on">
-                            0</td>
+                            ${buyOnGoing}</td>
                         <td>
-                            0</td>
+                            ${buyChecked}</td>
                         <td>
-                            0</td>
+                            ${buyCompleted}</td>
                         <td>
-                            0</td>
+                            ${buyCanceled}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -113,13 +113,13 @@
                     <tbody>
                     <tr>
                         <td class="on">
-                            0</td>
+                            ${sellOnGoing}</td>
                         <td>
-                            0</td>
+                            ${sellChecked}</td>
                         <td>
-                            0</td>
+                            ${sellCompleted}</td>
                         <td>
-                            0</td>
+                            ${sellCanceled}</td>
                     </tr>
                     </tbody>
                 </table>
