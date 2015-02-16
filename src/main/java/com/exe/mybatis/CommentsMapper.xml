@@ -18,7 +18,6 @@
 <select id="cmList" parameterType="integer" resultType="com.exe.dto.CommentsDTO">
 	select cmnum,brnum,cmcontent,cmnickName,cmdate,cmrating 
 	from comments where brnum=#{brNum}
-
 </select>
 
 

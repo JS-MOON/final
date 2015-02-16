@@ -293,8 +293,8 @@
                             <span class="arr"></span>
                             <div class="innerWrap">
                                 <ul class="list1">
-                                    <li><a href="../My/MyProfile.action">프로필 관리</a></li>
-                                    <li><a href="../My/MyAccount.action">계정 & 계좌</a></li>
+                                    <li><a href="../My/MyTalent.action">나의 탤런트</a></li>
+									<li><a href="../My/MyFavority.action">찜 목록</a></li>
                                 </ul>
                                 <ul class="list2">
                                     <li class="m1"><a href="../My/SellProdReg.action">재능 등록</a></li>

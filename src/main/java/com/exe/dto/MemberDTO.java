@@ -12,13 +12,20 @@ public class MemberDTO {
     private String mbPic;
     private String mbAbout;
     
-    
     //계좌관리
     private int bkNum;
     private String name;
     private String bank;
     
+    //eMail 인증
+    private int emailAuth;
     
+	public int getEmailAuth() {
+		return emailAuth;
+	}
+	public void setEmailAuth(int emailAuth) {
+		this.emailAuth = emailAuth;
+	}
 	public int getBkNum() {
 		return bkNum;
 	}

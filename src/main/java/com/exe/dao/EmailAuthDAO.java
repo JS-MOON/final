@@ -28,11 +28,11 @@ public class EmailAuthDAO {
 	}
 	
 	public EmailAuthDTO searchAuth(int code) {
-		
-		EmailAuthDTO dto = sessionTemplate.selectOne("emailAuth.searchAuth", code);
-		
-		return dto;
-				
+		return sessionTemplate.selectOne("emailAuth.searchAuthByCode", code);	
+	}
+	
+	public int selectAuthState(String mbId) {
+		return sessionTemplate.selectOne("emailAuth.selectAuthState", mbId);
 	}
 	
 	public void updateEmailAuth(int code) {

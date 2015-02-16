@@ -15,8 +15,12 @@
 	values (#{authNum},#{mbId},#{emailAuth},#{authCode})
 </insert>
 
-<select id="searchAuth" parameterType="int" resultType="com.exe.dto.EmailAuthDTO">
+<select id="searchAuthByCode" parameterType="int" resultType="com.exe.dto.EmailAuthDTO">
 	select authNum,mbId,emailAuth,authCode from emailAuth where authCode=#{authCode}
+</select>
+
+<select id="selectAuthState" parameterType="String" resultType="int">
+	select emailAuth from emailAuth where mbId=#{mbId}
 </select>
 
 <update id="updateMailAuth" parameterType="int">

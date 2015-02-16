@@ -96,9 +96,6 @@ public class HistoryDAO {
 	}
 	
 	public int selectPayment(String mbId){
-		
-
-
 		int result = 0;
 		
 		result = sessionTemplate.selectOne("history.selectBankData",mbId);

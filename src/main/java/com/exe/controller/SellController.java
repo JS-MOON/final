@@ -94,8 +94,6 @@ public class SellController {
 			System.out.println(eDate);
 		}
 		
-
-
 		if (sDate == null) {
 			List<PayMentDTO> lists = hdao.selectBanklistAll(mbId);
 			req.setAttribute("paymentlist", lists);
@@ -104,34 +102,15 @@ public class SellController {
 			req.setAttribute("paymentlist", lists);
 		}
 
+
+		int withdrawal = hdao.selectPayment(mb.getMbId());
+		int totalIncome = hdao.hsPriceSum(mb.getMbId()) - withdrawal;
+
+		req.setAttribute("withdrawal", withdrawal);
+		req.setAttribute("totalIncome", totalIncome);
+		
 		dto = rdao.getReadMember(mb.getMbId());
-
-		int hsPrice = hdao.hsPriceSum(mb.getMbId());
-		int payout = hdao.selectPayment(mb.getMbId());
-
-		/*
-		 * if(op==null || op.equals("") || op.equals("1")){
-		 * System.out.println("옵션1들어왔나?");
-		 * 
-		 * if(sDate==null){ PayMentDTO pdto = hdao.selectBankDayMax(mbId); sDate
-		 * = pdto.getsDate(); eDate = pdto.geteDate(); }
-		 * 
-		 * System.out.println(sDate+eDate);
-		 * 
-		 * List<PayMentDTO> lists = hdao.selectBanklist(mbId,sDate,eDate);
-		 * req.setAttribute("paymentlist", lists);
-		 * 
-		 * System.out.println("끝"); }
-		 * 
-		 * if(op.equals("pay")){ System.out.println("옵션2들어왔나?");
-		 * List<PayMentDTO> lists = hdao.selectBankPayUp(mbId);
-		 * req.setAttribute("paymentlist", lists); }
-		 */
-		/* List<PayMentDTO> daylists = hdao.selectBankDay(sDate, eDate); */
-
-		req.setAttribute("payout", payout);
 		req.setAttribute("dto", dto);
-		req.setAttribute("hsPrice", hsPrice);
 
 		return "My/SellIncome";
 	}

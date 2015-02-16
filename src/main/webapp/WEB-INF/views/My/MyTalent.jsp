@@ -28,7 +28,8 @@
                     <div class="innerWrap">
                         <span class="dt">판매 수익금</span>
                         <span class="dd">
-                            0원</span>
+                            ${totalIncome}
+                            원</span>
                     </div>
                 </li>
                 <li class="item2">
@@ -39,19 +40,29 @@
                             P</span>
                     </div>
                 </li>
+                <c:if test="${mdto.emailAuth == 0}">
                 <li class="item3">
+                </c:if>
+                <c:if test="${mdto.emailAuth == 1}">
+                <li class="item3 correct">
+                </c:if>
                     <div class="innerWrap">
                         <span class="dt">본인인증</span>
                         <span class="dd"></span>
                     </div>
                 </li>
+                
+                <c:if test="${mdto.name == null}">
+                <li class="item4">
+                </c:if>
+                <c:if test="${mdto.name != null}">
                 <li class="item4 correct">
+                </c:if>
                     <div class="innerWrap">
                         <span class="dt">계좌번호</span>
-                        <span class="dd"><span>예금주:</span>
-                            
+                        <span class="dd"><span>예금주: ${mdto.name }</span>         
                             <strong class="bankAccount">
-                                /</strong></span>
+                                ${mdto.bank }&nbsp;/&nbsp;${mdto.bkNum }</strong></span>
                     </div>
                 </li>
             </ul>

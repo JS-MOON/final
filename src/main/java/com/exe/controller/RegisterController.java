@@ -332,13 +332,7 @@ public class RegisterController {
 
 		HttpSession session = request.getSession();
 		MemberSession mb = (MemberSession)session.getAttribute("session");
-		
-		System.out.println("나와라");
-		System.out.println(dto.getBank());
-		System.out.println(dto.getBkNum());
-		System.out.println(dto.getName());
-		System.out.println(mb.getMbId());
-		
+				
 		dto.setMbId(mb.getMbId());
 		
 		dao.updateBankMember(dto);

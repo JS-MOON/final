@@ -51,19 +51,15 @@
 			 alert("${hsPrice}"); */
 
 			var hsPrice = parseInt("${hsPrice-payout}");
- 
 			 
 			 if(!pay){
-				 
 					alert("값을 입력하세요!.");
 
 					pay.focus();
 					return;
-				
 			 } 
 			 
 			 else if (pay > hsPrice) {	
-
 				alert("보유하신 금액보다 큽니다.");
 
 				f.payment.focus();
@@ -72,25 +68,19 @@
 			
 			
 			else if(hsPrice==false){
-				
 				alert("보유하신 금액이없습니다.");
 				
 				f.payment.focus();
 				return; 		
-				
 			} 
 			
-			
-	
-
 			else if (pay <= hsPrice) {
-				alert(pay+" 입력되었습니다.");
+				alert(pay+"원이 지급되었습니다.");
 
 				f.action = "../My/BankSellIncome.action";
 				f.submit();
 			}
 			
-	
 
 			//출금액이 수익금보다 많이 출력할때 안된다 라고 메시지가뜬다..
 			/* 	if(${hsPrice})
@@ -101,9 +91,6 @@
 		
 		//날짜 사이 데이터 검색
 		function DaySearch(){
-			
-			alert("들어와");
-			
 			var f = document.BankForm
 
 			f.action = "../My/SellIncome.action";
@@ -126,18 +113,9 @@
 			});
 		});
 	</script>
-	<script type="text/javascript">
-		//<![CDATA[
-		Sys.WebForms.PageRequestManager._initialize(
-				'ctl00$ContentPlaceHolder1$WUC_MyProfit$ScriptManager1',
-				'form1', [
-						'tctl00$ContentPlaceHolder1$WUC_MyProfit$UpdatePanel1',
-						'ContentPlaceHolder1_WUC_MyProfit_UpdatePanel1' ], [],
-				[], 90, 'ctl00');
-		//]]>
-	</script>
+	
 	<form action="" name="BankForm" method="post">
-		<div id="ContentPlaceHolder1_WUC_MyProfit_UpdatePanel1">
+		<div>
 
 			<div class="primaryContents myReturn">
 				<!-- 마이페이지lnb -->
@@ -155,18 +133,16 @@
 						<dl class="dl1">
 							<dt>판매 수익금</dt>
 							<dd>
-								<span class="count">${hsPrice-payout}</span> 원
+								<span class="count">${totalIncome}</span> 원
 							</dd>
 						</dl>
 						<dl class="dl2">
 							<dt>총 계좌 출금액</dt>
 							<dd>
-								<span class="count">${payout}</span> 원
+								<span class="count">${withdrawal}</span> 원
 							</dd>
 						</dl>
 					</div>
-					
-
 					
 					<h4 class="itemTitle">수익금 출금신청</h4>
 					<div class="withdraw">
