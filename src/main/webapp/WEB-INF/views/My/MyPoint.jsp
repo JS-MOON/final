@@ -26,7 +26,7 @@
             <h4>나의 보유 포인트</h4>
             <div class="totalPoint">
                     <span class="count">
-                        0
+                        ${sessionScope.session.ptPoint}
                         P</span>
             </div>
 

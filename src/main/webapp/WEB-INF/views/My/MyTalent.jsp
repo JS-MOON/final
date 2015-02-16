@@ -35,15 +35,14 @@
                     <div class="innerWrap">
                         <span class="dt">보유포인트</span>
                         <span class="dd">
-                            0
+                            ${sessionScope.session.ptPoint}
                             P</span>
                     </div>
                 </li>
                 <li class="item3">
                     <div class="innerWrap">
                         <span class="dt">본인인증</span>
-                        <span class="dd">
-                             / </span>
+                        <span class="dd"></span>
                     </div>
                 </li>
                 <li class="item4 correct">

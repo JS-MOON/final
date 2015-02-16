@@ -226,9 +226,6 @@
         	return;
         }
 
-		alert(f.completedOption.value);
-		alert(f.s1.value +" : "+ f.s2.value);
-
         f.action = "SellProdReg_ok.action";
         f.submit();
 
@@ -331,8 +328,7 @@
 			<input type="hidden" name="completedOption" value=""/>
             <h4>재능설명</h4>
             <div class="settingOption">
-                <textarea name="brContent" rows="2" cols="20" class="textarea" style="height:71px;width:772px;width: 100%; height: 270px;">
-                </textarea>
+                <textarea name="brContent" rows="2" cols="20" class="textarea" style="height:71px;width:772px;width: 100%; height: 270px;"></textarea>
             </div>
 
 

@@ -83,7 +83,7 @@
 							<div class="sellerResume">
 								<span class="sellingUser"> 
 								<!-- a링크 삭제 이미지만 남겨둬 -->
-									<img src="../pds/imageFile/${dto.mbPic }" alt="" Height=36px Width=36px /> 
+									<img src="../Profile/${dto.mbPic }" alt="" Height=36px Width=36px /> 
 									<span class="user_id">${dto.mbNickName}</span>
 								</span>
 								<div class="sellerCondition">

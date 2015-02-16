@@ -32,7 +32,7 @@
 					 <div class="pdtWrap">
                         <div class="sellerResume" >
                         <span class="sellingUser">
-							<img src="../pds/imageFile/${dto.mbPic }" alt="" Height=36px Width=36px /> 
+							<img src="../Profile/${dto.mbPic }" alt="" Height=36px Width=36px /> 
 							<span class="user_id">${dto.mbNickName}</span>
                         </span>
                             <div class="sellerCondition">

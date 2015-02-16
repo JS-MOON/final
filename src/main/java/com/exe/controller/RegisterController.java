@@ -86,7 +86,7 @@ public class RegisterController {
 			try {
 				MimeMessage message = mailSender.createMimeMessage();
 				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-				messageHelper.setTo("ichigo0524@naver.com");
+				messageHelper.setTo(mbId);
 				messageHelper.setSubject("[TALENT]가입을 축하드립니다.");
 				messageHelper.setText("안녕하세요. 'TALENT'입니다.\n"+"["+mbId+"]고객님의 가입을 축하드립니다.\n"
 						+"email인증을 하려면 다음 링크를 클릭하세요.\n"+"http://192.168.16.9:8080/final/Register/EmailAuth.action?code="+ authCode);

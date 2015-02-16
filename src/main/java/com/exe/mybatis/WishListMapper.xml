@@ -17,7 +17,7 @@
 
 <select id="selectWishList" parameterType="String" resultType="com.exe.dto.BoardDTO">
 	SELECT board.brnum,nvl(wishlist.MBID,'no') mbId, CATEGORY.CGNUM,
-	member.MBID,member.MBNICKNAME,CATEGORY.CGNUM,board.BRSUBJECT,
+	member.MBID,member.MBNICKNAME,member.MBPIC,CATEGORY.CGNUM,board.BRSUBJECT,
 	board.BRMAINPHOTO,board.BRPRICE,board.brcount,CATEGORY.cgCategory1
 	FROM BOARD, WISHLIST,CATEGORY,MEMBER
 	WHERE board.BRNUM = wishList.BRNUM
