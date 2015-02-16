@@ -1,10 +1,12 @@
 package com.exe.dao;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.exe.dto.MemberDTO;
+
 
 public class RegisterDAO {
 
@@ -74,6 +76,34 @@ public class RegisterDAO {
 		
 		sessionTemplate.update("memberMapper.updatePwMember",map);
 	}
+	
+	
+	//은행계좌
+		public void updateBankMember(MemberDTO dto){
+		
+			Map<String, Object> hMap = new HashMap<String, Object>();
+			
+			hMap.put("mbId", dto.getMbId());
+			hMap.put("bank", dto.getBank());
+			hMap.put("bkNum", dto.getBkNum());
+			hMap.put("name", dto.getName());
+			
+			
+			sessionTemplate.update("memberMapper.updateBankMember",hMap);
+			
+		}
+		
+		
+/*		//계좌 보여진다.
+		public MemberDTO selectBankData(String mbId){
+			
+			MemberDTO dto = sessionTemplate.selectOne("memberMapper.selectBankData",mbId);
+			
+			return dto;
+			
+		}
+	*/
+	
 	
 	
 }

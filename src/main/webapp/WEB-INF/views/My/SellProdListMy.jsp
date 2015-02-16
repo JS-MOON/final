@@ -51,7 +51,7 @@
         <div class="mypage_lnb">
             <h3>내 재능 목록</h3>
             <div class="location">
-                <span>홈</span> &gt; <span>마이페이지</span> &gt; <span>내재능목록</span>
+                <span>홈</span> &gt; <span>판매 Sell</span> &gt; <span>내 재능 목록</span>
             </div>
         </div>
         <!-- //마이페이지lnb -->

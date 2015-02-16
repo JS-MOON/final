@@ -2,6 +2,7 @@ package com.exe.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -206,6 +207,7 @@ public class GoodsDAO {
 		return result;
 	}
 	
+
 	public List<BoardDTO> myBoardList(String mbId){
 		
 		List<BoardDTO> lists = sessionTemplate.selectList("GoodsMapper.myBoardList",mbId);
@@ -221,6 +223,6 @@ public class GoodsDAO {
 		return result;
 		
 	}
-	
+
 	
 }

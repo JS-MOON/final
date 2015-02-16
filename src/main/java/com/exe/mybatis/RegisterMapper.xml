@@ -16,7 +16,7 @@
 	</select>
 
 	<select id="selectReadMember" parameterType="string" resultType="com.exe.dto.MemberDTO">
-		select mbid,mbpw,mbnickName,mbtel,mbpic,mbabout from member where mbid=#{mbId}
+		select mbid,mbpw,mbnickName,mbtel,mbpic,mbabout,bkNum,name,bank from member where mbid=#{mbId}
 	</select>
 
 <!-- 	<select id="loginMember" parameterType="string" resultType="string">
@@ -38,6 +38,12 @@
 	<update id="updatePwMember" parameterType="hashMap">
 		update member set mbpw=#{mbPw} where mbid=#{mbId}
 	</update>
+	
+	<update id="updateBankMember" parameterType="hashMap">
+	
+		update member set bkNum=#{bkNum}, name=#{name}, bank=#{bank} where mbid=#{mbId}
+	</update>
+
 
 
 </mapper>

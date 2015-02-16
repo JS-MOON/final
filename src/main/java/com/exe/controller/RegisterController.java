@@ -1,4 +1,4 @@
-package com.exe.controller;
+﻿package com.exe.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -305,8 +305,10 @@ public class RegisterController {
 		
 	}
 
-	//비밀번호 바꾸기
-	@RequestMapping(value = "/My/ChangePw.action", method={RequestMethod.GET, RequestMethod.POST})
+	//비밀번호 변경
+	@RequestMapping(value = "/My/ChangePw.action", method = {
+			RequestMethod.GET, RequestMethod.POST })
+
 	public String changePw(HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
@@ -320,11 +322,33 @@ public class RegisterController {
 		dao.updatePwMember(mbId, changeMbPw1);
 
 		return "redirect:/My/MyAccount.action";
+		
+	}
+
+	//계좌번호 변경
+	@RequestMapping(value = "/My/ChangeBankMember.action", method = {
+			RequestMethod.GET, RequestMethod.POST })
+	public String changeBk(HttpServletRequest request,MemberDTO dto) {
+
+		HttpSession session = request.getSession();
+		MemberSession mb = (MemberSession)session.getAttribute("session");
+		
+		System.out.println("나와라");
+		System.out.println(dto.getBank());
+		System.out.println(dto.getBkNum());
+		System.out.println(dto.getName());
+		System.out.println(mb.getMbId());
+		
+		dto.setMbId(mb.getMbId());
+		
+		dao.updateBankMember(dto);
+		
+		return "redirect:/My/MyAccount.action";
 
 	}
 	
-	//회원 탈퇴
 	@RequestMapping(value = "/My/Out.action", method={RequestMethod.GET,RequestMethod.POST})
+
 	public String out(HttpServletRequest request) {
 
 		HttpSession session = request.getSession();

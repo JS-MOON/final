@@ -91,10 +91,10 @@
 <div class="primaryContents myPayment">
     <!-- 마이페이지lnb -->
     <div class="mypage_lnb">
-        <h3>구매관리</h3>
+        <h3>구매 관리</h3>
 
         <div class="location">
-            <span>홈</span> &gt; <span>마이페이지</span> &gt; <span>구매관리</span>
+            <span>홈</span> &gt; <span>개인 Personal</span> &gt; <span>구매 관리</span>
         </div>
     </div>
     <!-- //마이페이지lnb -->

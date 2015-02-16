@@ -242,9 +242,9 @@
 <div class="primaryContents registerTalent">
     <!-- 마이페이지lnb -->
     <div class="mypage_lnb">
-        <h3>재능등록</h3>
+        <h3>재능 등록</h3>
         <div class="location">
-            <span>홈</span> &gt; <span>마이페이지</span> &gt; <span>재능등록</span>
+            <span>홈</span> &gt; <span>판매 Sell</span> &gt; <span>재능 등록</span>
         </div>
     </div>
     <!-- //마이페이지lnb -->
@@ -289,7 +289,7 @@
             </div>
 
             <h4>연락처</h4>
-            <p class="settingDesc">미스터스 팀에서 판매자에게 연락할 수 있는 번호를 입력해주세요.</p>
+            <p class="settingDesc">TALENT 팀에서 판매자에게 연락할 수 있는 번호를 입력해주세요.</p>
             <div class="settingOption">
 
                 <input name="tel1" type="text" maxlength="3"  class="input-text" style="width:89px;width: 60px;" />
@@ -314,7 +314,7 @@
             <p class="settingDesc">
                <!--  옵션은 최대 5개까지 추가 가능합니다.&nbsp;&nbsp;
                 <a class="btnType6" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$WUC_My_AblityEdit1$lbtn_optAdd&#39;,&#39;&#39;)"><span>옵션추가</span></a> -->
-				 옵션1 <input name="options" type="text" maxlength="12" class="input-text" style="width:129px;" />
+				  옵션1 <input name="options" type="text" maxlength="12" class="input-text" style="width:129px;" />
 				 추가금액1 <input name="prices" type="text" maxlength="12" class="input-text" style="width:129px;" /><br/>
 				  옵션2 <input name="options" type="text" maxlength="12" class="input-text" style="width:129px;" />
 				 추가금액2 <input name="prices" type="text" maxlength="12" class="input-text" style="width:129px;" /><br/>
@@ -352,7 +352,7 @@
                 <li>- 등록한 재능은 관리자의 승인절차를 거치며, 재능이 적합해야만 판매 하실수 있습니다.</li>
                 <li>- 등록하신 재능은 디자인 편집을 거쳐 게시됩니다. 추가적인 이미지나 첨부자료를 요청받으실 수 있습니다.</li>
                 <li>- 업무시간(월~금: 오전 9:00 ~ 오후 6:00) 이외에 재능을 등록 및 편집시 승인이 늦어질 수 있습니다.</li>
-                <li>- 구매자와 직거래를 유도하는 경우 판매정지 및 미스터스 접속에 제한을 받을수 있으니 주의 바랍니다.</li>
+                <li>- 구매자와 직거래를 유도하는 경우 판매정지 및 TALENT 접속에 제한을 받을수 있으니 주의 바랍니다.</li>
                 <li>- 임시저장한 재능은 구매자에게 노출되지 않으며, 관리자의 승인도 거치지 않습니다.</li>
                 <li>- 임시저장한 재능은 추후 나의 재능에서 작성완료하신 후 다시 등록요청하셔야 합니다.</li>
             </ul>

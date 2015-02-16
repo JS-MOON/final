@@ -44,6 +44,46 @@
 	where hs.mbid=#{mbId} and br.brsubject like '%'||#{searchValue}||'%'
 </select>
 
+<select id="hsPriceSum" resultType="int" parameterType="String">
+	select nvl(sum(hsprice),0) from history where srId = #{mbId}
+</select>
+
+<!-- 수익관리 페이 -->
+<insert id="insertBankData" parameterType="com.exe.dto.PayMentDTO">
+	insert into bankdata (payment,bkday,mbId) values (#{payment},sysdate,#{mbId})
+</insert>
+
+<select id="selectBankPayment" parameterType="String" resultType="int">
+	select nvl(sum(payment),0) from bankdata where mbId= #{mbId}
+</select>
+
+<select id="selectBankData" parameterType="String" resultType="int">
+	select nvl(sum(payment),0) from bankdata where mbId= #{mbId}
+</select>
+
+<select id="selectBanklistAll" parameterType="String" resultType="com.exe.dto.PayMentDTO">
+	select payment,mbid,bkDay from bankdata where mbId= #{mbId}
+</select>
+
+<select id="selectBanklist" parameterType="hashMap" resultType="com.exe.dto.PayMentDTO">
+	select payment,mbid,bkDay from bankdata where mbId= #{mbId} and 
+	<![CDATA[
+	bkDay>= to_date(#{sDate},'YYYY-MM-DD HH24:MI:SS') and bkDay<= to_date(#{eDate},'YYYY-MM-DD HH24:MI:SS')
+	]]>
+</select>
+
+<select id="selectBankDay" parameterType="String" resultType="com.exe.dto.PayMentDTO">
+	select * from bankdata where bkDay between #{sDate} and #{eDate}
+</select>
+
+<select id="selectBankDayMax" parameterType="String" resultType="com.exe.dto.PayMentDTO">
+	select max(bkDay) eDate,min(bkDay) sDate from bankdata where mbId= #{mbId}
+</select>
+
+<select id="selectBankPayUp" parameterType="String" resultType="com.exe.dto.PayMentDTO">
+	select payment,bkday,mbid from bankdata where mbId = #{mbId} order by payment desc
+</select>
+
     <select id="sellMngDataCount" parameterType="hashMap" resultType="int">
         select count(*) from history hs inner join board br on hs.brnum = br.brnum
         where hs.srid=#{mbId} and br.brsubject like '%'||#{searchValue}||'%'

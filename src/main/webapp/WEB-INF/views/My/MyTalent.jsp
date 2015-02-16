@@ -12,9 +12,9 @@
 <div class="primaryContents mypageMain">
     <!-- 마이페이지lnb -->
     <div class="mypage_lnb">
-        <h3>나의 미스터스</h3>
+        <h3>나의 TALENT</h3>
         <div class="location">
-            <span>홈</span> &gt; <span>마이페이지</span> &gt; <span>나의 미스터스</span>
+            <span>홈</span> &gt; <span>개인 Personal</span> &gt; <span>나의 TALENT</span>
         </div>
     </div>
     <!-- //마이페이지lnb -->

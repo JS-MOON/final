@@ -1,6 +1,6 @@
 package com.exe.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by JS on 2014-12-01.
