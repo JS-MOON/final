@@ -381,7 +381,7 @@ function selectUsePoint() {
 }
 
 function gOrderSubmit() {
-    if(Number(document.getElementById("pointInputBox").value) <= Number(document.getElementById("restPoint").value)) {
+    if((Number(document.getElementById("pointInputBox").value) <= Number(document.getElementById("restPoint").value))||document.getElementById("pointInputBox").value === "0") {
         if(document.getElementById("pointInputBox").value === "") {
             document.getElementById("usedPoint").value = 0;
         } else {
@@ -403,7 +403,7 @@ function updatePointValue() {
     $("#totalPrice").text(document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value);
     $("#vatAddedTotalPrice")
         .text(parseInt((document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value) * 1.1));
-    document.getElementById("hiddenVatAddedTotalPrice").value = (document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value) * 1.1;
+    document.getElementById("hiddenVatAddedTotalPrice").value = Math.round((document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value) * 1.1);
     document.getElementById("hiddenTotalPrice").value = (document.getElementById("temporaryTotalPrice").value - document.getElementById("pointInputBox").value);
 }
 

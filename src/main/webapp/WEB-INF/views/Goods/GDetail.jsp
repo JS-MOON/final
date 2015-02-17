@@ -361,7 +361,7 @@
 					<!-- //관련재능 -->
 				</div>
 				<!-- //제품상세정보 -->
-			</div>
+		
 
 			<!-- quick link -->
 			<div id="quickLinks">
