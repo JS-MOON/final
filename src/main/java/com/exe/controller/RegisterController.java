@@ -151,48 +151,15 @@ public class RegisterController {
             else
                 mav.setViewName("redirect:" + previousURL);
 			return mav;
-			// return "redirect:/Goods/Main.action";
+			
 		}
+		
 		mav.addObject("str", str);
-		// request.setAttribute("str", str);
 		mav.setViewName("/Register/Register");
 		
 		return mav;
 		
 	}
-
-	/*
-	 * @RequestMapping(value="/Login/Login.action",method={RequestMethod.GET,
-	 * RequestMethod.POST}) public String login(MemberDTO dto,HttpServletRequest
-	 * request){
-	 * 
-	 * String mbId = request.getParameter("mbId"); String mbPw =
-	 * request.getParameter("mbPw"); String str = "";
-	 * 
-	 * dto = dao.getReadMember(mbId);
-	 * 
-	 * if (dto == null) {
-	 * 
-	 * str = "占쏙옙占싱듸옙 占쏙옙占쏙옙占쏙옙占쏙옙 占십쏙옙占싹댐옙.";
-	 * 
-	 * } else if (!dto.getMbPw().equals(mbPw)) { str = "占쏙옙橘占싫ｏ옙占� 占쏙옙치占쏙옙占쏙옙 占십쏙옙占싹댐옙.";
-	 * 
-	 * } else { HttpSession session = request.getSession(true);
-	 * 
-	 * MemberSession mbs = new MemberSession();
-	 * 
-	 * mbs.setMbId(mbId); mbs.setMbPw(mbPw);
-	 * 
-	 * session.setAttribute("session", mbs);
-	 * 
-	 * return "redirect:/Goods/Main.action"; }
-	 * 
-	 * request.setAttribute("str", str);
-	 * 
-	 * return "/Register/Register";
-	 * 
-	 * }
-	 */
 
     @RequestMapping(value = "/Register/Login.action", method = {RequestMethod.GET, RequestMethod.POST})
     public String login(HttpServletRequest request) {

@@ -1,7 +1,6 @@
-package com.exe.controller;
+﻿package com.exe.controller;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -72,21 +71,19 @@ public class ChatController {
 		MemberSession mbs = (MemberSession)session.getAttribute("session");
 		String mbId = mbs.getMbId();
 		String sender = mbId;
-		String receiver = "";
+		
 		
 		int brNum =Integer.parseInt(req.getParameter("brNum"));
 
 		System.out.println("1." + mbId + brNum);
+
+		String receiver = GoodsDao.getReadData(brNum).getMbId();
 		
-		int msgNum = MsgDao.hsMaxNum();
-		System.out.println("2.");
 		MsgDTO dto = MsgDao.selectOne(mbId, brNum);
-		System.out.println("3.");
-		if(dto!=null && dto.getReceiver().equals(sender)){
-			System.out.println("4.");
+		
+		if(dto != null && dto.getReceiver()!=null && dto.getReceiver().equals(sender)){
 			receiver = dto.getSender();
-		}else if(dto!=null && !dto.getReceiver().equals(sender)){
-			System.out.println("5.");
+		}else if(dto != null && dto.getReceiver()!=null && !dto.getReceiver().equals(sender)){
 			receiver = dto.getReceiver();
 		}
 

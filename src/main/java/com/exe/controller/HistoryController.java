@@ -78,6 +78,15 @@ public class HistoryController {
 		dto.setHsTotalPrice(Integer.parseInt(req.getParameter("totalPrice")));
 		dto.setPtNum(ptMaxNum);
 		dao.hsInsert(dto);
+		
+		//세션 포인트 갱신
+		HttpSession session = req.getSession();
+
+		MemberSession mbs = (MemberSession) session.getAttribute("session");
+		
+        mbs.setPtPoint(pdao.ptGetSum(mbs.getMbId()));
+
+		session.setAttribute("session", mbs);
 
 		return "redirect:/My/MyOrderMng.action";
 
