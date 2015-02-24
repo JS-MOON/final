@@ -49,10 +49,10 @@ $(document).ready(function() {
         var quick = $('#quick-best'); // 302px
         var docT = $(document).scrollTop();
 
-        if (docT < 800) {
+        if (docT <= 1200) {
             $(quick).fadeOut(0);
             $(quick).removeClass('on');
-        } else if (docT > 800) {
+        } else if (docT > 1200) {
             $(quick).fadeIn(500);
             $(quick).addClass('on');
         }
