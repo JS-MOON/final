@@ -76,13 +76,17 @@ public class ChatController {
 		
 		int brNum =Integer.parseInt(req.getParameter("brNum"));
 
-		int msgNum = MsgDao.hsMaxNum();
+		System.out.println("1." + mbId + brNum);
 		
+		int msgNum = MsgDao.hsMaxNum();
+		System.out.println("2.");
 		MsgDTO dto = MsgDao.selectOne(mbId, brNum);
-
-		if(dto.getReceiver().equals(sender)){
+		System.out.println("3.");
+		if(dto!=null && dto.getReceiver().equals(sender)){
+			System.out.println("4.");
 			receiver = dto.getSender();
-		}else if(!dto.getReceiver().equals(sender)){
+		}else if(dto!=null && !dto.getReceiver().equals(sender)){
+			System.out.println("5.");
 			receiver = dto.getReceiver();
 		}
 

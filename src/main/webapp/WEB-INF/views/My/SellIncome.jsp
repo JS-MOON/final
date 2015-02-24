@@ -50,7 +50,7 @@
 			/*     	alert(pay);
 			 alert("${hsPrice}"); */
 
-			var hsPrice = parseInt("${hsPrice-payout}");
+			var hsPrice = parseInt("${totalIncome-withdrawal}");
 			 
 			 if(!pay){
 					alert("값을 입력하세요!.");
