@@ -178,7 +178,7 @@
 														<input type="checkbox" name="ops" id="${op[i*2+1]}" value="${op[i*2] }" onchange="opplus();" />
 													</span> 
 													<span class="label">${op[i*2] }</span> 
-													<span class="optionPrice">${op[i*2+1] }</span>
+													<span class="optionPrice">+${op[i*2+1] }</span>
 												</li>
 											</c:if>
 										</c:forEach>

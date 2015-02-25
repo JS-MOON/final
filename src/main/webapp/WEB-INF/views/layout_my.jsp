@@ -345,31 +345,31 @@
                         </a>
                         <ul class="searchKeyword">
                             <li><a
-                                    href='../Goods/GList.action?start=2&end=2'>디자인</a></li>
+                                    href='../Goods/GList_ok.action?cgNum=3'>만화</a></li>
                             <li><a
-                                    href='../Goods/GList.action?start=61&end=61'>마술공연</a></li>
-                            <li><a href='../Goods/GList.action?start=26&end=26'>편지</a></li>
-                            <li><a href='../Goods/GList.action?start=2&end=2'>로고</a></li>
+                                    href='../Goods/GList_ok.action?cgNum=61'>마술공연</a></li>
+                            <li><a href='../Goods/GList_ok.action?cgNum=45'>번역</a></li>
+                            <li><a href='../Goods/GList_ok.action?cgNum=16'>마케팅</a></li>
                             <li><a
-                                    href='../Goods/GList.action?start=30&end=30'>자소서</a></li>
+                                    href='../Goods/GList_ok.action?cgNum=71'>연애상담</a></li>
                         </ul>
                     </div>
                     <div class="adBannerWrap">
                         <div class="nav"></div>
                         <ul class="adBanner">
                             <li><a
-                                    href='#'>
-                                <img src='../Upload/TopBanner/ADTB20141123023114219.png'
+                                    href='GDetail.action?brNum=39'>
+                                <img src='../Upload/TopBanner/ADTB20141217023314247.png'
                                      width="230px" height="75px" alt="" />
                             </a></li>
                             <li><a
-                                    href='#'>
-                                <img src='../Upload/TopBanner/ADTB20141119044627641.png'
+                                    href='GDetail.action?brNum=40'>
+                                <img src='../Upload/TopBanner/ADTB20150118025956414.png'
                                      width="230px" height="75px" alt="" />
                             </a></li>
                             <li><a
-                                    href='#'>
-                                <img src='../Upload/TopBanner/ADTB20141123023114219.png'
+                                    href='GDetail.action?brNum=38'>
+                                <img src='../Upload/TopBanner/ADTB20150118025822392.png'
                                      width="230px" height="75px" alt="" />
                             </a></li>
                         </ul>

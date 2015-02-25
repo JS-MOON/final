@@ -229,7 +229,8 @@
 								<td>
 									<div class="td">
 										<input name="bkNum" type="text" maxlength="14"
-											class="input-text" style="width: 100;" value="${dto.bkNum}" size="65" />
+											class="input-text" style="width: 100;" value="${dto.bkNum}" size="65"
+                                                alt="'-' 제외하여 입력해주세요."/>
 									</div>
 								</td>
 							</tr>

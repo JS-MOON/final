@@ -43,9 +43,9 @@
             </div>
         </div>
         <ul class="csMenu">
-            <li class="on"><a href="/final/Etc/Notice.action">공지사항</a></li>
+            <li class=""><a href="/final/Etc/Notice.action">공지사항</a></li>
             <li class=""><a href="/final/Etc/FAQ.action">자주 묻는 질문</a></li>
-            <li class=""><a href="/final/Etc/Suggest.action">제안하기</a></li>
+            <li class="on"><a href="/final/Etc/Suggest.action">제안하기</a></li>
             <li class=""><a href="/final/Etc/Inquiry.action">1:1 문의</a></li>
         </ul>
     </div>
@@ -56,7 +56,7 @@
     <!-- contents -->
     <div id="contents" class="cs_proposal">
         <div class="toMistus">
-            <img src="../resources/images/customer/img_toMistus.gif" alt="To MISTUS team TALENT는 여러분의 신선한 아이디어로 성장하고있습니다. TALENT팀에게 제한사항이나 바라는 점을 보내주세요. 더욱 새로운 서비스로 보답하겠습니다." />
+            <img src="../resources/images/customer/img_toMistus.gif" alt="To TALENT team TALENT는 여러분의 신선한 아이디어로 성장하고있습니다. TALENT팀에게 제한사항이나 바라는 점을 보내주세요. 더욱 새로운 서비스로 보답하겠습니다." />
         </div>
 
         <h3 class="cs_h_title">제안하기</h3>
