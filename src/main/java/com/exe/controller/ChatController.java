@@ -75,7 +75,7 @@ public class ChatController {
 		
 		int brNum =Integer.parseInt(req.getParameter("brNum"));
 
-		System.out.println("1." + mbId + brNum);
+		int msgNum = MsgDao.hsMaxNum();
 
 		String receiver = GoodsDao.getReadData(brNum).getMbId();
 		
