@@ -37,10 +37,6 @@
         <div class="topArea">
             <h2>TALENT 고객센터</h2>
             <p class="note">궁금하신 점이나 TALENT에게 바라는 점을 자유롭게 작성해 주세요.</p>
-            <div class="csNumber">
-                <span class="phone">1600-3667</span>
-                <span class="time">월~금 09:00 ~ 18:00</span>
-            </div>
         </div>
         <ul class="csMenu">
             <li class=""><a href="/final/Etc/Notice.action">공지사항</a></li>
