@@ -220,8 +220,6 @@
 						<div class="pdtDetail" style="text-align: center"></div>
 						<div class="pdtDetail" style="text-align: center">
 							<img class="pdtDetail" src="../Product/${dto.brMorePhoto}" /> 
-							<img src="../resources/images/product/txt_msg_product.png" /><br />
-							<img src="../resources/images/product/btn_msg_product.png" />
 						</div>
 						<div class="pdtReview">
 							<div id="pdtReviewBlock" class="tabMenu">
