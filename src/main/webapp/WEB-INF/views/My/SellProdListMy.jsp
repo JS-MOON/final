@@ -32,14 +32,17 @@
         }
     });
     
-	function deletedata() { 
+	function deletedata(brNum) { 
 		
 		var f = document.sellListForm;
 		
-		alert("1111");
-		
-		f.action = "../My/SellProdListMydelete.action";
-		f.submit();
+		if(confirm("재능을삭제하시겠습니까?")===true){
+			
+			document.getElementById("brNum").value = brNum;
+			
+			f.action = "../My/SellProdListMydelete.action";
+			f.submit();
+		}
 
 	}
     
@@ -66,7 +69,7 @@
                         <col width="100px" />
                         <col width="80px" />
                     </colgroup>
-
+ 				<c:if test="${!empty lists }">
                     <thead>
                     <tr>
                         <th scope="col">
@@ -86,7 +89,7 @@
                         </th>
                     </tr>
                     </thead>
-        <c:if test="${!empty lists }">
+
    				<c:forEach var="dto" items="${lists }">
 <%--                 <tbody>
                 <tr>
@@ -132,9 +135,10 @@
                         </td>
                         
                         <td class="delete" >
-                            <div class="td">
-                            <input type="button" value=" 삭제 " onclick="deletedata();"/>
-                            <input type="hidden" name="brNum" value="${dto.brNum}">
+                            <div class="td" align="center">
+                            
+                            <img src="../resources/images/mypage/delete.png" 
+                            onclick="deletedata(${dto.brNum});"/>
                             </div>
                         </td>
                         
@@ -151,7 +155,7 @@
         </c:if>
         <c:if test="${empty lists }">
             		<div id="NoData" class="nodata">
-                		<p class="nodata_msg">재능이 없습니다.</p>
+                		<p class="nodata_msg">등록된 재능이 없습니다.</p>
             		</div>
         </c:if>
    	</table>
@@ -162,6 +166,9 @@
         </div>
         <!-- //내용 -->
     </div>
+    
+    <input type="hidden" name="brNum" id="brNum" value="" />
+    
     </form>
 
 </div>

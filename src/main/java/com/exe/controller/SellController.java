@@ -139,7 +139,7 @@ public class SellController {
     public String sellProdListMyDeleted(BoardDTO dto, HttpServletRequest req, HttpServletResponse res){
 
         int brNum = Integer.parseInt(req.getParameter("brNum"));
-
+        
         dao.myBoardDelete(brNum);
 
         return "redirect:/My/SellProdListMy.action";

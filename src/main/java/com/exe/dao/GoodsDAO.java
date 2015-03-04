@@ -215,12 +215,10 @@ public class GoodsDAO {
 		return lists;
 		
 	}
-	//
-	public int myBoardDelete(int brNum){
+	
+	public void myBoardDelete(int brNum){
 		
-		int result = sessionTemplate.delete("GoodsMapper.brDeleteData", brNum);
-		
-		return result;
+		sessionTemplate.delete("GoodsMapper.brDeleteData", brNum);
 		
 	}
 

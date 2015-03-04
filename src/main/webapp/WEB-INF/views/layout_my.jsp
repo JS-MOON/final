@@ -260,30 +260,6 @@
                                         src="../resources/images/common/ico_new.png" alt="NEW" />
 							</span>
                     </a></li>
-                    <li id="newAlram" class="newAlram">
-                        <button>
-                            <img src="../resources/images/common/ico_myAlram.png"
-                                 alt="새로운알람" /> <span class="new"> <img
-                                src="../resources/images/common/ico_new.png" alt="NEW" />
-								</span>
-                        </button>
-
-                        <div class="myNewAlram">
-                            <div class="alramWrap">
-                                <img
-                                        src="../resources/images/common/ico_seller_default_thumb.png"
-                                        alt="" /> <span class="alram">[talent]님이 재능접수를 완료했습니다.
-										판매자님과 대화를 시작해주세요</span> <span class="alramTime">1분 전</span>
-                            </div>
-                            <div class="alramWrap">
-                                <img
-                                        src="../resources/images/common/ico_seller_default_thumb.png"
-                                        alt="" /> <span class="alram">[talent]님이 재능접수를 완료했습니다.
-										판매자님과 대화를 시작해주세요</span> <span class="alramTime">1분 전</span>
-                            </div>
-                            <a href="#" class="seeMore">더보기</a> <span class="arr"></span>
-                        </div>
-                    </li>
                     <li class="myPoint"><span class="point">${sessionScope.session.ptPoint}</span> P</li>
                     <li id="myPageDrop" class="user"><a href="#"> <!--<img src="../../resources/images/common/ico_my_default_thumb.png" alt="" />-->
                         <img src="../resources/images/common/ico_my_default_thumb.png"
